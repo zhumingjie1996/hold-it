@@ -26,7 +26,7 @@ struct StatsView: View {
                 .padding(.horizontal, 20)
                 .padding(.vertical, 16)
             }
-            .background(Color(.systemGroupedBackground))
+            .background(Color.systemGroupedBackground)
             .navigationTitle("统计")
         }
     }
@@ -86,7 +86,7 @@ struct StatsView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding(16)
-        .background(Color(.secondarySystemGroupedBackground))
+        .background(Color.secondarySystemGroupedBackground)
         .cornerRadius(16)
     }
     
@@ -145,11 +145,11 @@ struct StatsView: View {
                 .foregroundStyle(.secondary)
         }
         .padding(16)
-        .background(Color(.secondarySystemGroupedBackground))
+        .background(Color.secondarySystemGroupedBackground)
         .cornerRadius(16)
         .overlay(
             RoundedRectangle(cornerRadius: 16)
-                .fill(Color(.systemBackground).opacity(0.4))
+                .fill(Color.systemBackground.opacity(0.4))
         )
     }
 }
@@ -174,7 +174,7 @@ struct BasicStatBox: View {
         }
         .frame(maxWidth: .infinity)
         .padding(.vertical, 16)
-        .background(Color(.secondarySystemGroupedBackground))
+        .background(Color.secondarySystemGroupedBackground)
         .cornerRadius(16)
     }
 }

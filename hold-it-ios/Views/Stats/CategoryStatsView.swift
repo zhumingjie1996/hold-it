@@ -48,7 +48,7 @@ struct CategoryStatsView: View {
             }
         }
         .padding(16)
-        .background(Color(.secondarySystemGroupedBackground))
+        .background(Color.secondarySystemGroupedBackground)
         .cornerRadius(16)
     }
 }

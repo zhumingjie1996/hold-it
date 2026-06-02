@@ -75,12 +75,12 @@ struct HeatmapView: View {
             }
         }
         .padding(16)
-        .background(Color(.secondarySystemGroupedBackground))
+        .background(Color.secondarySystemGroupedBackground)
         .cornerRadius(16)
     }
 
     private func colorForCount(_ count: Int) -> Color {
-        if count == 0 { return Color(.systemGray5) }
+        if count == 0 { return Color.systemGray5 }
         if count == 1 { return Color.green.opacity(0.3) }
         if count <= 3 { return Color.green.opacity(0.5) }
         if count <= 5 { return Color.green.opacity(0.7) }
@@ -89,7 +89,7 @@ struct HeatmapView: View {
 
     private func colorForLevel(_ level: Int) -> Color {
         switch level {
-        case 0: return Color(.systemGray5)
+        case 0: return Color.systemGray5
         case 1: return Color.green.opacity(0.3)
         case 2: return Color.green.opacity(0.5)
         case 3: return Color.green.opacity(0.7)

@@ -24,6 +24,11 @@ struct hold_it_iosApp: App {
 }
 
 extension Color {
+    static let systemGroupedBackground = Color(.sRGB, red: 242/255, green: 242/255, blue: 247/255, opacity: 1)
+    static let secondarySystemGroupedBackground = Color(.sRGB, red: 1, green: 1, blue: 1, opacity: 1)
+    static let systemBackground = Color(.sRGB, red: 1, green: 1, blue: 1, opacity: 1)
+    static let systemGray5 = Color(.sRGB, red: 229/255, green: 229/255, blue: 234/255, opacity: 1)
+
     init(hex: String) {
         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int: UInt64 = 0

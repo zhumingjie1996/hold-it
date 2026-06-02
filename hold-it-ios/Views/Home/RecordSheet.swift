@@ -144,7 +144,7 @@ struct CategoryCell: View {
             }
             .padding(.vertical, 12)
             .frame(maxWidth: .infinity)
-            .background(isSelected ? Color.blue.opacity(0.12) : Color(.secondarySystemGroupedBackground))
+            .background(isSelected ? Color.blue.opacity(0.12) : Color.secondarySystemGroupedBackground)
             .foregroundStyle(isSelected ? .blue : .primary)
             .cornerRadius(12)
             .overlay(

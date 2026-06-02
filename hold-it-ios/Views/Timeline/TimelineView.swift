@@ -56,7 +56,7 @@ struct TimelineView: View {
                 }
             }
             .listStyle(.plain)
-            .background(Color(.systemGroupedBackground))
+            .background(Color.systemGroupedBackground)
             .navigationTitle("时间线")
         }
     }

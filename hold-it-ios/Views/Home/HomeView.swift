@@ -22,7 +22,7 @@ struct HomeView: View {
                 .padding(.horizontal, 20)
                 .padding(.vertical, 16)
             }
-            .background(Color(.systemGroupedBackground))
+            .background(Color.systemGroupedBackground)
             .navigationTitle("忍一下")
             .sheet(isPresented: $showRecordSheet) {
                 RecordSheet()
@@ -151,7 +151,7 @@ struct StatCard: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding(16)
-        .background(Color(.secondarySystemGroupedBackground))
+        .background(Color.secondarySystemGroupedBackground)
         .cornerRadius(16)
     }
 }
@@ -182,7 +182,7 @@ struct RecordRow: View {
                 .foregroundStyle(.secondary)
         }
         .padding(14)
-        .background(Color(.secondarySystemGroupedBackground))
+        .background(Color.secondarySystemGroupedBackground)
         .cornerRadius(12)
     }
     
