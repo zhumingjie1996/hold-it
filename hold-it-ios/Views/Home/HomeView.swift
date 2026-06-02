@@ -37,7 +37,7 @@ struct HomeView: View {
                 value: "\(appState.todayCount(from: records))",
                 unit: "次",
                 icon: "checkmark.circle.fill",
-                color: .blue
+                color: .brand
             )
             StatCard(
                 title: "连续记录",
@@ -55,7 +55,7 @@ struct HomeView: View {
         } label: {
             ZStack {
                 Circle()
-                    .fill(Color.blue.opacity(0.15))
+                    .fill(Color.brand.opacity(0.15))
                     .frame(width: 200, height: 200)
                     .scaleEffect(1.2)
                     .animation(
@@ -64,7 +64,7 @@ struct HomeView: View {
                     )
                 
                 Circle()
-                    .fill(Color.blue.opacity(0.2))
+                    .fill(Color.brand.opacity(0.2))
                     .frame(width: 200, height: 200)
                     .scaleEffect(1.1)
                     .animation(
@@ -74,17 +74,17 @@ struct HomeView: View {
                     )
                 
                 Circle()
-                    .fill(Color.blue)
+                    .fill(Color.brand)
                     .frame(width: 160, height: 160)
-                    .shadow(color: .blue.opacity(0.3), radius: 20, x: 0, y: 10)
+                    .shadow(color: .brand.opacity(0.3), radius: 20, x: 0, y: 10)
                 
                 VStack(spacing: 4) {
                     Text("忍一下")
                         .font(.system(size: 28, weight: .bold))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(Color.brandDark)
                     Text("点击记录")
                         .font(.caption)
-                        .foregroundStyle(.white.opacity(0.8))
+                        .foregroundStyle(Color.brandDark.opacity(0.75))
                 }
             }
         }

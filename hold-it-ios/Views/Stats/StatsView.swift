@@ -37,7 +37,7 @@ struct StatsView: View {
                 title: "累计忍住",
                 value: "\(appState.totalCount(from: records))",
                 unit: "次",
-                color: .blue
+                color: .brand
             )
             BasicStatBox(
                 title: "今天",

@@ -79,10 +79,10 @@ struct RecordSheet: View {
                     Text("保存记录")
                 }
                 .font(.headline)
-                .foregroundStyle(.white)
+                .foregroundStyle(Color.brandDark)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 16)
-                .background(Color.blue)
+                .background(Color.brand)
                 .cornerRadius(16)
             }
             .padding(.bottom, 24)
@@ -144,12 +144,12 @@ struct CategoryCell: View {
             }
             .padding(.vertical, 12)
             .frame(maxWidth: .infinity)
-            .background(isSelected ? Color.blue.opacity(0.12) : Color.secondarySystemGroupedBackground)
-            .foregroundStyle(isSelected ? .blue : .primary)
+            .background(isSelected ? Color.brand.opacity(0.18) : Color.secondarySystemGroupedBackground)
+            .foregroundStyle(isSelected ? Color.brandDark : Color.primary)
             .cornerRadius(12)
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(isSelected ? Color.blue : Color.clear, lineWidth: 2)
+                    .stroke(isSelected ? Color.brand : Color.clear, lineWidth: 2)
             )
         }
         .buttonStyle(.plain)

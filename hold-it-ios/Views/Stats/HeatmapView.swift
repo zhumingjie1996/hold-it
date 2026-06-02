@@ -36,7 +36,7 @@ struct HeatmapView: View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
                 Image(systemName: "calendar")
-                    .foregroundStyle(.blue)
+                    .foregroundStyle(Color.brand)
                 Text("热力图")
                     .font(.headline)
                 Spacer()

@@ -105,7 +105,7 @@ struct AboutView: View {
                 VStack(spacing: 16) {
                     Image(systemName: "hand.raised.fill")
                         .font(.system(size: 60))
-                        .foregroundStyle(.blue)
+                        .foregroundStyle(Color.brand)
 
                     Text("忍一下")
                         .font(.title.weight(.bold))

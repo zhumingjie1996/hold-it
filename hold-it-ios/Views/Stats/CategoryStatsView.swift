@@ -23,7 +23,7 @@ struct CategoryStatsView: View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
                 Image(systemName: "chart.pie.fill")
-                    .foregroundStyle(.blue)
+                    .foregroundStyle(Color.brand)
                 Text("分类统计")
                     .font(.headline)
                 Spacer()
@@ -72,11 +72,11 @@ struct CategoryBar: View {
 
             GeometryReader { geo in
                 RoundedRectangle(cornerRadius: 4)
-                    .fill(Color.blue.opacity(0.15))
+                    .fill(Color.brand.opacity(0.15))
                     .overlay(
                         HStack {
                             RoundedRectangle(cornerRadius: 4)
-                                .fill(Color.blue)
+                                .fill(Color.brand)
                                 .frame(width: geo.size.width * percentage)
                             Spacer()
                         }

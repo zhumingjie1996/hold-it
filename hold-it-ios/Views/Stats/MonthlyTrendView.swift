@@ -40,7 +40,7 @@ struct MonthlyTrendView: View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
                 Image(systemName: "chart.line.uptrend.xyaxis")
-                    .foregroundStyle(.blue)
+                    .foregroundStyle(Color.brand)
                 Text("月度趋势")
                     .font(.headline)
                 Spacer()
@@ -60,7 +60,7 @@ struct MonthlyTrendView: View {
                                 .foregroundStyle(.secondary)
 
                             RoundedRectangle(cornerRadius: 6)
-                                .fill(Color.blue)
+                                .fill(Color.brand)
                                 .frame(width: 32, height: max(CGFloat(item.1) / CGFloat(maxCount) * 120, 4))
 
                             Text(item.0)
