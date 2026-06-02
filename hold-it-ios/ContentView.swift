@@ -8,17 +8,37 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(AppState.self) private var appState
+    @Environment(StoreManager.self) private var storeManager
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            HomeView()
+                .tabItem {
+                    Label("首页", systemImage: "house.fill")
+                }
+
+            StatsView()
+                .tabItem {
+                    Label("统计", systemImage: "chart.bar.fill")
+                }
+
+            TimelineView()
+                .tabItem {
+                    Label("时间线", systemImage: "clock.fill")
+                }
+
+            SettingsView()
+                .tabItem {
+                    Label("设置", systemImage: "gear")
+                }
         }
-        .padding()
     }
 }
 
 #Preview {
     ContentView()
+        .environment(AppState())
+        .environment(StoreManager())
+        .modelContainer(for: ResistRecord.self)
 }
