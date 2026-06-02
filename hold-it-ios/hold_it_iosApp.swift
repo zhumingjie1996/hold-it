@@ -30,10 +30,10 @@ extension Color {
     static let systemBackground = Color(uiColor: .systemBackground)
     static let systemGray5 = Color(uiColor: .systemGray5)
 
-    /// 品牌主色 - 稍亮的黄绿色 #C8DC78
-    static let brand = Color(.sRGB, red: 200/255, green: 220/255, blue: 120/255, opacity: 1)
-    /// 品牌深色 - 用于在 brand 背景上的文字，确保可读性 #5B7824
-    static let brandDark = Color(.sRGB, red: 91/255, green: 120/255, blue: 36/255, opacity: 1)
+    /// 品牌主色 - 鲜亮翠绿色 #6AD86C
+    static let brand = Color(.sRGB, red: 106/255, green: 216/255, blue: 108/255, opacity: 1)
+    /// 品牌深色 - 用于在 brand 背景上的文字，确保可读性 #1F6B2A
+    static let brandDark = Color(.sRGB, red: 31/255, green: 107/255, blue: 42/255, opacity: 1)
 
     init(hex: String) {
         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
