@@ -79,12 +79,10 @@ struct ResistCategory: Identifiable {
 
     static let defaults: [ResistCategory] = [
         ResistCategory(emoji: "🧋", name: "奶茶",   defaultAmount: 15),
-        ResistCategory(emoji: "🍿", name: "零食",   defaultAmount: 20),
-        ResistCategory(emoji: "🌙", name: "熬夜",   defaultAmount: nil),
         ResistCategory(emoji: "💸", name: "冲动消费", defaultAmount: 100),
         ResistCategory(emoji: "🎮", name: "游戏",   defaultAmount: nil),
         ResistCategory(emoji: "📱", name: "短视频",  defaultAmount: nil),
-        ResistCategory(emoji: "🍺", name: "烟酒",   defaultAmount: 30)
+        ResistCategory(emoji: "❤️", name: "想TA",   defaultAmount: nil)
     ]
 }
 
