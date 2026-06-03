@@ -15,6 +15,9 @@ struct HomeView: View {
     @State private var showCelebration = false
     @State private var carouselIndex: Int = 0
     @State private var carouselTask: Task<Void, Never>?
+    @State private var logoRotation: Double = 12
+    @State private var logoScale: CGFloat = 1.0
+    @State private var logoTapLocked = false
 
     
     var body: some View {
@@ -177,8 +180,30 @@ struct HomeView: View {
                 .frame(width: 70, height: 70)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .shadow(color: .black.opacity(0.15), radius: 3, x: 1, y: 2)
-                .rotationEffect(.degrees(12))
+                .rotationEffect(.degrees(logoRotation))
+                .scaleEffect(logoScale)
                 .offset(x: 15, y: -25)
+                .onTapGesture {
+                    guard !logoTapLocked else { return }
+                    logoTapLocked = true
+                    UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+                    withAnimation(.spring(response: 0.3, dampingFraction: 0.3)) {
+                        logoRotation = -8
+                        logoScale = 0.9
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                        withAnimation(.spring(response: 0.4, dampingFraction: 0.4)) {
+                            logoRotation = 12
+                            logoScale = 1.0
+                        }
+                    }
+                    withAnimation(.easeInOut(duration: 0.3)) {
+                        currentQuoteIndex = EncourageQuote.randomIndex(excluding: currentQuoteIndex)
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                        logoTapLocked = false
+                    }
+                }
         }
     }
     
