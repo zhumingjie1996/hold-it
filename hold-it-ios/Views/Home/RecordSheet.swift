@@ -20,6 +20,9 @@ struct RecordSheet: View {
     @State private var note: String = ""
     @State private var amountText: String = ""
     @State private var showAddCategory = false
+    @State private var editingCategory: CustomCategory?
+    @State private var deletingCategory: ResistCategory?
+    @State private var showDeleteAlert = false
 
     private let columns = [
         GridItem(.flexible()),
@@ -52,6 +55,19 @@ struct RecordSheet: View {
         .sheet(isPresented: $showAddCategory) {
             AddCategorySheet()
         }
+        .sheet(item: $editingCategory) { custom in
+            AddCategorySheet(editingCategory: custom)
+        }
+        .alert("删除克制项", isPresented: $showDeleteAlert) {
+            Button("删除", role: .destructive) {
+                deleteCategory()
+            }
+            Button("取消", role: .cancel) { }
+        } message: {
+            if let cat = deletingCategory {
+                Text("确定删除「\(cat.name)」吗？已有的记录不会被删除。")
+            }
+        }
         .onAppear {
             updateAmountText(for: selectedCategory)
         }
@@ -65,7 +81,17 @@ struct RecordSheet: View {
                 ForEach(allCategories) { category in
                     CategoryCell(
                         category: category,
-                        isSelected: selectedCategory == category
+                        isSelected: selectedCategory == category,
+                        onEdit: category.isCustom ? {
+                            if let customID = category.customCategoryID,
+                               let custom = customCategories.first(where: { $0.id == customID }) {
+                                editingCategory = custom
+                            }
+                        } : nil,
+                        onDelete: category.isCustom ? {
+                            deletingCategory = category
+                            showDeleteAlert = true
+                        } : nil
                     ) {
                         withAnimation(.spring(response: 0.3)) {
                             selectedCategory = category
@@ -197,13 +223,36 @@ struct RecordSheet: View {
         dismiss()
         onSave?()
     }
+
+    private func deleteCategory() {
+        guard let cat = deletingCategory,
+              let customID = cat.customCategoryID,
+              let custom = customCategories.first(where: { $0.id == customID }) else { return }
+        modelContext.delete(custom)
+        // 如果当前选中的是被删除的分类，重置为第一个默认分类
+        if selectedCategory == cat {
+            selectedCategory = ResistCategory.defaults[0]
+            updateAmountText(for: selectedCategory)
+        }
+        deletingCategory = nil
+    }
 }
 
 // MARK: - 分类 Cell
 struct CategoryCell: View {
     let category: ResistCategory
     let isSelected: Bool
+    let onEdit: (() -> Void)?
+    let onDelete: (() -> Void)?
     let action: () -> Void
+
+    init(category: ResistCategory, isSelected: Bool, onEdit: (() -> Void)? = nil, onDelete: (() -> Void)? = nil, action: @escaping () -> Void) {
+        self.category = category
+        self.isSelected = isSelected
+        self.onEdit = onEdit
+        self.onDelete = onDelete
+        self.action = action
+    }
 
     var body: some View {
         Button(action: action) {
@@ -225,19 +274,37 @@ struct CategoryCell: View {
             )
         }
         .buttonStyle(.plain)
+        .contextMenu {
+            if category.isCustom {
+                Button {
+                    onEdit?()
+                } label: {
+                    Label("编辑", systemImage: "pencil")
+                }
+                Button(role: .destructive) {
+                    onDelete?()
+                } label: {
+                    Label("删除", systemImage: "trash")
+                }
+            }
+        }
     }
 }
 
-// MARK: - 新增自定义分类 Sheet
+// MARK: - 新增/编辑自定义分类 Sheet
 struct AddCategorySheet: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
     @AppStorage("currencyCode") private var currencyCode: String = "auto"
 
+    var editingCategory: CustomCategory?
+
     @State private var emoji: String = ""
     @State private var name: String = ""
     @State private var hasAmount: Bool = false
     @State private var defaultAmountText: String = ""
+
+    private var isEditing: Bool { editingCategory != nil }
 
     private var canSave: Bool {
         let trimmedName = name.trimmingCharacters(in: .whitespaces)
@@ -245,7 +312,12 @@ struct AddCategorySheet: View {
         guard !trimmedName.isEmpty && !trimmedEmoji.isEmpty else { return false }
         // 不允许与默认分类同名
         let defaultNames = ResistCategory.defaults.map { $0.name }
-        return !defaultNames.contains(trimmedName)
+        guard !defaultNames.contains(trimmedName) else { return false }
+        // 编辑时允许保留原名
+        if isEditing, editingCategory?.name == trimmedName {
+            return true
+        }
+        return true
     }
 
     var body: some View {
@@ -305,16 +377,28 @@ struct AddCategorySheet: View {
                     }
                 }
             }
-            .navigationTitle("新增克制项")
+            .navigationTitle(isEditing ? "编辑克制项" : "新增克制项")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("取消") { dismiss() }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("保存") { save() }
+                    Button(isEditing ? "完成" : "保存") { save() }
                         .fontWeight(.semibold)
                         .disabled(!canSave)
+                }
+            }
+        }
+        .onAppear {
+            if let editing = editingCategory {
+                emoji = editing.emoji
+                name = editing.name
+                hasAmount = editing.hasAmount
+                if let amt = editing.defaultAmount {
+                    defaultAmountText = amt.truncatingRemainder(dividingBy: 1) == 0
+                        ? String(Int(amt))
+                        : String(amt)
                 }
             }
         }
@@ -324,13 +408,23 @@ struct AddCategorySheet: View {
         let defaultAmount = hasAmount && !defaultAmountText.isEmpty
             ? Double(defaultAmountText)
             : nil
-        let category = CustomCategory(
-            emoji: emoji.trimmingCharacters(in: .whitespaces),
-            name: name.trimmingCharacters(in: .whitespaces),
-            hasAmount: hasAmount,
-            defaultAmount: defaultAmount
-        )
-        modelContext.insert(category)
+
+        if let editing = editingCategory {
+            // 编辑模式：更新现有记录
+            editing.emoji = emoji.trimmingCharacters(in: .whitespaces)
+            editing.name = name.trimmingCharacters(in: .whitespaces)
+            editing.hasAmount = hasAmount
+            editing.defaultAmount = defaultAmount
+        } else {
+            // 新增模式
+            let category = CustomCategory(
+                emoji: emoji.trimmingCharacters(in: .whitespaces),
+                name: name.trimmingCharacters(in: .whitespaces),
+                hasAmount: hasAmount,
+                defaultAmount: defaultAmount
+            )
+            modelContext.insert(category)
+        }
         dismiss()
     }
 }
