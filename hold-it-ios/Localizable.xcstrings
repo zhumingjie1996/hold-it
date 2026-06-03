@@ -4,6 +4,9 @@
     "" : {
 
     },
+    "%@" : {
+
+    },
     "%@ %@" : {
       "localizations" : {
         "zh-Hans" : {
@@ -14,11 +17,34 @@
         }
       }
     },
+    "%@%@" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@%2$@"
+          }
+        }
+      }
+    },
     "%lld" : {
+
+    },
+    "%lld 条金额记录" : {
 
     },
     "%lld 次" : {
 
+    },
+    "%lld 次 · %lld%%" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld 次 · %2$lld%%"
+          }
+        }
+      }
     },
     "%lld%%" : {
 
@@ -85,6 +111,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "享受所有進階功能"
+          }
+        }
+      }
+    },
+    "亮点数据" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Highlights"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ハイライト"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "亮點數據"
           }
         }
       }
@@ -384,6 +432,29 @@
         }
       }
     },
+    "最佳一天" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Best Day"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ベストデー"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最佳一天"
+          }
+        }
+      }
+    },
     "最长连续" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -471,6 +542,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "分類統計"
+          }
+        }
+      }
+    },
+    "分类节省排行" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Savings by Category"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "カテゴリ別節約ランキング"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分類節省排行"
           }
         }
       }
@@ -746,6 +839,28 @@
         }
       }
     },
+    "基于 %lld 条记录" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Based on %lld records"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld件の記録に基づく"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "基於 %lld 條記錄"
+          }
+        }
+      }
+    },
     "基本信息" : {
 
     },
@@ -811,6 +926,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "多"
+          }
+        }
+      }
+    },
+    "多维度节省金额分析" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Multi-dimensional savings analysis"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "多角的な節約分析"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "多維度節省金額分析"
           }
         }
       }
@@ -967,6 +1104,39 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "已記錄"
+          }
+        }
+      }
+    },
+    "平均每次" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Average per time"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1回あたり平均"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "平均每次"
+          }
+        }
+      }
+    },
+    "平均每次 %@%@" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "平均每次 %1$@%2$@"
           }
         }
       }
@@ -1218,6 +1388,28 @@
         }
       }
     },
+    "时段对比" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Period Comparison"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "期間比較"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "時段對比"
+          }
+        }
+      }
+    },
     "时间" : {
 
     },
@@ -1334,6 +1526,50 @@
         }
       }
     },
+    "暂无金额数据" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No amount data yet"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "金額データなし"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暫無金額數據"
+          }
+        }
+      }
+    },
+    "月度节省趋势" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Monthly Savings Trend"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "月間節約トレンド"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "月度節省趨勢"
+          }
+        }
+      }
+    },
     "月度趋势" : {
       "localizations" : {
         "en" : {
@@ -1420,6 +1656,74 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "本月"
+          }
+        }
+      }
+    },
+    "本月已省" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saved This Month"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今月の節約"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本月已省"
+          }
+        }
+      }
+    },
+    "本月第 %lld/%lld 天" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Day %1$lld/%2$lld of the month"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今月%1$lld/%2$lld日目"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本月第 %1$lld/%2$lld 天"
+          }
+        }
+      }
+    },
+    "条金额记录" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "records with amount"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "件の金額記録"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "條金額記錄"
           }
         }
       }
@@ -1933,6 +2237,9 @@
         }
       }
     },
+    "累计节省 %@" : {
+
+    },
     "累计节省金额统计" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2007,7 +2314,6 @@
 
     },
     "节省统计" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

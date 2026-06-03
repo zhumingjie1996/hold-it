@@ -135,4 +135,85 @@ class AppState {
     func totalSavedAmount(from records: [ResistRecord]) -> Double {
         records.compactMap { $0.amount }.reduce(0, +)
     }
+
+    // MARK: - 节省金额详细统计
+
+    /// 本月节省金额
+    func thisMonthSavedAmount(from records: [ResistRecord]) -> Double {
+        let calendar = Calendar.current
+        guard let startOfMonth = calendar.dateInterval(of: .month, for: Date())?.start else { return 0 }
+        return records.filter { $0.createdAt >= startOfMonth }.compactMap { $0.amount }.reduce(0, +)
+    }
+
+    /// 本周节省金额
+    func thisWeekSavedAmount(from records: [ResistRecord]) -> Double {
+        let calendar = Calendar.current
+        guard let startOfWeek = calendar.dateInterval(of: .weekOfYear, for: Date())?.start else { return 0 }
+        return records.filter { $0.createdAt >= startOfWeek }.compactMap { $0.amount }.reduce(0, +)
+    }
+
+    /// 今天节省金额
+    func todaySavedAmount(from records: [ResistRecord]) -> Double {
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: Date())
+        return records.filter { $0.createdAt >= startOfDay }.compactMap { $0.amount }.reduce(0, +)
+    }
+
+    /// 按分类的节省金额统计
+    func savedAmountByCategory(from records: [ResistRecord]) -> [(emoji: String, name: String, amount: Double, count: Int)] {
+        let withAmount = records.filter { $0.amount != nil }
+        let grouped = Dictionary(grouping: withAmount) { $0.category }
+        return grouped.map { category, items in
+            let emoji = items.first?.categoryEmoji ?? ""
+            let total = items.compactMap { $0.amount }.reduce(0, +)
+            return (emoji, category, total, items.count)
+        }.sorted { $0.amount > $1.amount }
+    }
+
+    /// 月度节省金额趋势（近6个月）
+    func monthlySavedAmountTrend(from records: [ResistRecord]) -> [(label: String, amount: Double)] {
+        let calendar = Calendar.current
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM"
+
+        let grouped = Dictionary(grouping: records) { formatter.string(from: $0.createdAt) }
+
+        var data: [(String, Double)] = []
+        for offset in stride(from: -5, through: 0, by: 1) {
+            if let date = calendar.date(byAdding: .month, value: offset, to: Date()) {
+                let key = formatter.string(from: date)
+                let amount = grouped[key]?.compactMap { $0.amount }.reduce(0, +) ?? 0
+                let displayFormatter = DateFormatter()
+                displayFormatter.dateFormat = "M月"
+                let label = displayFormatter.string(from: date)
+                data.append((label, amount))
+            }
+        }
+        return data
+    }
+
+    /// 节省金额最多的一天
+    func bestSavedDay(from records: [ResistRecord]) -> (date: Date, amount: Double)? {
+        let calendar = Calendar.current
+        let withAmount = records.filter { $0.amount != nil }
+        guard !withAmount.isEmpty else { return nil }
+        let grouped = Dictionary(grouping: withAmount) { calendar.startOfDay(for: $0.createdAt) }
+        let best = grouped.map { (date, items) in
+            (date, items.compactMap { $0.amount }.reduce(0, +))
+        }.max { $0.1 < $1.1 }
+        guard let best, best.1 > 0 else { return nil }
+        return best
+    }
+
+    /// 平均每次节省金额（仅含填写了金额的记录）
+    func averageSavedAmount(from records: [ResistRecord]) -> Double {
+        let amounts = records.compactMap { $0.amount }
+        guard !amounts.isEmpty else { return 0 }
+        return amounts.reduce(0, +) / Double(amounts.count)
+    }
+
+    /// 含有金额的记录数
+    func recordsWithAmountCount(from records: [ResistRecord]) -> Int {
+        records.filter { $0.amount != nil }.count
+    }
 }

@@ -12,10 +12,6 @@ struct StatsView: View {
     @Query(sort: \ResistRecord.createdAt, order: .reverse) private var records: [ResistRecord]
     @AppStorage("currencyCode") private var currencyCode: String = "auto"
     @State private var showVipAlert = false
-
-    private var currencySymbol: String {
-        SupportedCurrency(rawValue: currencyCode)?.symbol ?? SupportedCurrency.systemSymbol
-    }
     
     var body: some View {
         NavigationStack {
@@ -55,7 +51,7 @@ struct StatsView: View {
             HStack(spacing: 14) {
                 Image(systemName: "clock.fill")
                     .font(.title2)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(.green)
                     .frame(width: 40)
 
                 VStack(alignment: .leading, spacing: 2) {
@@ -96,48 +92,68 @@ struct StatsView: View {
     
     private var vipContent: some View {
         VStack(spacing: 20) {
+            savedAmountEntry
             CategoryStatsView(records: records)
             WeekdayDistributionView(records: records)
             TimeOfDayView(records: records)
             HeatmapView(records: records)
             MonthlyTrendView(records: records)
-            
-            if appState.totalSavedAmount(from: records) > 0 {
-                savedAmountCard
-            }
         }
     }
     
-    private var savedAmountCard: some View {
-        VStack(spacing: 8) {
-            HStack {
+    
+    private var savedAmountEntry: some View {
+        NavigationLink {
+            SavedAmountStatsView(records: records)
+        } label: {
+            HStack(spacing: 14) {
                 Image(systemName: "banknote.fill")
+                    .font(.title2)
                     .foregroundStyle(.green)
-                Text("累计节省")
-                    .font(.subheadline.weight(.medium))
+                    .frame(width: 40)
+
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("节省统计")
+                        .font(.subheadline.weight(.medium))
+                    if appState.totalSavedAmount(from: records) > 0 {
+                        Text("累计节省 \(savedAmountSummary)")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    } else {
+                        Text("多维度节省金额分析")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+
                 Spacer()
+
+                Image(systemName: "chevron.right")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
             }
-            
-            HStack(alignment: .lastTextBaseline, spacing: 4) {
-                Text(currencySymbol)
-                    .font(.title3)
-                Text(String(format: "%.0f", appState.totalSavedAmount(from: records)))
-                    .font(.system(size: 40, weight: .bold))
-            }
-            .foregroundStyle(.green)
-            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(16)
+            .background(Color.secondarySystemGroupedBackground)
+            .cornerRadius(16)
         }
-        .padding(16)
-        .background(Color.secondarySystemGroupedBackground)
-        .cornerRadius(16)
+        .buttonStyle(.plain)
     }
-    
+
+    private var savedAmountSummary: String {
+        let symbol = SupportedCurrency(rawValue: currencyCode)?.symbol ?? SupportedCurrency.systemSymbol
+        let total = appState.totalSavedAmount(from: records)
+        if total.truncatingRemainder(dividingBy: 1) == 0 {
+            return "\(symbol)\(Int(total))"
+        }
+        return "\(symbol)\(String(format: "%.1f", total))"
+    }
+
     private var vipLockView: some View {
         VStack(spacing: 16) {
             lockedFeature(icon: "chart.pie.fill", title: "分类分析", description: "查看每个分类的克制次数")
             lockedFeature(icon: "calendar", title: "热力图", description: "全年克制频率可视化")
             lockedFeature(icon: "chart.line.uptrend.xyaxis", title: "月度趋势", description: "过去6个月的变化趋势")
-            lockedFeature(icon: "banknote.fill", title: "节省统计", description: "累计节省金额统计")
+            lockedFeature(icon: "banknote.fill", title: "节省统计", description: "多维度节省金额分析")
         }
     }
     
