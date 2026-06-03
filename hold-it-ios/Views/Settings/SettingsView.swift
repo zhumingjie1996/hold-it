@@ -5,6 +5,7 @@
 
 import SwiftUI
 import StoreKit
+import SwiftData
 import UIKit
 
 enum ThemeMode: Int, CaseIterable {
@@ -44,6 +45,7 @@ struct SettingsView: View {
     @AppStorage("currencyCode") private var currencyCode: String = "auto"
     @State private var showRestoreAlert = false
     @State private var restoreSuccess = false
+    @State private var showClearDataAlert = false
 
     private var themeMode: ThemeMode {
         ThemeMode(rawValue: themeModeRaw) ?? .system
@@ -114,12 +116,29 @@ struct SettingsView: View {
                         LegalView(title: "用户协议", content: termsOfService)
                     }
                 }
+
+                Section("危险操作") {
+                    Button(role: .destructive) {
+                        showClearDataAlert = true
+                    } label: {
+                        Label("抹除所有数据", systemImage: "trash")
+                            .foregroundStyle(.red)
+                    }
+                }
             }
             .navigationTitle("设置")
             .alert("恢复购买", isPresented: $showRestoreAlert) {
                 Button("确定", role: .cancel) { }
             } message: {
                 Text(restoreSuccess ? "已成功恢复购买" : "未找到购买记录")
+            }
+            .alert("抹除所有数据", isPresented: $showClearDataAlert) {
+                Button("抹除", role: .destructive) {
+                    clearAllData()
+                }
+                Button("取消", role: .cancel) { }
+            } message: {
+                Text("此操作不可恢复，所有克制记录和自定义分类将被永久删除。")
             }
         }
     }
@@ -160,6 +179,19 @@ struct SettingsView: View {
                 }
             }
             .padding(.vertical, 8)
+        }
+    }
+
+    // MARK: - 抹除数据
+    @Environment(\.modelContext) private var modelContext
+
+    private func clearAllData() {
+        do {
+            try modelContext.delete(model: ResistRecord.self)
+            try modelContext.delete(model: CustomCategory.self)
+            try modelContext.save()
+        } catch {
+            print("清除数据失败: \(error)")
         }
     }
 }

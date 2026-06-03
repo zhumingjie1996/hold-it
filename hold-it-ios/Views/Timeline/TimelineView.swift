@@ -75,8 +75,13 @@ struct RecordsListView: View {
         case month = "本月"
     }
 
+    var initialFilter: TimeFilter
     @State private var timeFilter: TimeFilter = .all
     @State private var selectedCategory: String? = nil
+
+    init(initialFilter: TimeFilter = .all) {
+        self.initialFilter = initialFilter
+    }
 
     // MARK: - 计算属性
 
@@ -206,6 +211,11 @@ struct RecordsListView: View {
         .background(Color.systemGroupedBackground)
         .navigationTitle("全部记录")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            if timeFilter != initialFilter {
+                timeFilter = initialFilter
+            }
+        }
         .toolbar {
             if selectedCategory != nil || timeFilter != .all {
                 ToolbarItem(placement: .topBarTrailing) {

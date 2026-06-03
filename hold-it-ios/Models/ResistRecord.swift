@@ -84,9 +84,7 @@ struct ResistCategory: Identifiable {
         ResistCategory(emoji: "💸", name: "冲动消费", defaultAmount: 100),
         ResistCategory(emoji: "🎮", name: "游戏",   defaultAmount: nil),
         ResistCategory(emoji: "📱", name: "短视频",  defaultAmount: nil),
-        ResistCategory(emoji: "🐟", name: "摸鱼",   defaultAmount: nil),
-        ResistCategory(emoji: "🍺", name: "烟酒",   defaultAmount: 30),
-        ResistCategory(emoji: "✨", name: "其他",   defaultAmount: nil)
+        ResistCategory(emoji: "🍺", name: "烟酒",   defaultAmount: 30)
     ]
 }
 

@@ -45,13 +45,20 @@ struct HomeView: View {
     
     private var statsCards: some View {
         HStack(spacing: 12) {
-            StatCard(
-                title: "今天已忍住",
-                value: "\(appState.todayCount(from: records))",
-                unit: "次",
-                icon: "checkmark.circle.fill",
-                color: .brand
-            )
+            NavigationLink {
+                RecordsListView(initialFilter: .today)
+            } label: {
+                StatCard(
+                    title: "今天已忍住",
+                    value: "\(appState.todayCount(from: records))",
+                    unit: "次",
+                    icon: "checkmark.circle.fill",
+                    color: .brand,
+                    showArrow: true
+                )
+            }
+            .buttonStyle(.plain)
+
             StatCard(
                 title: "连续记录",
                 value: "\(appState.streakDays(from: records))",
@@ -199,6 +206,7 @@ struct StatCard: View {
     let unit: String
     let icon: String
     let color: Color
+    var showArrow: Bool = false
     
     var body: some View {
         VStack(spacing: 8) {
@@ -206,6 +214,11 @@ struct StatCard: View {
                 Image(systemName: icon)
                     .foregroundStyle(color)
                 Spacer()
+                if showArrow {
+                    Image(systemName: "chevron.right")
+                        .font(.caption2)
+                        .foregroundStyle(.tertiary)
+                }
             }
             
             HStack(alignment: .lastTextBaseline, spacing: 2) {
