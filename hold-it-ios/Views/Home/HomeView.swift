@@ -5,12 +5,14 @@
 
 import SwiftUI
 import SwiftData
+import UIKit
 
 struct HomeView: View {
     @Environment(AppState.self) private var appState
     @Query(sort: \ResistRecord.createdAt, order: .reverse) private var records: [ResistRecord]
     @State private var showRecordSheet = false
     @State private var currentQuoteIndex: Int = EncourageQuote.todayIndex()
+    @State private var isSpinning = false
     
     var body: some View {
         NavigationStack {
@@ -77,33 +79,37 @@ struct HomeView: View {
     
     private var mainButton: some View {
         Button {
+            UIImpactFeedbackGenerator(style: .medium).impactOccurred()
             showRecordSheet = true
         } label: {
             ZStack {
+                // 外层旋转渐变光环
                 Circle()
-                    .fill(Color.brand.opacity(0.15))
-                    .frame(width: 200, height: 200)
-                    .scaleEffect(1.2)
-                    .animation(
-                        .easeInOut(duration: 1.5).repeatForever(autoreverses: true),
-                        value: showRecordSheet
+                    .fill(
+                        AngularGradient(
+                            gradient: Gradient(colors: [
+                                Color.brand,
+                                Color.brand.opacity(0.3),
+                                Color(.sRGB, red: 31/255, green: 180/255, blue: 42/255),
+                                Color.brand.opacity(0.3),
+                                Color.brand
+                            ]),
+                            center: .center
+                        )
                     )
-                
-                Circle()
-                    .fill(Color.brand.opacity(0.2))
-                    .frame(width: 200, height: 200)
-                    .scaleEffect(1.1)
-                    .animation(
-                        .easeInOut(duration: 1.5).repeatForever(autoreverses: true)
-                        .delay(0.3),
-                        value: showRecordSheet
-                    )
-                
-                Circle()
-                    .fill(Color.brand)
                     .frame(width: 160, height: 160)
-                    .shadow(color: .brand.opacity(0.3), radius: 20, x: 0, y: 10)
-                
+                    .blur(radius: 1)
+                    .shadow(color: .brand.opacity(0.5), radius: 15, x: 0, y: -5)
+                    .shadow(color: Color(.sRGB, red: 31/255, green: 180/255, blue: 42/255).opacity(0.5), radius: 15, x: 0, y: 5)
+                    .rotationEffect(.degrees(isSpinning ? 360 : 0))
+
+                // 内层遮罩圆（形成环状效果）
+                Circle()
+                    .fill(Color.systemGroupedBackground)
+                    .frame(width: 120, height: 120)
+                    .blur(radius: 0.5)
+
+                // 中心内容
                 VStack(spacing: 4) {
                     Text("忍一下")
                         .font(.system(size: 28, weight: .bold))
@@ -116,6 +122,11 @@ struct HomeView: View {
         }
         .buttonStyle(.plain)
         .padding(.vertical, 20)
+        .onAppear {
+            withAnimation(.linear(duration: 1.7).repeatForever(autoreverses: false)) {
+                isSpinning = true
+            }
+        }
     }
 }
 

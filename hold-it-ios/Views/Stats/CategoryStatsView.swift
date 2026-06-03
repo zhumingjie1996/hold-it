@@ -9,13 +9,20 @@ struct CategoryStatsView: View {
     let records: [ResistRecord]
 
     var categoryStats: [(String, String, Int, Double)] {
-        let grouped = Dictionary(grouping: records) { $0.category }
+        // 按 category+emoji 组合分组，再按名称合并
+        var merged: [String: (emoji: String, count: Int)] = [:]
+        for record in records {
+            let key = record.category
+            if merged[key] != nil {
+                merged[key]?.count += 1
+            } else {
+                merged[key] = (emoji: record.categoryEmoji, count: 1)
+            }
+        }
         let total = records.count
-        return grouped.map { category, items in
-            let emoji = items.first?.categoryEmoji ?? ""
-            let count = items.count
-            let percentage = total > 0 ? Double(count) / Double(total) : 0
-            return (emoji, category, count, percentage)
+        return merged.map { name, info in
+            let percentage = total > 0 ? Double(info.count) / Double(total) : 0
+            return (info.emoji, name, info.count, percentage)
         }.sorted { $0.2 > $1.2 }
     }
 

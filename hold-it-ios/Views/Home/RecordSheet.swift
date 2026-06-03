@@ -269,8 +269,12 @@ struct AddCategorySheet: View {
     @State private var defaultAmountText: String = ""
 
     private var canSave: Bool {
-        !emoji.trimmingCharacters(in: .whitespaces).isEmpty &&
-        !name.trimmingCharacters(in: .whitespaces).isEmpty
+        let trimmedName = name.trimmingCharacters(in: .whitespaces)
+        let trimmedEmoji = emoji.trimmingCharacters(in: .whitespaces)
+        guard !trimmedName.isEmpty && !trimmedEmoji.isEmpty else { return false }
+        // 不允许与默认分类同名
+        let defaultNames = ResistCategory.defaults.map { $0.name }
+        return !defaultNames.contains(trimmedName)
     }
 
     var body: some View {
