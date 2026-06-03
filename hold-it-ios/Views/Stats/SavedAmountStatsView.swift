@@ -8,7 +8,9 @@ import SwiftUI
 struct SavedAmountStatsView: View {
     let records: [ResistRecord]
     @Environment(AppState.self) private var appState
+    @Environment(StoreManager.self) private var storeManager
     @AppStorage("currencyCode") private var currencyCode: String = "auto"
+    @State private var showVipAlert = false
 
     private var symbol: String {
         SupportedCurrency(rawValue: currencyCode)?.symbol ?? SupportedCurrency.systemSymbol
@@ -25,20 +27,19 @@ struct SavedAmountStatsView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                // 1. 核心数字大卡
+                // 1. 核心数字大卡（所有用户可见）
                 totalSavedCard
 
-                // 2. 时段对比（今天 / 本周 / 本月）
-                periodComparisonCard
-
-                // 3. 月度趋势柱状图
-                monthlyTrendCard
-
-                // 4. 分类节省排行
-                categoryBreakdownCard
-
-                // 5. 亮点数据
-                highlightCard
+                if storeManager.isVip {
+                    // 会员：完整内容
+                    periodComparisonCard
+                    monthlyTrendCard
+                    categoryBreakdownCard
+                    highlightCard
+                } else {
+                    // 非会员：模糊预览 + 遮罩
+                    vipLockView
+                }
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 16)
@@ -46,6 +47,16 @@ struct SavedAmountStatsView: View {
         .background(Color.systemGroupedBackground)
         .navigationTitle("节省统计")
         .navigationBarTitleDisplayMode(.large)
+        .alert("解锁高级功能", isPresented: $showVipAlert) {
+            Button("解锁终身会员") {
+                Task {
+                    _ = await storeManager.purchase()
+                }
+            }
+            Button("暂不需要", role: .cancel) { }
+        } message: {
+            Text("该功能为会员专属，解锁后可永久使用时段对比、月度趋势、分类排行等高级节省统计功能")
+        }
     }
 
     // MARK: - 1. 累计总金额 + 平均值
@@ -368,5 +379,94 @@ struct SavedAmountStatsView: View {
         let totalDays = range.count
         let currentDay = calendar.component(.day, from: Date())
         return String(localized: "本月第 \(currentDay)/\(totalDays) 天")
+    }
+
+    // MARK: - 非会员遮罩
+    private var vipLockView: some View {
+        VStack(spacing: 20) {
+            // 时段对比模糊预览
+            periodComparisonCard
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(Color.systemBackground.opacity(0.6))
+                )
+                .blur(radius: 3)
+                .allowsHitTesting(false)
+
+            // 月度趋势模糊预览
+            monthlyTrendCard
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(Color.systemBackground.opacity(0.6))
+                )
+                .blur(radius: 3)
+                .allowsHitTesting(false)
+
+            // 分类排行模糊预览
+            categoryBreakdownCard
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .fill(Color.systemBackground.opacity(0.6))
+                )
+                .blur(radius: 3)
+                .allowsHitTesting(false)
+
+            // 功能亮点
+            VStack(spacing: 12) {
+                HStack(spacing: 12) {
+                    savedHighlightItem(icon: "calendar.badge.clock", title: "时段对比", color: .blue)
+                    savedHighlightItem(icon: "chart.line.uptrend.xyaxis", title: "月度趋势", color: .green)
+                }
+                HStack(spacing: 12) {
+                    savedHighlightItem(icon: "tray.full.fill", title: "分类排行", color: .orange)
+                    savedHighlightItem(icon: "sparkles", title: "亮点数据", color: .yellow)
+                }
+            }
+
+            // 开通会员按钮
+            Button {
+                showVipAlert = true
+            } label: {
+                VStack(spacing: 8) {
+                    HStack(spacing: 6) {
+                        Image(systemName: "crown.fill")
+                            .foregroundStyle(.yellow)
+                        Text("解锁全部节省统计")
+                            .font(.headline)
+                            .foregroundStyle(.white)
+                    }
+                    Text("一次购买，终身使用")
+                        .font(.caption)
+                        .foregroundStyle(.white.opacity(0.8))
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 16)
+                .background(
+                    LinearGradient(
+                        colors: [Color.brand, Color.brandDark],
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    )
+                )
+                .cornerRadius(16)
+                .shadow(color: Color.brand.opacity(0.3), radius: 12, x: 0, y: 6)
+            }
+            .buttonStyle(.plain)
+        }
+    }
+
+    private func savedHighlightItem(icon: String, title: String, color: Color) -> some View {
+        HStack(spacing: 8) {
+            Image(systemName: icon)
+                .font(.subheadline)
+                .foregroundStyle(color)
+                .frame(width: 24)
+            Text(title)
+                .font(.subheadline.weight(.medium))
+            Spacer()
+        }
+        .padding(12)
+        .background(color.opacity(0.08))
+        .cornerRadius(12)
     }
 }

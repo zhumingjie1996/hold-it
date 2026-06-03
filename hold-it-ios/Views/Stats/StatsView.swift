@@ -24,7 +24,7 @@ struct StatsView: View {
 
     /// 默认模块顺序
     private let defaultModuleOrder = [
-        "savedAmount", "category", "weekday", "timeOfDay", "heatmap", "monthlyTrend"
+        "category", "weekday", "timeOfDay", "heatmap", "monthlyTrend"
     ]
 
     /// 按用户排序返回模块 ID 列表
@@ -41,7 +41,6 @@ struct StatsView: View {
     @ViewBuilder
     private func moduleView(for id: String) -> some View {
         switch id {
-        case "savedAmount": savedAmountEntry
         case "category": CategoryStatsView(records: records)
         case "weekday": WeekdayDistributionView(records: records)
         case "timeOfDay": TimeOfDayView(records: records)
@@ -57,6 +56,7 @@ struct StatsView: View {
                 VStack(spacing: 20) {
                     basicStats
                     recordsTimeline
+                    savedAmountEntry
                     
                     if storeManager.isVip {
                         vipContent
@@ -339,10 +339,9 @@ struct StatsView: View {
             }
             HStack(spacing: 12) {
                 highlightItem(icon: "chart.line.uptrend.xyaxis", title: "月度趋势", color: .blue)
-                highlightItem(icon: "banknote.fill", title: "节省统计", color: .green)
+                highlightItem(icon: "clock.badge.fill", title: "时段分析", color: .purple)
             }
             HStack(spacing: 12) {
-                highlightItem(icon: "clock.badge.fill", title: "时段分析", color: .purple)
                 highlightItem(icon: "calendar.badge.clock", title: "周几分布", color: .pink)
             }
         }
@@ -430,7 +429,6 @@ struct StatsSortSheet: View {
     @State private var items: [String] = []
 
     private let moduleInfo: [String: (icon: String, name: String)] = [
-        "savedAmount": ("banknote.fill", "节省统计"),
         "category": ("chart.pie.fill", "分类统计"),
         "weekday": ("calendar.badge.clock", "周几分布"),
         "timeOfDay": ("clock.badge.fill", "时段分析"),
