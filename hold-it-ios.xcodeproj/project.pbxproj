@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		746C51182FD0985100C1E447 /* Products.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 746C51172FD0985100C1E447 /* Products.storekit */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		7418E14A2FCF2F77009BE096 /* hold-it-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "hold-it-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		746C51172FD0985100C1E447 /* Products.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Products.storekit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -34,6 +39,7 @@
 			children = (
 				7418E14C2FCF2F77009BE096 /* hold-it-ios */,
 				7418E14B2FCF2F77009BE096 /* Products */,
+				746C51172FD0985100C1E447 /* Products.storekit */,
 			);
 			sourceTree = "<group>";
 		};
@@ -112,6 +118,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				746C51182FD0985100C1E447 /* Products.storekit in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

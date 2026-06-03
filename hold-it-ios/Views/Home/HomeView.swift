@@ -175,7 +175,7 @@ struct HomeView: View {
         logoIdleTask?.cancel()
         logoIdleTask = Task {
             while !Task.isCancelled {
-                // 随机间隔 8~15 秒
+                // 随机间隔 5~8 秒
                 let interval = Double.random(in: 5...8)
                 try? await Task.sleep(for: .seconds(interval))
                 guard !Task.isCancelled else { return }
@@ -214,12 +214,12 @@ struct HomeView: View {
             Image("AppLogo")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 70, height: 70)
+                .frame(width: 80, height: 80)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .shadow(color: .black.opacity(0.15), radius: 3, x: 1, y: 2)
                 .rotationEffect(.degrees(logoRotation))
                 .scaleEffect(logoScale)
-                .offset(x: 15, y: -25)
+                .offset(x: 15, y: -30)
                 .onTapGesture {
                     guard !logoTapLocked else { return }
                     logoTapLocked = true

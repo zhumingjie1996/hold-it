@@ -48,7 +48,7 @@ struct SavedAmountStatsView: View {
         .navigationTitle("节省统计")
         .navigationBarTitleDisplayMode(.large)
         .alert("解锁高级功能", isPresented: $showVipAlert) {
-            Button("解锁终身会员") {
+            Button(savedVipTitle) {
                 Task {
                     _ = await storeManager.purchase()
                 }
@@ -468,5 +468,11 @@ struct SavedAmountStatsView: View {
         .padding(12)
         .background(color.opacity(0.08))
         .cornerRadius(12)
+    }
+
+    private var savedVipTitle: String {
+        storeManager.displayPrice.isEmpty
+            ? String(localized: "解锁终身会员")
+            : String(localized: "解锁终身会员") + "(" + storeManager.displayPrice + ")"
     }
 }

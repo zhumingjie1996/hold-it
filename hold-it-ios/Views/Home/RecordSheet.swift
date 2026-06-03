@@ -99,7 +99,7 @@ struct RecordSheet: View {
             }
         }
         .alert("解锁更多自定义", isPresented: $showVipAlert) {
-            Button("解锁终身会员") {
+            Button(vipAlertPurchaseTitle) {
                 Task {
                     _ = await storeManager.purchase()
                 }
@@ -297,6 +297,12 @@ struct RecordSheet: View {
     }
 
     // MARK: - 辅助方法
+    private var vipAlertPurchaseTitle: String {
+        storeManager.displayPrice.isEmpty
+            ? String(localized: "解锁终身会员")
+            : String(localized: "解锁终身会员") + " (" + storeManager.displayPrice + ")"
+    }
+
     private var notePlaceholder: String {
         if !selectedCategory.placeholder.isEmpty {
             return selectedCategory.placeholder
@@ -519,7 +525,7 @@ struct AddCategorySheet: View {
                 }
             }
             .alert("解锁更多自定义", isPresented: $showVipAlert) {
-                Button("解锁终身会员") {
+                Button(addCategoryVipTitle) {
                     Task {
                         _ = await storeManager.purchase()
                     }
@@ -542,6 +548,12 @@ struct AddCategorySheet: View {
                 }
             }
         }
+    }
+
+    private var addCategoryVipTitle: String {
+        storeManager.displayPrice.isEmpty
+            ? String(localized: "解锁终身会员")
+            : String(localized: "解锁终身会员") + " (" + storeManager.displayPrice + ")"
     }
 
     private func save() {

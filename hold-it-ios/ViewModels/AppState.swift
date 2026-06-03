@@ -66,8 +66,6 @@ enum SupportedCurrency: String, CaseIterable, Identifiable {
 
 @Observable
 class AppState {
-    var isVip: Bool = false
-    
     func todayCount(from records: [ResistRecord]) -> Int {
         let calendar = Calendar.current
         let startOfDay = calendar.startOfDay(for: Date())

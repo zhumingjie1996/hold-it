@@ -70,7 +70,7 @@ struct StatsView: View {
             .background(Color.systemGroupedBackground)
             .navigationTitle("统计")
             .alert("解锁高级功能", isPresented: $showVipAlert) {
-                Button("解锁终身会员") {
+                Button(statsVipTitle) {
                     Task {
                         _ = await storeManager.purchase()
                     }
@@ -392,6 +392,12 @@ struct StatsView: View {
             .shadow(color: Color.brand.opacity(0.3), radius: 12, x: 0, y: 6)
         }
         .buttonStyle(.plain)
+    }
+
+    private var statsVipTitle: String {
+        storeManager.displayPrice.isEmpty
+            ? String(localized: "解锁终身会员")
+            : String(localized: "解锁终身会员") + "(" + storeManager.displayPrice + ")"
     }
 }
 

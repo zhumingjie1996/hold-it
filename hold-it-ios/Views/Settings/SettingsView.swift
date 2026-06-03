@@ -46,6 +46,7 @@ struct SettingsView: View {
     @State private var showRestoreAlert = false
     @State private var restoreSuccess = false
     @State private var showClearDataAlert = false
+    @State private var showPurchaseResult = false
 
     private var themeMode: ThemeMode {
         ThemeMode(rawValue: themeModeRaw) ?? .system
@@ -144,45 +145,104 @@ struct SettingsView: View {
             } message: {
                 Text("此操作不可恢复，所有忍住记录和自定义分类将被永久删除。")
             }
+            .alert("购买结果", isPresented: $showPurchaseResult) {
+                Button("确定", role: .cancel) {
+                    storeManager.purchaseState = .idle
+                }
+            } message: {
+                if storeManager.purchaseState == .success {
+                    Text("已成功解锁终身会员！")
+                } else {
+                    Text("购买失败，请稍后重试或检查网络连接。")
+                }
+            }
         }
     }
 
     private var vipSection: some View {
         Section {
-            HStack(spacing: 16) {
-                Image(systemName: storeManager.isVip ? "checkmark.seal.fill" : "crown.fill")
-                    .font(.system(size: 36))
-                    .foregroundStyle(storeManager.isVip ? Color.green : Color(hex: "F59E0B"))
+            if storeManager.isLoading {
+                // 加载中状态
+                HStack(spacing: 16) {
+                    ProgressView()
+                        .scaleEffect(1.2)
 
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(storeManager.isVip ? String(localized: "已激活终身会员") : String(localized: "解锁终身会员"))
-                        .font(.headline)
-                    Text(storeManager.isVip
-                         ? String(localized: "享受所有高级功能")
-                         : String(localized: "热力图、趋势图、年度报告等"))
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(String(localized: "正在加载会员信息…"))
+                            .font(.headline)
+                        Text(String(localized: "请稍候"))
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+
+                    Spacer()
                 }
+                .padding(.vertical, 8)
+            } else if storeManager.isVip {
+                // 已激活状态
+                HStack(spacing: 16) {
+                    Image(systemName: "checkmark.seal.fill")
+                        .font(.system(size: 36))
+                        .foregroundStyle(Color.green)
 
-                Spacer()
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(String(localized: "已激活终身会员"))
+                            .font(.headline)
+                        Text(String(localized: "享受所有高级功能"))
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
 
-                if !storeManager.isVip {
+                    Spacer()
+                }
+                .padding(.vertical, 8)
+            } else {
+                // 未激活：购买入口
+                HStack(spacing: 16) {
+                    Image(systemName: "crown.fill")
+                        .font(.system(size: 36))
+                        .foregroundStyle(Color(hex: "F59E0B"))
+
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(String(localized: "解锁终身会员"))
+                            .font(.headline)
+                        Text(String(localized: "热力图、趋势图、年度报告等"))
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+
+                    Spacer()
+
                     Button {
                         Task {
                             _ = await storeManager.purchase()
+                            if storeManager.purchaseState == .success {
+                                showPurchaseResult = true
+                            } else if storeManager.purchaseState == .failed {
+                                showPurchaseResult = true
+                            }
                         }
                     } label: {
-                        Text("购买")
-                            .font(.subheadline.weight(.semibold))
-                            .foregroundStyle(.white)
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 8)
-                            .background(Color(hex: "F59E0B"))
-                            .cornerRadius(20)
+                        if storeManager.purchaseState == .purchasing {
+                            ProgressView()
+                                .scaleEffect(0.8)
+                                .frame(width: 80, height: 32)
+                                .background(Color(hex: "F59E0B"))
+                                .cornerRadius(20)
+                        } else {
+                            Text(storeManager.displayPrice.isEmpty ? String(localized: "购买") : storeManager.displayPrice)
+                                .font(.subheadline.weight(.semibold))
+                                .foregroundStyle(.white)
+                                .padding(.horizontal, 16)
+                                .padding(.vertical, 8)
+                                .background(Color(hex: "F59E0B"))
+                                .cornerRadius(20)
+                        }
                     }
+                    .disabled(storeManager.purchaseState == .purchasing)
                 }
+                .padding(.vertical, 8)
             }
-            .padding(.vertical, 8)
         }
     }
 
