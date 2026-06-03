@@ -123,8 +123,8 @@ struct StatsView: View {
         VStack(spacing: 10) {
             HStack(spacing: 10) {
                 BasicStatBox(title: "累计忍住", value: "\(appState.totalCount(from: records))", unit: "次", color: .brand)
+                BasicStatBox(title: "今年", value: "\(appState.thisYearCount(from: records))", unit: "次", color: .indigo)
                 BasicStatBox(title: "本月", value: "\(appState.thisMonthCount(from: records))", unit: "次", color: .purple)
-                BasicStatBox(title: "本周", value: "\(appState.thisWeekCount(from: records))", unit: "次", color: .blue)
             }
             HStack(spacing: 10) {
                 BasicStatBox(title: "今天", value: "\(appState.todayCount(from: records))", unit: "次", color: .green)

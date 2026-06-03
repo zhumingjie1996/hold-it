@@ -73,6 +73,7 @@ struct RecordsListView: View {
         case today = "今天"
         case week = "本周"
         case month = "本月"
+        case year = "今年"
     }
 
     var initialFilter: TimeFilter
@@ -110,6 +111,10 @@ struct RecordsListView: View {
                 } else { passTime = false }
             case .month:
                 if let start = calendar.dateInterval(of: .month, for: Date())?.start {
+                    passTime = record.createdAt >= start
+                } else { passTime = false }
+            case .year:
+                if let start = calendar.dateInterval(of: .year, for: Date())?.start {
                     passTime = record.createdAt >= start
                 } else { passTime = false }
             }

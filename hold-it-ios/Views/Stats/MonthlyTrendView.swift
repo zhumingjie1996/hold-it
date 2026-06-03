@@ -7,6 +7,15 @@ import SwiftUI
 
 struct MonthlyTrendView: View {
     let records: [ResistRecord]
+    @State private var selectedYear: Int = Calendar.current.component(.year, from: Date())
+
+    private var availableYears: [Int] {
+        let currentYear = Calendar.current.component(.year, from: Date())
+        let years = Set(records.map { Calendar.current.component(.year, from: $0.createdAt) })
+        var result = Array(years)
+        if !result.contains(currentYear) { result.append(currentYear) }
+        return result.sorted(by: >)
+    }
 
     var monthlyData: [(String, Int)] {
         let calendar = Calendar.current
@@ -18,15 +27,13 @@ struct MonthlyTrendView: View {
         }
 
         var data: [(String, Int)] = []
-        for offset in stride(from: -5, through: 0, by: 1) {
-            if let date = calendar.date(byAdding: .month, value: offset, to: Date()) {
-                let key = formatter.string(from: date)
-                let count = grouped[key]?.count ?? 0
-                let displayFormatter = DateFormatter()
-                displayFormatter.dateFormat = "M月"
-                let label = displayFormatter.string(from: date)
-                data.append((label, count))
-            }
+        for month in 1...12 {
+            let key = String(format: "%04d-%02d", selectedYear, month)
+            let count = grouped[key]?.count ?? 0
+            let displayFormatter = DateFormatter()
+            displayFormatter.dateFormat = "M月"
+            let label = displayFormatter.string(from: calendar.date(from: DateComponents(year: selectedYear, month: month))!)
+            data.append((label, count))
         }
 
         return data
@@ -39,8 +46,9 @@ struct MonthlyTrendView: View {
     // 本月 vs 上月对比
     var trendInfo: (symbol: String, color: Color, text: String)? {
         guard monthlyData.count >= 2 else { return nil }
-        let thisMonth = monthlyData[monthlyData.count - 1].1
-        let lastMonth = monthlyData[monthlyData.count - 2].1
+        let currentMonth = Calendar.current.component(.month, from: Date())
+        let thisMonth = monthlyData[currentMonth - 1].1
+        let lastMonth = currentMonth > 1 ? monthlyData[currentMonth - 2].1 : 0
         guard lastMonth > 0 else { return nil }
         let diff = thisMonth - lastMonth
         if diff > 0 {
@@ -75,25 +83,49 @@ struct MonthlyTrendView: View {
                 }
             }
 
+            // 年份切换
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 8) {
+                    ForEach(availableYears, id: \.self) { year in
+                        Button {
+                            withAnimation(.easeInOut(duration: 0.2)) {
+                                selectedYear = year
+                            }
+                        } label: {
+                            Text("\(year)")
+                                .font(.subheadline.weight(selectedYear == year ? .semibold : .regular))
+                                .foregroundStyle(selectedYear == year ? .white : .secondary)
+                                .padding(.horizontal, 14)
+                                .padding(.vertical, 6)
+                                .background(selectedYear == year ? Color.brand : Color.secondarySystemGroupedBackground)
+                                .cornerRadius(16)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+            }
+
             if records.isEmpty {
                 Text("暂无数据")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             } else {
-                HStack(alignment: .bottom, spacing: 12) {
+                HStack(alignment: .bottom, spacing: 4) {
                     ForEach(monthlyData.indices, id: \.self) { index in
                         let item = monthlyData[index]
-                        VStack(spacing: 6) {
-                            Text("\(item.1)")
-                                .font(.caption2)
-                                .foregroundStyle(.secondary)
+                        VStack(spacing: 4) {
+                            if item.1 > 0 {
+                                Text("\(item.1)")
+                                    .font(.system(size: 9))
+                                    .foregroundStyle(.secondary)
+                            }
 
-                            RoundedRectangle(cornerRadius: 6)
-                                .fill(Color.brand)
-                                .frame(width: 32, height: max(CGFloat(item.1) / CGFloat(maxCount) * 120, 4))
+                            RoundedRectangle(cornerRadius: 4)
+                                .fill(item.1 > 0 ? Color.brand : Color.systemGray5)
+                                .frame(height: max(CGFloat(item.1) / CGFloat(maxCount) * 100, 4))
 
                             Text(item.0)
-                                .font(.caption2)
+                                .font(.system(size: 9))
                                 .foregroundStyle(.secondary)
                         }
                         .frame(maxWidth: .infinity)

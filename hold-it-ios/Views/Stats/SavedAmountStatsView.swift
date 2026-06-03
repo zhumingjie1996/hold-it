@@ -112,15 +112,15 @@ struct SavedAmountStatsView: View {
                 )
                 Divider().frame(height: 36)
                 periodItem(
-                    title: "本周",
-                    amount: appState.thisWeekSavedAmount(from: records),
-                    color: .blue
-                )
-                Divider().frame(height: 36)
-                periodItem(
                     title: "本月",
                     amount: appState.thisMonthSavedAmount(from: records),
                     color: .purple
+                )
+                Divider().frame(height: 36)
+                periodItem(
+                    title: "今年",
+                    amount: appState.thisYearSavedAmount(from: records),
+                    color: .indigo
                 )
             }
         }

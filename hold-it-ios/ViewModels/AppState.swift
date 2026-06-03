@@ -85,6 +85,12 @@ class AppState {
         guard let startOfMonth = calendar.dateInterval(of: .month, for: Date())?.start else { return 0 }
         return records.filter { $0.createdAt >= startOfMonth }.count
     }
+
+    func thisYearCount(from records: [ResistRecord]) -> Int {
+        let calendar = Calendar.current
+        guard let startOfYear = calendar.dateInterval(of: .year, for: Date())?.start else { return 0 }
+        return records.filter { $0.createdAt >= startOfYear }.count
+    }
     
     func streakDays(from records: [ResistRecord]) -> Int {
         guard !records.isEmpty else { return 0 }
@@ -143,6 +149,13 @@ class AppState {
         let calendar = Calendar.current
         guard let startOfMonth = calendar.dateInterval(of: .month, for: Date())?.start else { return 0 }
         return records.filter { $0.createdAt >= startOfMonth }.compactMap { $0.amount }.reduce(0, +)
+    }
+
+    /// 今年节省金额
+    func thisYearSavedAmount(from records: [ResistRecord]) -> Double {
+        let calendar = Calendar.current
+        guard let startOfYear = calendar.dateInterval(of: .year, for: Date())?.start else { return 0 }
+        return records.filter { $0.createdAt >= startOfYear }.compactMap { $0.amount }.reduce(0, +)
     }
 
     /// 本周节省金额
