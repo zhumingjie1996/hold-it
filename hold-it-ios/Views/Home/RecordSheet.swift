@@ -215,7 +215,7 @@ struct RecordSheet: View {
                         )
                     )
                     .cornerRadius(16)
-                    .shadow(color: .brand.opacity(0.3), radius: 12, x: 0, y: 6)
+                    .shadow(color: Color.brand.opacity(0.3), radius: 12, x: 0, y: 6)
                 }
                 .buttonStyle(.plain)
             }

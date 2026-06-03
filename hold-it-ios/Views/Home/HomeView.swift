@@ -244,7 +244,7 @@ struct HomeView: View {
                 Circle()
                     .fill(Color.brand)
                     .frame(width: 180, height: 180)
-                    .shadow(color: .brand.opacity(0.3), radius: 20, x: 0, y: 10)
+                    .shadow(color: Color.brand.opacity(0.3), radius: 20, x: 0, y: 10)
 
                 VStack(spacing: 4) {
                     Text("忍一下")

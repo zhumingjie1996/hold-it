@@ -122,7 +122,7 @@ struct StatsView: View {
     private var basicStats: some View {
         VStack(spacing: 10) {
             HStack(spacing: 10) {
-                BasicStatBox(title: "累计忍住", value: "\(appState.totalCount(from: records))", unit: "次", color: .brand)
+                BasicStatBox(title: "累计忍住", value: "\(appState.totalCount(from: records))", unit: "次", color: Color.brand)
                 BasicStatBox(title: "今年", value: "\(appState.thisYearCount(from: records))", unit: "次", color: .indigo)
                 BasicStatBox(title: "本月", value: "\(appState.thisMonthCount(from: records))", unit: "次", color: .purple)
             }
@@ -390,7 +390,7 @@ struct StatsView: View {
                 )
             )
             .cornerRadius(16)
-            .shadow(color: .brand.opacity(0.3), radius: 12, x: 0, y: 6)
+            .shadow(color: Color.brand.opacity(0.3), radius: 12, x: 0, y: 6)
         }
         .buttonStyle(.plain)
     }
@@ -444,7 +444,7 @@ struct StatsSortSheet: View {
                 ForEach(items, id: \.self) { moduleId in
                     HStack(spacing: 12) {
                         Image(systemName: moduleInfo[moduleId]?.icon ?? "square")
-                            .foregroundStyle(.brand)
+                            .foregroundStyle(Color.brand)
                             .frame(width: 24)
                         Text(moduleInfo[moduleId]?.name ?? moduleId)
                             .font(.subheadline)
