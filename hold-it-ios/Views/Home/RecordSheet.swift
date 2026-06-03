@@ -167,7 +167,7 @@ struct RecordSheet: View {
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
 
-                TextField("差点下单新键盘…", text: $note, axis: .vertical)
+                TextField(notePlaceholder, text: $note, axis: .vertical)
                     .textFieldStyle(.roundedBorder)
                     .lineLimit(3...6)
             }
@@ -297,6 +297,13 @@ struct RecordSheet: View {
     }
 
     // MARK: - 辅助方法
+    private var notePlaceholder: String {
+        if !selectedCategory.placeholder.isEmpty {
+            return selectedCategory.placeholder
+        }
+        return String(localized: "写点什么…")
+    }
+
     private func updateAmountText(for category: ResistCategory) {
         if category.hasAmount, let amt = category.defaultAmount {
             amountText = amt.truncatingRemainder(dividingBy: 1) == 0

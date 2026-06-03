@@ -329,8 +329,13 @@ struct SavedRecordsListView: View {
         case year = "今年"
     }
 
+    var initialFilter: TimeFilter = .all
     @State private var timeFilter: TimeFilter = .all
     @State private var selectedCategory: String? = nil
+
+    init(initialFilter: TimeFilter = .all) {
+        self.initialFilter = initialFilter
+    }
 
     /// 只有金额的记录
     private var amountRecords: [ResistRecord] {
@@ -484,6 +489,11 @@ struct SavedRecordsListView: View {
         .background(Color.systemGroupedBackground)
         .navigationTitle("节省记录")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            if timeFilter != initialFilter {
+                timeFilter = initialFilter
+            }
+        }
         .toolbar {
             if selectedCategory != nil || timeFilter != .all {
                 ToolbarItem(placement: .topBarTrailing) {

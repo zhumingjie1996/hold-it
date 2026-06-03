@@ -123,7 +123,9 @@
         }
       }
     },
+    "%lld 条记录": {},
     "%lld 条金额记录": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1086,6 +1088,39 @@
           "stringUnit": {
             "state": "translated",
             "value": "台幣 (NT$)"
+          }
+        }
+      }
+    },
+    "合计": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Total"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "合計"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "合計"
+          }
+        }
+      }
+    },
+    "合计 %@%@": {
+      "localizations": {
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "new",
+            "value": "合计 %1$@%2$@"
           }
         }
       }
@@ -2225,6 +2260,28 @@
         }
       }
     },
+    "暂无金额记录": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No Savings Records"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "節約記録なし"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "暫無金額記錄"
+          }
+        }
+      }
+    },
     "月度节省趋势": {
       "localizations": {
         "en": {
@@ -2378,6 +2435,29 @@
           "stringUnit": {
             "state": "translated",
             "value": "本月第 %1$lld/%2$lld 天"
+          }
+        }
+      }
+    },
+    "条记录": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "records"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "件の記録"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "條記錄"
           }
         }
       }
@@ -3235,6 +3315,28 @@
         }
       }
     },
+    "节省记录": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Savings Records"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "節約記録"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "節省記錄"
+          }
+        }
+      }
+    },
     "英镑 (£)": {
       "localizations": {
         "en": {
@@ -3385,6 +3487,28 @@
           "stringUnit": {
             "state": "translated",
             "value": "記錄忍住，成就更好的自己"
+          }
+        }
+      }
+    },
+    "记录忍住项时填写金额即可查看": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fill in amount when recording to view"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "記録時に金額を入力すると表示されます"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "記錄忍住項時填寫金額即可查看"
           }
         }
       }
@@ -3809,112 +3933,178 @@
         }
       }
     },
-    "节省记录": {
+    "忍住没喝一杯…": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Savings Records"
+            "value": "Resisted a cup..."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "節約記録"
+            "value": "一杯我慢した…"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "節省記錄"
+            "value": "忍住沒喝一杯…"
           }
         }
       }
     },
-    "暂无金额记录": {
+    "忍住买了一个…": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "No Savings Records"
+            "value": "Resisted an impulse buy..."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "節約記録なし"
+            "value": "買い物を我慢した…"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "暫無金額記錄"
+            "value": "忍住買了一個…"
           }
         }
       }
     },
-    "记录忍住项时填写金额即可查看": {
+    "忍住又玩了一局…": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Fill in amount when recording to view"
+            "value": "Resisted another round..."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "記録時に金額を入力すると表示されます"
+            "value": "もう一局我慢した…"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "記錄忍住項時填寫金額即可查看"
+            "value": "忍住又玩了一局…"
           }
         }
       }
     },
-    "条记录": {
+    "忍住刷了一会…": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "records"
+            "value": "Resisted doom-scrolling..."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "件の記録"
+            "value": "スクロール我慢した…"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "條記錄"
+            "value": "忍住刷了一會…"
           }
         }
       }
     },
-    "合计": {
+    "聊表心意": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Total"
+            "value": "A little thought..."
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "合計"
+            "value": "思いを込めて…"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "合計"
+            "value": "聊表心意"
+          }
+        }
+      }
+    },
+    "写点什么…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Write something..."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "何か書く…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "寫點什麼…"
+          }
+        }
+      }
+    },
+    "今天已节省": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Saved Today"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今日の節約"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "今天已節省"
+          }
+        }
+      }
+    },
+    "元": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "CNY"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "元"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "元"
           }
         }
       }

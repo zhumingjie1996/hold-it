@@ -62,6 +62,7 @@ struct ResistCategory: Identifiable {
     let isCustom: Bool
     let customCategoryID: UUID?
     let fixedID: String?
+    let placeholder: String
 
     /// 用于记录和统计的唯一标识：默认分类用 fixedID，自定义分类用 customCategoryID
     var stableID: String {
@@ -72,7 +73,7 @@ struct ResistCategory: Identifiable {
     }
 
     /// 默认分类初始化
-    init(emoji: String, name: String, defaultAmount: Double?, fixedID: String) {
+    init(emoji: String, name: String, defaultAmount: Double?, fixedID: String, placeholder: String = "") {
         self.id = UUID()
         self.emoji = emoji
         self.name = name
@@ -81,6 +82,7 @@ struct ResistCategory: Identifiable {
         self.isCustom = false
         self.customCategoryID = nil
         self.fixedID = fixedID
+        self.placeholder = placeholder
     }
 
     /// 自定义分类初始化
@@ -93,14 +95,15 @@ struct ResistCategory: Identifiable {
         self.isCustom = true
         self.customCategoryID = custom.id
         self.fixedID = nil
+        self.placeholder = ""
     }
 
     static let defaults: [ResistCategory] = [
-        ResistCategory(emoji: "🧋", name: "奶茶",   defaultAmount: 15, fixedID: "default_milk_tea"),
-        ResistCategory(emoji: "💸", name: "冲动消费", defaultAmount: 100, fixedID: "default_impulse_buy"),
-        ResistCategory(emoji: "🎮", name: "游戏",   defaultAmount: nil, fixedID: "default_gaming"),
-        ResistCategory(emoji: "📱", name: "短视频",  defaultAmount: nil, fixedID: "default_short_video"),
-        ResistCategory(emoji: "❤️", name: "想TA",   defaultAmount: nil, fixedID: "default_miss_him")
+        ResistCategory(emoji: "🧋", name: "奶茶",   defaultAmount: 15, fixedID: "default_milk_tea", placeholder: "忍住没喝一杯…"),
+        ResistCategory(emoji: "💸", name: "冲动消费", defaultAmount: 100, fixedID: "default_impulse_buy", placeholder: "忍住买了一个…"),
+        ResistCategory(emoji: "🎮", name: "游戏",   defaultAmount: nil, fixedID: "default_gaming", placeholder: "忍住又玩了一局…"),
+        ResistCategory(emoji: "📱", name: "短视频",  defaultAmount: nil, fixedID: "default_short_video", placeholder: "忍住刷了一会…"),
+        ResistCategory(emoji: "❤️", name: "想TA",   defaultAmount: nil, fixedID: "default_miss_him", placeholder: "聊表心意")
     ]
 }
 

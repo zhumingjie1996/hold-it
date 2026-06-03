@@ -65,13 +65,19 @@ struct HomeView: View {
             }
             .buttonStyle(.plain)
 
-            StatCard(
-                title: "连续记录",
-                value: "\(appState.streakDays(from: records))",
-                unit: "天",
-                icon: "flame.fill",
-                color: .orange
-            )
+            NavigationLink {
+                SavedRecordsListView(initialFilter: .today)
+            } label: {
+                StatCard(
+                    title: "今天已节省",
+                    value: todaySavedSummary,
+                    unit: "元",
+                    icon: "banknote.fill",
+                    color: .green,
+                    showArrow: true
+                )
+            }
+            .buttonStyle(.plain)
         }
     }
     
@@ -270,6 +276,10 @@ struct HomeView: View {
         formatter.locale = Locale.current
         formatter.unitsStyle = .short
         return formatter.localizedString(for: date, relativeTo: Date())
+    }
+
+    private var todaySavedSummary: String {
+        savedAmountText(appState.todaySavedAmount(from: records))
     }
 
     private func savedAmountText(_ amount: Double) -> String {
