@@ -36,5 +36,5 @@ struct ContentView: View {
     ContentView()
         .environment(AppState())
         .environment(StoreManager())
-        .modelContainer(for: ResistRecord.self)
+        .modelContainer(for: [ResistRecord.self, CustomCategory.self])
 }

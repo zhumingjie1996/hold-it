@@ -26,7 +26,7 @@ struct hold_it_iosApp: App {
                 .environment(storeManager)
                 .preferredColorScheme(themeMode.colorScheme)
         }
-        .modelContainer(for: ResistRecord.self)
+        .modelContainer(for: [ResistRecord.self, CustomCategory.self])
     }
 }
 

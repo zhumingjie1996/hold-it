@@ -86,7 +86,7 @@
 				};
 			};
 			buildConfigurationList = 7418E1452FCF2F77009BE096 /* Build configuration list for PBXProject "hold-it-ios" */;
-			developmentRegion = en;
+			developmentRegion = "zh-Hans";
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
