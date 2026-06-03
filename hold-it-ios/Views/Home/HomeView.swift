@@ -324,7 +324,7 @@ struct StatCard: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
+            .frame(maxWidth: .infinity, minHeight: 38, alignment: .leading)
             
             Text(title)
                 .font(.caption)
