@@ -1,90 +1,46 @@
 {
   "sourceLanguage" : "zh-Hans",
   "strings" : {
-    "抹除所有数据" : {
+    "解锁无限自定义" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Erase All Data"
+            "value" : "Unlock Unlimited Custom Items"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "すべてのデータを消去"
+            "value" : "カスタム項目を無制限に追加"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "抹除所有資料"
+            "value" : "解鎖無限自定義"
           }
         }
       }
     },
-    "危险操作" : {
+    "非会员最多添加3个，解锁后无限添加" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Danger Zone"
+            "value" : "Free users: 3 max. Unlock for unlimited."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "危険操作"
+            "value" : "無料ユーザーは3つまで。アンロックで無制限。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "危險操作"
-          }
-        }
-      }
-    },
-    "此操作不可恢复，所有克制记录和自定义分类将被永久删除。" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This action cannot be undone. All records and custom categories will be permanently deleted."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "この操作は元に戻せません。すべての記録とカスタムカテゴリが永久に削除されます。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "此操作不可恢復，所有克制記錄和自定義分類將被永久刪除。"
-          }
-        }
-      }
-    },
-    "抹除" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Erase"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "消去"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "抹除"
+            "value" : "非會員最多添加3個，解鎖後無限添加"
           }
         }
       }
@@ -859,6 +815,28 @@
         }
       }
     },
+    "危险操作" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Danger Zone"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "危険操作"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "危險操作"
+          }
+        }
+      }
+    },
     "去首页记录你的第一次克制吧" : {
       "localizations" : {
         "en" : {
@@ -1524,6 +1502,50 @@
         }
       }
     },
+    "抹除" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erase"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "消去"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "抹除"
+          }
+        }
+      }
+    },
+    "抹除所有数据" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erase All Data"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すべてのデータを消去"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "抹除所有資料"
+          }
+        }
+      }
+    },
     "持平" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2107,6 +2129,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "歐元 (€)"
+          }
+        }
+      }
+    },
+    "此操作不可恢复，所有克制记录和自定义分类将被永久删除。" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This action cannot be undone. All records and custom categories will be permanently deleted."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "この操作は元に戻せません。すべての記録とカスタムカテゴリが永久に削除されます。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此操作不可恢復，所有克制記錄和自定義分類將被永久刪除。"
           }
         }
       }
@@ -2742,6 +2786,28 @@
         }
       }
     },
+    "解锁更多自定义" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlock More Custom Items"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "カスタム項目を追加"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "解鎖更多自定義"
+          }
+        }
+      }
+    },
     "解锁终身会员" : {
       "localizations" : {
         "en" : {
@@ -3096,6 +3162,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "零食"
+          }
+        }
+      }
+    },
+    "非会员最多添加 3 个自定义克制项，解锁后可无限添加。" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Free users can add up to 3 custom items. Unlock for unlimited."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無料ユーザーはカスタム項目を3つまで追加できます。アンロックで無制限。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "非會員最多添加 3 個自定義克制項，解鎖後可無限添加。"
           }
         }
       }

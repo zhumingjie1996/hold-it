@@ -10,6 +10,7 @@ import SwiftData
 struct RecordSheet: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(AppState.self) private var appState
+    @Environment(StoreManager.self) private var storeManager
     @Environment(\.modelContext) private var modelContext
     @AppStorage("currencyCode") private var currencyCode: String = "auto"
     var onSave: (() -> Void)? = nil
@@ -23,6 +24,7 @@ struct RecordSheet: View {
     @State private var editingCategory: CustomCategory?
     @State private var deletingCategory: ResistCategory?
     @State private var showDeleteAlert = false
+    @State private var showVipAlert = false
 
     private let columns = [
         GridItem(.flexible()),
@@ -67,6 +69,16 @@ struct RecordSheet: View {
             if let cat = deletingCategory {
                 Text("确定删除「\(cat.name)」吗？已有的记录不会被删除。")
             }
+        }
+        .alert("解锁更多自定义", isPresented: $showVipAlert) {
+            Button("解锁终身会员") {
+                Task {
+                    _ = await storeManager.purchase()
+                }
+            }
+            Button("暂不需要", role: .cancel) { }
+        } message: {
+            Text("非会员最多添加 3 个自定义克制项，解锁后可无限添加。")
         }
         .onAppear {
             updateAmountText(for: selectedCategory)
@@ -135,7 +147,40 @@ struct RecordSheet: View {
                 .background(Color.brand)
                 .cornerRadius(16)
             }
-            .padding(.bottom, 24)
+
+            // 非会员：升级 CTA
+            if !storeManager.isVip {
+                Button {
+                    showVipAlert = true
+                } label: {
+                    VStack(spacing: 8) {
+                        HStack(spacing: 6) {
+                            Image(systemName: "crown.fill")
+                                .foregroundStyle(.yellow)
+                            Text("解锁无限自定义")
+                                .font(.headline)
+                                .foregroundStyle(.white)
+                        }
+                        Text("非会员最多添加3个，解锁后无限添加")
+                            .font(.caption)
+                            .foregroundStyle(.white.opacity(0.8))
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 16)
+                    .background(
+                        LinearGradient(
+                            colors: [Color.brand, Color.brandDark],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
+                    .cornerRadius(16)
+                    .shadow(color: .brand.opacity(0.3), radius: 12, x: 0, y: 6)
+                }
+                .buttonStyle(.plain)
+            }
+
+            Spacer(minLength: 24)
         }
         .animation(.spring(response: 0.3), value: selectedCategory.hasAmount)
     }
@@ -166,30 +211,49 @@ struct RecordSheet: View {
 
     // MARK: - "+" 新增分类 Cell
     private var addCategoryCell: some View {
-        Button {
-            showAddCategory = true
-        } label: {
-            VStack(spacing: 6) {
-                Image(systemName: "plus.circle.fill")
-                    .font(.system(size: 30))
-                    .foregroundStyle(Color.brand.opacity(0.7))
-                Text("自定义")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+        let canAdd = storeManager.isVip || customCategories.count < 3
+        return Button {
+            if canAdd {
+                showAddCategory = true
             }
-            .padding(.vertical, 12)
-            .frame(maxWidth: .infinity)
-            .background(Color.secondarySystemGroupedBackground)
-            .cornerRadius(12)
-            .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .strokeBorder(
-                        style: StrokeStyle(lineWidth: 1.5, dash: [5])
-                    )
-                    .foregroundStyle(Color.brand.opacity(0.4))
-            )
+        } label: {
+            ZStack {
+                VStack(spacing: 6) {
+                    Image(systemName: "plus.circle.fill")
+                        .font(.system(size: 30))
+                        .foregroundStyle(Color.brand.opacity(0.7))
+                    Text("自定义")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                .padding(.vertical, 12)
+                .frame(maxWidth: .infinity)
+                .background(Color.secondarySystemGroupedBackground)
+                .cornerRadius(12)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .strokeBorder(
+                            style: StrokeStyle(lineWidth: 1.5, dash: [5])
+                        )
+                        .foregroundStyle(Color.brand.opacity(0.4))
+                )
+
+                // 非会员已达上限：锁+遮罩
+                if !canAdd {
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.systemBackground.opacity(0.5))
+                    Image(systemName: "lock.fill")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
         }
         .buttonStyle(.plain)
+        .onTapGesture {
+            if !canAdd {
+                showVipAlert = true
+            }
+        }
     }
 
     // MARK: - 辅助方法
@@ -294,8 +358,10 @@ struct CategoryCell: View {
 // MARK: - 新增/编辑自定义分类 Sheet
 struct AddCategorySheet: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(StoreManager.self) private var storeManager
     @Environment(\.modelContext) private var modelContext
     @AppStorage("currencyCode") private var currencyCode: String = "auto"
+    @Query(sort: \CustomCategory.createdAt) private var customCategories: [CustomCategory]
 
     var editingCategory: CustomCategory?
 
@@ -303,6 +369,8 @@ struct AddCategorySheet: View {
     @State private var name: String = ""
     @State private var hasAmount: Bool = false
     @State private var defaultAmountText: String = ""
+
+    @State private var showVipAlert = false
 
     private var isEditing: Bool { editingCategory != nil }
 
@@ -389,6 +457,16 @@ struct AddCategorySheet: View {
                         .disabled(!canSave)
                 }
             }
+            .alert("解锁更多自定义", isPresented: $showVipAlert) {
+                Button("解锁终身会员") {
+                    Task {
+                        _ = await storeManager.purchase()
+                    }
+                }
+                Button("暂不需要", role: .cancel) { }
+            } message: {
+                Text("非会员最多添加 3 个自定义克制项，解锁后可无限添加。")
+            }
         }
         .onAppear {
             if let editing = editingCategory {
@@ -416,7 +494,11 @@ struct AddCategorySheet: View {
             editing.hasAmount = hasAmount
             editing.defaultAmount = defaultAmount
         } else {
-            // 新增模式
+            // 新增模式：检查非会员上限
+            if !storeManager.isVip && customCategories.count >= 3 {
+                showVipAlert = true
+                return
+            }
             let category = CustomCategory(
                 emoji: emoji.trimmingCharacters(in: .whitespaces),
                 name: name.trimmingCharacters(in: .whitespaces),
