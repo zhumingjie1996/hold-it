@@ -41,6 +41,7 @@ struct SettingsView: View {
     @Environment(StoreManager.self) private var storeManager
     @Environment(\.openURL) private var openURL
     @AppStorage("themeMode") private var themeModeRaw: Int = 0
+    @AppStorage("currencyCode") private var currencyCode: String = "auto"
     @State private var showRestoreAlert = false
     @State private var restoreSuccess = false
 
@@ -61,6 +62,14 @@ struct SettingsView: View {
                         }
                     } label: {
                         Label("主题", systemImage: "paintbrush.fill")
+                    }
+
+                    Picker(selection: $currencyCode) {
+                        ForEach(SupportedCurrency.allCases) { currency in
+                            Text(currency.displayName).tag(currency.rawValue)
+                        }
+                    } label: {
+                        Label("货币单位", systemImage: "dollarsign.circle.fill")
                     }
 
                     Button {

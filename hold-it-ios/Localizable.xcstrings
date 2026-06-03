@@ -23,9 +23,6 @@
     "%lld%%" : {
 
     },
-    "¥" : {
-
-    },
     "下午" : {
       "localizations" : {
         "en" : {
@@ -88,6 +85,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "享受所有進階功能"
+          }
+        }
+      }
+    },
+    "人民币 (¥)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CNY (¥)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "中国元 (¥)"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "人民幣 (¥)"
           }
         }
       }
@@ -205,9 +224,6 @@
           }
         }
       }
-    },
-    "元" : {
-
     },
     "克制项名称" : {
 
@@ -528,6 +544,28 @@
     },
     "可选" : {
 
+    },
+    "台币 (NT$)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TWD (NT$)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "台湾ドル (NT$)"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "台幣 (NT$)"
+          }
+        }
+      }
     },
     "名称" : {
 
@@ -1114,6 +1152,28 @@
     "新增克制项" : {
 
     },
+    "日元 (¥)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "JPY (¥)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日本円 (¥)"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日圓 (¥)"
+          }
+        }
+      }
+    },
     "早晨" : {
       "localizations" : {
         "en" : {
@@ -1410,6 +1470,28 @@
         }
       }
     },
+    "欧元 (€)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "EUR (€)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ユーロ (€)"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "歐元 (€)"
+          }
+        }
+      }
+    },
     "法律" : {
       "localizations" : {
         "en" : {
@@ -1497,6 +1579,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "深色"
+          }
+        }
+      }
+    },
+    "港元 (HK$)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "HKD (HK$)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "香港ドル (HK$)"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "港幣 (HK$)"
           }
         }
       }
@@ -1706,7 +1810,18 @@
         }
       }
     },
+    "省 %@%lld" : {
+      "localizations" : {
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "省 %1$@%2$lld"
+          }
+        }
+      }
+    },
     "省 ¥%lld" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1863,6 +1978,28 @@
         }
       }
     },
+    "美元 ($)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USD ($)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "米ドル ($)"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "美元 ($)"
+          }
+        }
+      }
+    },
     "自定义" : {
 
     },
@@ -1888,6 +2025,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "節省統計"
+          }
+        }
+      }
+    },
+    "英镑 (£)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GBP (£)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "英ポンド (£)"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "英鎊 (£)"
           }
         }
       }
@@ -2068,6 +2227,28 @@
         }
       }
     },
+    "货币单位" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Currency"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通貨"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "貨幣單位"
+          }
+        }
+      }
+    },
     "购买" : {
       "localizations" : {
         "en" : {
@@ -2224,6 +2405,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "零食"
+          }
+        }
+      }
+    },
+    "韩元 (₩)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "KRW (₩)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "韓国ウォン (₩)"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "韓元 (₩)"
           }
         }
       }

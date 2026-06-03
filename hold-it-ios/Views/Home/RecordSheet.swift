@@ -11,6 +11,7 @@ struct RecordSheet: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(AppState.self) private var appState
     @Environment(\.modelContext) private var modelContext
+    @AppStorage("currencyCode") private var currencyCode: String = "auto"
 
     @Query(sort: \CustomCategory.createdAt) private var customCategories: [CustomCategory]
 
@@ -120,23 +121,20 @@ struct RecordSheet: View {
 
     // MARK: - 金额输入框
     private var amountInputField: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        let symbol = SupportedCurrency(rawValue: currencyCode)?.symbol ?? SupportedCurrency.systemSymbol
+        return VStack(alignment: .leading, spacing: 8) {
             Text("节省了多少钱？（可选）")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
-
+    
             HStack(spacing: 8) {
-                Text("¥")
+                Text(symbol)
                     .font(.headline)
                     .foregroundStyle(.secondary)
-
+    
                 TextField("输入金额", text: $amountText)
                     .keyboardType(.decimalPad)
                     .font(.headline)
-
-                Text("元")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
             }
             .padding(.horizontal, 14)
             .padding(.vertical, 12)
@@ -263,6 +261,7 @@ struct CategoryCell: View {
 struct AddCategorySheet: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
+    @AppStorage("currencyCode") private var currencyCode: String = "auto"
 
     @State private var emoji: String = ""
     @State private var name: String = ""
@@ -321,14 +320,12 @@ struct AddCategorySheet: View {
                         HStack {
                             Text("默认节省金额")
                             Spacer()
-                            Text("¥")
+                            Text(SupportedCurrency(rawValue: currencyCode)?.symbol ?? SupportedCurrency.systemSymbol)
                                 .foregroundStyle(.secondary)
                             TextField("可选", text: $defaultAmountText)
                                 .keyboardType(.decimalPad)
                                 .multilineTextAlignment(.trailing)
                                 .frame(width: 70)
-                            Text("元")
-                                .foregroundStyle(.secondary)
                         }
                     }
                 }

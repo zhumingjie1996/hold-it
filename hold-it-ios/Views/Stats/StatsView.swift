@@ -10,7 +10,12 @@ struct StatsView: View {
     @Environment(AppState.self) private var appState
     @Environment(StoreManager.self) private var storeManager
     @Query(sort: \ResistRecord.createdAt, order: .reverse) private var records: [ResistRecord]
+    @AppStorage("currencyCode") private var currencyCode: String = "auto"
     @State private var showVipAlert = false
+
+    private var currencySymbol: String {
+        SupportedCurrency(rawValue: currencyCode)?.symbol ?? SupportedCurrency.systemSymbol
+    }
     
     var body: some View {
         NavigationStack {
@@ -114,7 +119,7 @@ struct StatsView: View {
             }
             
             HStack(alignment: .lastTextBaseline, spacing: 4) {
-                Text("¥")
+                Text(currencySymbol)
                     .font(.title3)
                 Text(String(format: "%.0f", appState.totalSavedAmount(from: records)))
                     .font(.system(size: 40, weight: .bold))

@@ -6,6 +6,64 @@
 import SwiftUI
 import SwiftData
 
+// MARK: - 货币配置
+
+/// 支持的货币列表
+enum SupportedCurrency: String, CaseIterable, Identifiable {
+    case auto   = "auto"
+    case cny    = "CNY"
+    case usd    = "USD"
+    case eur    = "EUR"
+    case jpy    = "JPY"
+    case gbp    = "GBP"
+    case hkd    = "HKD"
+    case twd    = "TWD"
+    case krw    = "KRW"
+
+    var id: String { rawValue }
+
+    /// 显示名称（本地化）
+    var displayName: String {
+        switch self {
+        case .auto: return String(localized: "跟随系统")
+        case .cny:  return String(localized: "人民币 (¥)")
+        case .usd:  return String(localized: "美元 ($)")
+        case .eur:  return String(localized: "欧元 (€)")
+        case .jpy:  return String(localized: "日元 (¥)")
+        case .gbp:  return String(localized: "英镑 (£)")
+        case .hkd:  return String(localized: "港元 (HK$)")
+        case .twd:  return String(localized: "台币 (NT$)")
+        case .krw:  return String(localized: "韩元 (₩)")
+        }
+    }
+
+    /// 对应的货币符号
+    var symbol: String {
+        switch self {
+        case .auto: return SupportedCurrency.systemSymbol
+        case .cny:  return "¥"
+        case .usd:  return "$"
+        case .eur:  return "€"
+        case .jpy:  return "¥"
+        case .gbp:  return "£"
+        case .hkd:  return "HK$"
+        case .twd:  return "NT$"
+        case .krw:  return "₩"
+        }
+    }
+
+    /// 读取系统当前 Locale 对应的货币符号
+    static var systemSymbol: String {
+        guard let code = Locale.current.currency?.identifier else { return "¥" }
+        // 用系统 Locale formatter 拿到简短符号
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.currencyCode = code
+        formatter.locale = Locale.current
+        return formatter.currencySymbol ?? "¥"
+    }
+}
+
 @Observable
 class AppState {
     var isVip: Bool = false

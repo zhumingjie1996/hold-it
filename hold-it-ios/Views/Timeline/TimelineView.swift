@@ -243,6 +243,11 @@ struct FilterChip: View {
 
 struct TimelineRow: View {
     let record: ResistRecord
+    @AppStorage("currencyCode") private var currencyCode: String = "auto"
+
+    private var currencySymbol: String {
+        SupportedCurrency(rawValue: currencyCode)?.symbol ?? SupportedCurrency.systemSymbol
+    }
     
     var body: some View {
         HStack(spacing: 14) {
@@ -255,7 +260,7 @@ struct TimelineRow: View {
                         .font(.subheadline.weight(.medium))
                     
                     if let amount = record.amount {
-                        Text("省 ¥\(Int(amount))")
+                        Text("省 \(currencySymbol)\(Int(amount))")
                             .font(.caption2)
                             .fontWeight(.medium)
                             .padding(.horizontal, 6)
