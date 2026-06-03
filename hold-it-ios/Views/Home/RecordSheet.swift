@@ -12,13 +12,13 @@ struct RecordSheet: View {
     @Environment(AppState.self) private var appState
     @Environment(\.modelContext) private var modelContext
     @AppStorage("currencyCode") private var currencyCode: String = "auto"
+    var onSave: (() -> Void)? = nil
 
     @Query(sort: \CustomCategory.createdAt) private var customCategories: [CustomCategory]
 
     @State private var selectedCategory: ResistCategory = ResistCategory.defaults[0]
     @State private var note: String = ""
     @State private var amountText: String = ""
-    @State private var showSuccess = false
     @State private var showAddCategory = false
 
     private let columns = [
@@ -36,12 +36,7 @@ struct RecordSheet: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 24) {
-                    if showSuccess {
-                        successView
-                            .frame(minHeight: 400)
-                    } else {
-                        formContent
-                    }
+                    formContent
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 16)
@@ -171,25 +166,6 @@ struct RecordSheet: View {
         .buttonStyle(.plain)
     }
 
-    // MARK: - 成功视图
-    private var successView: some View {
-        VStack(spacing: 20) {
-            Spacer()
-            Image(systemName: "checkmark.circle.fill")
-                .font(.system(size: 80))
-                .foregroundStyle(.green)
-                .symbolEffect(.bounce)
-
-            Text("已记录")
-                .font(.title2.weight(.bold))
-
-            Text("你又忍住了一次 \(selectedCategory.name)")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-            Spacer()
-        }
-    }
-
     // MARK: - 辅助方法
     private func updateAmountText(for category: ResistCategory) {
         if category.hasAmount, let amt = category.defaultAmount {
@@ -218,13 +194,8 @@ struct RecordSheet: View {
         )
         modelContext.insert(record)
 
-        withAnimation(.spring(response: 0.4, dampingFraction: 0.6)) {
-            showSuccess = true
-        }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
-            dismiss()
-        }
+        dismiss()
+        onSave?()
     }
 }
 

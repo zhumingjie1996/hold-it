@@ -274,6 +274,7 @@
       }
     },
     "你又忍住了一次 %@" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1245,6 +1246,7 @@
       }
     },
     "已记录" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

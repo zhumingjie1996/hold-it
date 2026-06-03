@@ -12,6 +12,7 @@ struct HomeView: View {
     @Query(sort: \ResistRecord.createdAt, order: .reverse) private var records: [ResistRecord]
     @State private var showRecordSheet = false
     @State private var currentQuoteIndex: Int = EncourageQuote.todayIndex()
+    @State private var showCelebration = false
 
     
     var body: some View {
@@ -29,7 +30,14 @@ struct HomeView: View {
             .background(Color.systemGroupedBackground)
             .navigationTitle("忍一下")
             .sheet(isPresented: $showRecordSheet) {
-                RecordSheet()
+                RecordSheet(onSave: {
+                    showCelebration = true
+                })
+            }
+            .overlay {
+                if showCelebration {
+                    CelebrationView(isActive: $showCelebration)
+                }
             }
         }
     }
