@@ -12,15 +12,16 @@ struct HomeView: View {
     @Query(sort: \ResistRecord.createdAt, order: .reverse) private var records: [ResistRecord]
     @State private var showRecordSheet = false
     @State private var currentQuoteIndex: Int = EncourageQuote.todayIndex()
-    @State private var isSpinning = false
+
     
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 12) {
                     statsCards
-                    encourageCard
+                    lastRecordCard
                     mainButton
+                    encourageCard
                 }
                 .padding(.horizontal, 20)
                 .padding(.vertical, 12)
@@ -52,6 +53,51 @@ struct HomeView: View {
         }
     }
     
+    // MARK: - 最近克制
+    private var lastRecordCard: some View {
+        Group {
+            if let last = records.first {
+                HStack(spacing: 12) {
+                    Text(last.categoryEmoji)
+                        .font(.title)
+
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(last.category)
+                            .font(.subheadline.weight(.medium))
+                        HStack(spacing: 4) {
+                            Text(relativeTimeString(from: last.createdAt))
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                            if let amount = last.amount, amount > 0 {
+                                Text("·")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                                Text(savedAmountText(amount))
+                                    .font(.caption)
+                                    .foregroundStyle(Color.brand)
+                            }
+                        }
+                        if !last.note.isEmpty {
+                            Text(last.note)
+                                .font(.caption)
+                                .foregroundStyle(.secondary.opacity(0.8))
+                                .lineLimit(1)
+                        }
+                    }
+
+                    Spacer()
+
+                    Image(systemName: "checkmark.seal.fill")
+                        .font(.title3)
+                        .foregroundStyle(Color.brand)
+                }
+                .padding(16)
+                .background(Color.secondarySystemGroupedBackground)
+                .cornerRadius(16)
+            }
+        }
+    }
+
     // MARK: - 鼓励卡片
     private var encourageCard: some View {
         let quote = EncourageQuote.allQuotes[currentQuoteIndex]
@@ -83,36 +129,20 @@ struct HomeView: View {
             showRecordSheet = true
         } label: {
             ZStack {
-                // 外层旋转渐变光环
+                // 外层光晕
                 Circle()
-                    .fill(
-                        AngularGradient(
-                            gradient: Gradient(colors: [
-                                Color.brand,
-                                Color.brand.opacity(0.3),
-                                Color(.sRGB, red: 31/255, green: 180/255, blue: 42/255),
-                                Color.brand.opacity(0.3),
-                                Color.brand
-                            ]),
-                            center: .center
-                        )
-                    )
-                    .frame(width: 160, height: 160)
-                    .blur(radius: 1)
-                    .shadow(color: .brand.opacity(0.5), radius: 15, x: 0, y: -5)
-                    .shadow(color: Color(.sRGB, red: 31/255, green: 180/255, blue: 42/255).opacity(0.5), radius: 15, x: 0, y: 5)
-                    .rotationEffect(.degrees(isSpinning ? 360 : 0))
+                    .fill(Color.brand.opacity(0.12))
+                    .frame(width: 220, height: 220)
 
-                // 内层遮罩圆（形成环状效果）
+                // 主圆
                 Circle()
-                    .fill(Color.systemGroupedBackground)
-                    .frame(width: 120, height: 120)
-                    .blur(radius: 0.5)
+                    .fill(Color.brand)
+                    .frame(width: 180, height: 180)
+                    .shadow(color: .brand.opacity(0.3), radius: 20, x: 0, y: 10)
 
-                // 中心内容
                 VStack(spacing: 4) {
                     Text("忍一下")
-                        .font(.system(size: 28, weight: .bold))
+                        .font(.system(size: 32, weight: .bold))
                         .foregroundStyle(Color.brandDark)
                     Text("点击记录")
                         .font(.caption)
@@ -122,11 +152,23 @@ struct HomeView: View {
         }
         .buttonStyle(.plain)
         .padding(.vertical, 20)
-        .onAppear {
-            withAnimation(.linear(duration: 1.7).repeatForever(autoreverses: false)) {
-                isSpinning = true
-            }
+    }
+
+    // MARK: - 辅助方法
+    private func relativeTimeString(from date: Date) -> String {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.locale = Locale.current
+        formatter.unitsStyle = .short
+        return formatter.localizedString(for: date, relativeTo: Date())
+    }
+
+    private func savedAmountText(_ amount: Double) -> String {
+        let currencyCode = UserDefaults.standard.string(forKey: "currencyCode") ?? "auto"
+        let symbol = SupportedCurrency(rawValue: currencyCode)?.symbol ?? SupportedCurrency.systemSymbol
+        if amount.truncatingRemainder(dividingBy: 1) == 0 {
+            return "\(symbol)\(Int(amount))"
         }
+        return "\(symbol)\(String(format: "%.1f", amount))"
     }
 }
 

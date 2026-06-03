@@ -1,7 +1,7 @@
 {
   "sourceLanguage" : "zh-Hans",
   "strings" : {
-    "" : {
+    "·" : {
 
     },
     "%@" : {
@@ -46,9 +46,6 @@
         }
       }
     },
-    "%lld%%" : {
-
-    },
     "To Myself" : {
       "localizations" : {
         "en" : {
@@ -73,6 +70,50 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "緻自己"
+          }
+        }
+      }
+    },
+    "一次购买，终身使用" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One-time purchase, lifetime access"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "一度の購入で永久利用"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "一次購買，終身使用"
+          }
+        }
+      }
+    },
+    "上午" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Morning"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "午前"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "上午"
           }
         }
       }
@@ -297,6 +338,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "保存記錄"
+          }
+        }
+      }
+    },
+    "傍晚" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Late PM"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "夕方"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "傍晚"
           }
         }
       }
@@ -529,6 +592,28 @@
         }
       }
     },
+    "凌晨" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Early AM"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "深夜"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "凌晨"
+          }
+        }
+      }
+    },
     "分类分析" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -615,6 +700,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "前往系統設定更改語言"
+          }
+        }
+      }
+    },
+    "午前" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Late AM"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "昼前"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "午前"
           }
         }
       }
@@ -819,6 +926,29 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "週幾最克制"
+          }
+        }
+      }
+    },
+    "周几分布" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "By Weekday"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "曜日別"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "週幾分佈"
           }
         }
       }
@@ -1373,6 +1503,7 @@
       }
     },
     "早晨" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1872,6 +2003,7 @@
 
     },
     "深夜" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2381,6 +2513,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "英鎊 (£)"
+          }
+        }
+      }
+    },
+    "解锁全部高级统计" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlock All Advanced Stats"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すべての高度な統計をアンロック"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "解鎖全部高級統計"
           }
         }
       }

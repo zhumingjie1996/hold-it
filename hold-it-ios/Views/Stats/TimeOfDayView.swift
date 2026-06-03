@@ -11,18 +11,21 @@ struct TimeOfDayView: View {
     struct TimeSlot: Identifiable {
         let id = UUID()
         let label: LocalizedStringKey
+        let shortLabel: String  // 短标签用于圆环内显示（纯数字/符号，无国际化问题）
         let icon: String
-        let range: Range<Int> // hour range
+        let range: Range<Int>
         let color: Color
         var count: Int = 0
     }
 
     var slots: [TimeSlot] {
         var s = [
-            TimeSlot(label: "深夜", icon: "moon.stars.fill", range: 0..<6,   color: .indigo),
-            TimeSlot(label: "早晨", icon: "sunrise.fill",    range: 6..<12,  color: .orange),
-            TimeSlot(label: "下午", icon: "sun.max.fill",    range: 12..<18, color: .yellow),
-            TimeSlot(label: "晚上", icon: "moon.fill",       range: 18..<24, color: .purple),
+            TimeSlot(label: "凌晨", shortLabel: "0-6",   icon: "moon.stars.fill", range: 0..<6,   color: .indigo),
+            TimeSlot(label: "上午", shortLabel: "6-9",   icon: "sunrise.fill",    range: 6..<9,   color: .orange),
+            TimeSlot(label: "午前", shortLabel: "9-12",  icon: "sun.max.fill",    range: 9..<12,  color: .yellow),
+            TimeSlot(label: "下午", shortLabel: "12-15", icon: "sun.and.horizon.fill", range: 12..<15, color: .orange),
+            TimeSlot(label: "傍晚", shortLabel: "15-18", icon: "sunset.fill",     range: 15..<18, color: .pink),
+            TimeSlot(label: "晚上", shortLabel: "18-24", icon: "moon.fill",       range: 18..<24, color: .purple),
         ]
         let calendar = Calendar.current
         for record in records {
@@ -42,6 +45,12 @@ struct TimeOfDayView: View {
     var peakSlot: TimeSlot? {
         slots.max(by: { $0.count < $1.count }).flatMap { $0.count > 0 ? $0 : nil }
     }
+
+    private let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -67,40 +76,9 @@ struct TimeOfDayView: View {
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             } else {
-                VStack(spacing: 10) {
+                LazyVGrid(columns: columns, spacing: 12) {
                     ForEach(slots) { slot in
-                        let pct = total > 0 ? Double(slot.count) / Double(total) : 0
-                        HStack(spacing: 12) {
-                            Image(systemName: slot.icon)
-                                .font(.subheadline)
-                                .foregroundStyle(slot.color)
-                                .frame(width: 22)
-
-                            Text(slot.label)
-                                .font(.subheadline)
-                                .frame(width: 32, alignment: .leading)
-
-                            GeometryReader { geo in
-                                RoundedRectangle(cornerRadius: 4)
-                                    .fill(slot.color.opacity(0.15))
-                                    .overlay(alignment: .leading) {
-                                        RoundedRectangle(cornerRadius: 4)
-                                            .fill(slot.color)
-                                            .frame(width: max(geo.size.width * pct, pct > 0 ? 4 : 0))
-                                    }
-                            }
-                            .frame(height: 8)
-
-                            Text("\(slot.count)")
-                                .font(.caption.monospacedDigit())
-                                .foregroundStyle(.secondary)
-                                .frame(width: 24, alignment: .trailing)
-
-                            Text(pct > 0 ? "\(Int(pct * 100))%" : "")
-                                .font(.caption2)
-                                .foregroundStyle(.secondary)
-                                .frame(width: 28, alignment: .trailing)
-                        }
+                        slotCircle(slot: slot)
                     }
                 }
             }
@@ -108,5 +86,41 @@ struct TimeOfDayView: View {
         .padding(16)
         .background(Color.secondarySystemGroupedBackground)
         .cornerRadius(16)
+    }
+
+    // MARK: - 圆环 Slot
+    @ViewBuilder
+    private func slotCircle(slot: TimeSlot) -> some View {
+        let pct = total > 0 ? Double(slot.count) / Double(total) : 0
+        VStack(spacing: 6) {
+            ZStack {
+                // 底圆
+                Circle()
+                    .stroke(slot.color.opacity(0.15), lineWidth: 5)
+                    .frame(width: 52, height: 52)
+
+                // 进度圆
+                Circle()
+                    .trim(from: 0, to: pct)
+                    .stroke(slot.color, style: StrokeStyle(lineWidth: 5, lineCap: .round))
+                    .frame(width: 52, height: 52)
+                    .rotationEffect(.degrees(-90))
+
+                // 中心图标
+                Image(systemName: slot.icon)
+                    .font(.system(size: 16))
+                    .foregroundStyle(slot.color)
+            }
+
+            // 时间段短标签
+            Text(slot.shortLabel)
+                .font(.caption2.monospacedDigit())
+                .foregroundStyle(.secondary)
+
+            // 次数
+            Text("\(slot.count)")
+                .font(.caption.weight(.semibold).monospacedDigit())
+                .foregroundStyle(.primary)
+        }
     }
 }

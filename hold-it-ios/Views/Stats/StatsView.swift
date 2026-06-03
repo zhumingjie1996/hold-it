@@ -149,45 +149,187 @@ struct StatsView: View {
     }
 
     private var vipLockView: some View {
-        VStack(spacing: 16) {
-            lockedFeature(icon: "chart.pie.fill", title: "分类分析", description: "查看每个分类的克制次数")
-            lockedFeature(icon: "calendar", title: "热力图", description: "全年克制频率可视化")
-            lockedFeature(icon: "chart.line.uptrend.xyaxis", title: "月度趋势", description: "过去6个月的变化趋势")
-            lockedFeature(icon: "banknote.fill", title: "节省统计", description: "多维度节省金额分析")
+        VStack(spacing: 20) {
+            // 真实数据模糊预览
+            blurPreviewCard
+            
+            // 功能亮点卡片
+            featureHighlights
+            
+            // 升级 CTA
+            upgradeCTA
         }
     }
     
-    private func lockedFeature(icon: String, title: String, description: String) -> some View {
-        Button {
-            showVipAlert = true
-        } label: {
-            HStack(spacing: 14) {
-                Image(systemName: icon)
-                    .font(.title2)
-                    .foregroundStyle(.secondary)
-                    .frame(width: 40)
-                
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(title)
-                        .font(.subheadline.weight(.medium))
-                    Text(description)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+    // MARK: - 数据模糊预览
+    private var blurPreviewCard: some View {
+        VStack(spacing: 16) {
+            // 热力图预览（模糊）
+            VStack(alignment: .leading, spacing: 12) {
+                HStack {
+                    Image(systemName: "calendar")
+                        .foregroundStyle(Color.brand)
+                    Text("热力图")
+                        .font(.headline)
+                    Spacer()
                 }
                 
-                Spacer()
-                
-                Image(systemName: "lock.fill")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                // 生成模拟热力图格子
+                let cellSize: CGFloat = 14
+                let cellSpacing: CGFloat = 3
+                LazyVGrid(
+                    columns: Array(repeating: GridItem(.fixed(cellSize), spacing: cellSpacing), count: 12),
+                    spacing: cellSpacing
+                ) {
+                    ForEach(0..<84, id: \.self) { index in
+                        let level = [0, 0, 1, 2, 0, 3, 1, 0, 0, 2, 1, 0, 3, 2, 0, 1, 0, 0, 2, 3, 1, 0, 0, 1, 2, 0, 3, 1]
+                        let l = level[index % level.count]
+                        RoundedRectangle(cornerRadius: 2)
+                            .fill(l == 0 ? Color.systemGray5 : Color.brand.opacity(Double(l) * 0.25))
+                            .frame(width: cellSize, height: cellSize)
+                    }
+                }
             }
             .padding(16)
+            .frame(maxWidth: .infinity, alignment: .leading)
             .background(Color.secondarySystemGroupedBackground)
             .cornerRadius(16)
             .overlay(
                 RoundedRectangle(cornerRadius: 16)
-                    .fill(Color.systemBackground.opacity(0.4))
+                    .fill(Color.systemBackground.opacity(0.6))
             )
+            .blur(radius: 3)
+            .allowsHitTesting(false)
+            
+            // 分类统计预览（模糊）
+            VStack(alignment: .leading, spacing: 12) {
+                HStack {
+                    Image(systemName: "chart.pie.fill")
+                        .foregroundStyle(Color.brand)
+                    Text("分类统计")
+                        .font(.headline)
+                    Spacer()
+                }
+                
+                VStack(spacing: 8) {
+                    ForEach([0.65, 0.4, 0.25], id: \.self) { pct in
+                        GeometryReader { geo in
+                            RoundedRectangle(cornerRadius: 4)
+                                .fill(Color.brand.opacity(0.15))
+                                .overlay(alignment: .leading) {
+                                    RoundedRectangle(cornerRadius: 4)
+                                        .fill(Color.brand)
+                                        .frame(width: geo.size.width * pct)
+                                }
+                        }
+                        .frame(height: 8)
+                    }
+                }
+            }
+            .padding(16)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Color.secondarySystemGroupedBackground)
+            .cornerRadius(16)
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color.systemBackground.opacity(0.6))
+            )
+            .blur(radius: 3)
+            .allowsHitTesting(false)
+            
+            // 月度趋势预览（模糊）
+            VStack(alignment: .leading, spacing: 12) {
+                HStack {
+                    Image(systemName: "chart.line.uptrend.xyaxis")
+                        .foregroundStyle(Color.brand)
+                    Text("月度趋势")
+                        .font(.headline)
+                    Spacer()
+                }
+                
+                HStack(alignment: .bottom, spacing: 8) {
+                    ForEach([0.3, 0.5, 0.4, 0.7, 0.6, 0.9], id: \.self) { pct in
+                        RoundedRectangle(cornerRadius: 4)
+                            .fill(Color.brand)
+                            .frame(width: 28, height: max(CGFloat(pct) * 80, 4))
+                    }
+                }
+                .frame(height: 90)
+            }
+            .padding(16)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Color.secondarySystemGroupedBackground)
+            .cornerRadius(16)
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color.systemBackground.opacity(0.6))
+            )
+            .blur(radius: 3)
+            .allowsHitTesting(false)
+        }
+    }
+    
+    // MARK: - 功能亮点
+    private var featureHighlights: some View {
+        VStack(spacing: 12) {
+            HStack(spacing: 12) {
+                highlightItem(icon: "chart.pie.fill", title: "分类分析", color: .brand)
+                highlightItem(icon: "calendar", title: "热力图", color: .orange)
+            }
+            HStack(spacing: 12) {
+                highlightItem(icon: "chart.line.uptrend.xyaxis", title: "月度趋势", color: .blue)
+                highlightItem(icon: "banknote.fill", title: "节省统计", color: .green)
+            }
+            HStack(spacing: 12) {
+                highlightItem(icon: "clock.badge.fill", title: "时段分析", color: .purple)
+                highlightItem(icon: "calendar.badge.clock", title: "周几分布", color: .pink)
+            }
+        }
+    }
+    
+    private func highlightItem(icon: String, title: String, color: Color) -> some View {
+        HStack(spacing: 8) {
+            Image(systemName: icon)
+                .font(.subheadline)
+                .foregroundStyle(color)
+                .frame(width: 24)
+            Text(title)
+                .font(.subheadline.weight(.medium))
+            Spacer()
+        }
+        .padding(12)
+        .background(color.opacity(0.08))
+        .cornerRadius(12)
+    }
+    
+    // MARK: - 升级 CTA
+    private var upgradeCTA: some View {
+        Button {
+            showVipAlert = true
+        } label: {
+            VStack(spacing: 8) {
+                HStack(spacing: 6) {
+                    Image(systemName: "crown.fill")
+                        .foregroundStyle(.yellow)
+                    Text("解锁全部高级统计")
+                        .font(.headline)
+                        .foregroundStyle(.white)
+                }
+                Text("一次购买，终身使用")
+                    .font(.caption)
+                    .foregroundStyle(.white.opacity(0.8))
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 16)
+            .background(
+                LinearGradient(
+                    colors: [Color.brand, Color.brandDark],
+                    startPoint: .leading,
+                    endPoint: .trailing
+                )
+            )
+            .cornerRadius(16)
+            .shadow(color: .brand.opacity(0.3), radius: 12, x: 0, y: 6)
         }
         .buttonStyle(.plain)
     }
