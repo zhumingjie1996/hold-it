@@ -15,6 +15,18 @@ class AppState {
         let startOfDay = calendar.startOfDay(for: Date())
         return records.filter { $0.createdAt >= startOfDay }.count
     }
+
+    func thisWeekCount(from records: [ResistRecord]) -> Int {
+        let calendar = Calendar.current
+        guard let startOfWeek = calendar.dateInterval(of: .weekOfYear, for: Date())?.start else { return 0 }
+        return records.filter { $0.createdAt >= startOfWeek }.count
+    }
+
+    func thisMonthCount(from records: [ResistRecord]) -> Int {
+        let calendar = Calendar.current
+        guard let startOfMonth = calendar.dateInterval(of: .month, for: Date())?.start else { return 0 }
+        return records.filter { $0.createdAt >= startOfMonth }.count
+    }
     
     func streakDays(from records: [ResistRecord]) -> Int {
         guard !records.isEmpty else { return 0 }
@@ -37,6 +49,25 @@ class AppState {
         }
         
         return streak
+    }
+
+    func bestStreak(from records: [ResistRecord]) -> Int {
+        guard !records.isEmpty else { return 0 }
+        let calendar = Calendar.current
+        let dateSet = Set(records.map { calendar.startOfDay(for: $0.createdAt) })
+        let sortedDates = dateSet.sorted()
+        var best = 1
+        var current = 1
+        for i in 1..<sortedDates.count {
+            let diff = calendar.dateComponents([.day], from: sortedDates[i - 1], to: sortedDates[i]).day ?? 0
+            if diff == 1 {
+                current += 1
+                best = max(best, current)
+            } else {
+                current = 1
+            }
+        }
+        return best
     }
     
     func totalCount(from records: [ResistRecord]) -> Int {

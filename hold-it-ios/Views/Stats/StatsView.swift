@@ -75,31 +75,25 @@ struct StatsView: View {
     }
     
     private var basicStats: some View {
-        HStack(spacing: 12) {
-            BasicStatBox(
-                title: "累计忍住",
-                value: "\(appState.totalCount(from: records))",
-                unit: "次",
-                color: .brand
-            )
-            BasicStatBox(
-                title: "今天",
-                value: "\(appState.todayCount(from: records))",
-                unit: "次",
-                color: .green
-            )
-            BasicStatBox(
-                title: "连续记录",
-                value: "\(appState.streakDays(from: records))",
-                unit: "天",
-                color: .orange
-            )
+        VStack(spacing: 10) {
+            HStack(spacing: 10) {
+                BasicStatBox(title: "累计忍住", value: "\(appState.totalCount(from: records))", unit: "次", color: .brand)
+                BasicStatBox(title: "本月", value: "\(appState.thisMonthCount(from: records))", unit: "次", color: .purple)
+                BasicStatBox(title: "本周", value: "\(appState.thisWeekCount(from: records))", unit: "次", color: .blue)
+            }
+            HStack(spacing: 10) {
+                BasicStatBox(title: "今天", value: "\(appState.todayCount(from: records))", unit: "次", color: .green)
+                BasicStatBox(title: "连续记录", value: "\(appState.streakDays(from: records))", unit: "天", color: .orange)
+                BasicStatBox(title: "最长连续", value: "\(appState.bestStreak(from: records))", unit: "天", color: .red)
+            }
         }
     }
     
     private var vipContent: some View {
         VStack(spacing: 20) {
             CategoryStatsView(records: records)
+            WeekdayDistributionView(records: records)
+            TimeOfDayView(records: records)
             HeatmapView(records: records)
             MonthlyTrendView(records: records)
             

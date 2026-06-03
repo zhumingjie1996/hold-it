@@ -36,6 +36,22 @@ struct MonthlyTrendView: View {
         max(monthlyData.map { $0.1 }.max() ?? 1, 1)
     }
 
+    // 本月 vs 上月对比
+    var trendInfo: (symbol: String, color: Color, text: String)? {
+        guard monthlyData.count >= 2 else { return nil }
+        let thisMonth = monthlyData[monthlyData.count - 1].1
+        let lastMonth = monthlyData[monthlyData.count - 2].1
+        guard lastMonth > 0 else { return nil }
+        let diff = thisMonth - lastMonth
+        if diff > 0 {
+            return ("arrow.up", .green, "+\(diff)")
+        } else if diff < 0 {
+            return ("arrow.down", .red, "\(diff)")
+        } else {
+            return ("minus", .secondary, "持平")
+        }
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
@@ -44,6 +60,19 @@ struct MonthlyTrendView: View {
                 Text("月度趋势")
                     .font(.headline)
                 Spacer()
+                if let trend = trendInfo {
+                    HStack(spacing: 3) {
+                        Image(systemName: trend.symbol)
+                            .font(.caption2)
+                        Text(trend.text)
+                            .font(.caption)
+                    }
+                    .foregroundStyle(trend.color)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 3)
+                    .background(trend.color.opacity(0.1))
+                    .cornerRadius(6)
+                }
             }
 
             if records.isEmpty {
