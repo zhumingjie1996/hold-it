@@ -6,15 +6,61 @@
 import SwiftUI
 import StoreKit
 
+enum ThemeMode: Int, CaseIterable {
+    case system = 0
+    case light = 1
+    case dark = 2
+
+    var label: String {
+        switch self {
+        case .system: return "跟随系统"
+        case .light: return "浅色"
+        case .dark: return "深色"
+        }
+    }
+
+    var icon: String {
+        switch self {
+        case .system: return "circle.lefthalf.filled"
+        case .light: return "sun.max.fill"
+        case .dark: return "moon.fill"
+        }
+    }
+
+    var colorScheme: ColorScheme? {
+        switch self {
+        case .system: return nil
+        case .light: return .light
+        case .dark: return .dark
+        }
+    }
+}
+
 struct SettingsView: View {
     @Environment(StoreManager.self) private var storeManager
+    @AppStorage("themeMode") private var themeModeRaw: Int = 0
     @State private var showRestoreAlert = false
     @State private var restoreSuccess = false
+
+    private var themeMode: ThemeMode {
+        ThemeMode(rawValue: themeModeRaw) ?? .system
+    }
 
     var body: some View {
         NavigationStack {
             List {
                 vipSection
+
+                Section("外观") {
+                    Picker(selection: $themeModeRaw) {
+                        ForEach(ThemeMode.allCases, id: \.rawValue) { mode in
+                            Label(mode.label, systemImage: mode.icon)
+                                .tag(mode.rawValue)
+                        }
+                    } label: {
+                        Label("主题", systemImage: "paintbrush.fill")
+                    }
+                }
 
                 Section("关于") {
                     NavigationLink("关于忍一下") {

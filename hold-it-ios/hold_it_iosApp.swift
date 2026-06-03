@@ -13,12 +13,18 @@ import UIKit
 struct hold_it_iosApp: App {
     @State private var appState = AppState()
     @State private var storeManager = StoreManager()
+    @AppStorage("themeMode") private var themeModeRaw: Int = 0
+
+    private var themeMode: ThemeMode {
+        ThemeMode(rawValue: themeModeRaw) ?? .system
+    }
 
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environment(appState)
                 .environment(storeManager)
+                .preferredColorScheme(themeMode.colorScheme)
         }
         .modelContainer(for: ResistRecord.self)
     }
