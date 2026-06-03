@@ -176,7 +176,7 @@ struct HomeView: View {
         logoIdleTask = Task {
             while !Task.isCancelled {
                 // 随机间隔 8~15 秒
-                let interval = Double.random(in: 8...15)
+                let interval = Double.random(in: 5...8)
                 try? await Task.sleep(for: .seconds(interval))
                 guard !Task.isCancelled else { return }
                 guard !logoTapLocked else { continue }
