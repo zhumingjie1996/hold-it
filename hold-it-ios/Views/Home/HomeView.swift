@@ -62,6 +62,7 @@ struct HomeView: View {
                     color: .brand,
                     showArrow: true
                 )
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             .buttonStyle(.plain)
 
@@ -76,6 +77,7 @@ struct HomeView: View {
                     color: .green,
                     showArrow: true
                 )
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             .buttonStyle(.plain)
         }
