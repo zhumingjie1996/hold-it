@@ -17,7 +17,6 @@ struct HomeView: View {
                 VStack(spacing: 24) {
                     statsCards
                     mainButton
-                    recentRecords
                 }
                 .padding(.horizontal, 20)
                 .padding(.vertical, 16)
@@ -90,34 +89,6 @@ struct HomeView: View {
         }
         .buttonStyle(.plain)
         .padding(.vertical, 20)
-    }
-    
-    private var recentRecords: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                Text("最近记录")
-                    .font(.headline)
-                Spacer()
-                if records.count > 3 {
-                    Text("共 \(records.count) 条")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-            }
-            
-            if records.isEmpty {
-                ContentUnavailableView {
-                    Label("暂无记录", systemImage: "doc.text")
-                } description: {
-                    Text("点击上方按钮，记录你忍住的小事")
-                }
-                .padding(.vertical, 20)
-            } else {
-                ForEach(records.prefix(3)) { record in
-                    RecordRow(record: record)
-                }
-            }
-        }
     }
 }
 

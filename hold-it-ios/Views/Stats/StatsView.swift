@@ -16,6 +16,7 @@ struct StatsView: View {
             ScrollView {
                 VStack(spacing: 20) {
                     basicStats
+                    recordsTimeline
                     
                     if storeManager.isVip {
                         vipContent
@@ -29,6 +30,37 @@ struct StatsView: View {
             .background(Color.systemGroupedBackground)
             .navigationTitle("统计")
         }
+    }
+
+    private var recordsTimeline: some View {
+        NavigationLink {
+            RecordsListView()
+        } label: {
+            HStack(spacing: 14) {
+                Image(systemName: "clock.fill")
+                    .font(.title2)
+                    .foregroundStyle(.secondary)
+                    .frame(width: 40)
+
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("全部记录")
+                        .font(.subheadline.weight(.medium))
+                    Text(records.isEmpty ? "暂无记录" : "共 \(records.count) 条克制记录")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+
+                Spacer()
+
+                Image(systemName: "chevron.right")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+            .padding(16)
+            .background(Color.secondarySystemGroupedBackground)
+            .cornerRadius(16)
+        }
+        .buttonStyle(.plain)
     }
     
     private var basicStats: some View {
