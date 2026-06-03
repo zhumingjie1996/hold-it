@@ -10,6 +10,7 @@ struct HomeView: View {
     @Environment(AppState.self) private var appState
     @Query(sort: \ResistRecord.createdAt, order: .reverse) private var records: [ResistRecord]
     @State private var showRecordSheet = false
+    @State private var currentQuoteIndex: Int = EncourageQuote.todayIndex()
     
     var body: some View {
         NavigationStack {
@@ -17,6 +18,7 @@ struct HomeView: View {
                 VStack(spacing: 24) {
                     statsCards
                     mainButton
+                    encourageCard
                 }
                 .padding(.horizontal, 20)
                 .padding(.vertical, 16)
@@ -89,6 +91,45 @@ struct HomeView: View {
         }
         .buttonStyle(.plain)
         .padding(.vertical, 20)
+    }
+
+    // MARK: - 鼓励卡片
+    private var encourageCard: some View {
+        let quote = EncourageQuote.allQuotes[currentQuoteIndex]
+        return VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Text("To Myself")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Color.brandDark.opacity(0.7))
+                Spacer()
+                Button {
+                    withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) {
+                        currentQuoteIndex = EncourageQuote.randomIndex(excluding: currentQuoteIndex)
+                    }
+                } label: {
+                    Image(systemName: "arrow.clockwise")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
+
+            ZStack(alignment: .bottomTrailing) {
+                Text(quote)
+                    .font(.body)
+                    .foregroundStyle(.primary.opacity(0.85))
+                    .lineSpacing(4)
+
+                Text("\"")
+                    .font(.system(size: 40, weight: .bold))
+                    .foregroundStyle(Color.brand.opacity(0.15))
+                    .offset(x: 4, y: -8)
+            }
+        }
+        .padding(20)
+        .background(Color.secondarySystemGroupedBackground)
+        .cornerRadius(16)
+        .id(currentQuoteIndex)
+        .transition(.opacity.combined(with: .move(edge: .trailing)))
     }
 }
 
