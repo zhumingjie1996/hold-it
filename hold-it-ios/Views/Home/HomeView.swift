@@ -215,6 +215,10 @@ struct HomeView: View {
 
     // MARK: - 辅助方法
     private func relativeTimeString(from date: Date) -> String {
+        let interval = Date().timeIntervalSince(date)
+        if interval < 60 {
+            return String(localized: "刚刚")
+        }
         let formatter = RelativeDateTimeFormatter()
         formatter.locale = Locale.current
         formatter.unitsStyle = .short

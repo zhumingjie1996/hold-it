@@ -73,6 +73,7 @@ struct RecordSheet: View {
                 .padding(.horizontal, 20)
                 .padding(.top, 16)
             }
+            .scrollDismissesKeyboard(.interactively)
             .navigationTitle("你忍住了什么？")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
@@ -520,6 +521,7 @@ struct AddCategorySheet: View {
                 Text("非会员最多添加3个自定义忍住项，解锁后可无限添加。")
             }
         }
+        .scrollDismissesKeyboard(.interactively)
         .onAppear {
             if let editing = editingCategory {
                 emoji = editing.emoji
