@@ -15,13 +15,13 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 24) {
+                VStack(spacing: 12) {
                     statsCards
-                    mainButton
                     encourageCard
+                    mainButton
                 }
                 .padding(.horizontal, 20)
-                .padding(.vertical, 16)
+                .padding(.vertical, 12)
             }
             .background(Color.systemGroupedBackground)
             .navigationTitle("忍一下")
@@ -48,6 +48,31 @@ struct HomeView: View {
                 color: .orange
             )
         }
+    }
+    
+    // MARK: - 鼓励卡片
+    private var encourageCard: some View {
+        let quote = EncourageQuote.allQuotes[currentQuoteIndex]
+        return VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 4) {
+                Image(systemName: "quote.opening")
+                    .foregroundStyle(Color.brand.opacity(1))
+                Text("To Myself")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Color.brandDark.opacity(1))
+            }
+        
+            Text(quote)
+                .font(.footnote)
+                .foregroundStyle(.primary.opacity(0.6))
+                .lineSpacing(3)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(16)
+        .background(Color.secondarySystemGroupedBackground)
+        .cornerRadius(16)
+        .id(currentQuoteIndex)
+        .transition(.opacity.combined(with: .move(edge: .trailing)))
     }
     
     private var mainButton: some View {
@@ -91,45 +116,6 @@ struct HomeView: View {
         }
         .buttonStyle(.plain)
         .padding(.vertical, 20)
-    }
-
-    // MARK: - 鼓励卡片
-    private var encourageCard: some View {
-        let quote = EncourageQuote.allQuotes[currentQuoteIndex]
-        return VStack(alignment: .leading, spacing: 12) {
-            HStack {
-                Text("To Myself")
-                    .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(Color.brandDark.opacity(0.7))
-                Spacer()
-                Button {
-                    withAnimation(.spring(response: 0.35, dampingFraction: 0.7)) {
-                        currentQuoteIndex = EncourageQuote.randomIndex(excluding: currentQuoteIndex)
-                    }
-                } label: {
-                    Image(systemName: "arrow.clockwise")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-            }
-
-            ZStack(alignment: .bottomTrailing) {
-                Text(quote)
-                    .font(.body)
-                    .foregroundStyle(.primary.opacity(0.85))
-                    .lineSpacing(4)
-
-                Text("\"")
-                    .font(.system(size: 40, weight: .bold))
-                    .foregroundStyle(Color.brand.opacity(0.15))
-                    .offset(x: 4, y: -8)
-            }
-        }
-        .padding(20)
-        .background(Color.secondarySystemGroupedBackground)
-        .cornerRadius(16)
-        .id(currentQuoteIndex)
-        .transition(.opacity.combined(with: .move(edge: .trailing)))
     }
 }
 
