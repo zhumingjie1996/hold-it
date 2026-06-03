@@ -409,7 +409,7 @@
         }
       }
     },
-    "克制项名称" : {
+    "忍住项名称" : {
 
     },
     "全年克制频率可视化" : {
@@ -748,7 +748,7 @@
         }
       }
     },
-    "删除克制项" : {
+    "删除忍住项" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -765,7 +765,7 @@
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "刪除克制項"
+            "value" : "刪除忍住項"
           }
         }
       }
@@ -1636,7 +1636,7 @@
         }
       }
     },
-    "新增克制项" : {
+    "新增忍住项" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1653,7 +1653,7 @@
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "新增克制項"
+            "value" : "新增忍住項"
           }
         }
       }
@@ -2670,7 +2670,7 @@
         }
       }
     },
-    "编辑克制项" : {
+    "编辑忍住项" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2687,7 +2687,7 @@
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "編輯克制項"
+            "value" : "編輯忍住項"
           }
         }
       }
@@ -3166,7 +3166,7 @@
         }
       }
     },
-    "非会员最多添加 3 个自定义克制项，解锁后可无限添加。" : {
+    "非会员最多添加3个自定义忍住项，解锁后可无限添加。" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -3183,7 +3183,7 @@
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "非會員最多添加 3 個自定義克制項，解鎖後可無限添加。"
+            "value" : "非會員最多添加3個自定義忍住項，解鎖後可無限添加。"
           }
         }
       }

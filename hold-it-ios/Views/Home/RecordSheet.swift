@@ -60,7 +60,7 @@ struct RecordSheet: View {
         .sheet(item: $editingCategory) { custom in
             AddCategorySheet(editingCategory: custom)
         }
-        .alert("删除克制项", isPresented: $showDeleteAlert) {
+        .alert("删除忍住项", isPresented: $showDeleteAlert) {
             Button("删除", role: .destructive) {
                 deleteCategory()
             }
@@ -78,7 +78,7 @@ struct RecordSheet: View {
             }
             Button("暂不需要", role: .cancel) { }
         } message: {
-            Text("非会员最多添加 3 个自定义克制项，解锁后可无限添加。")
+            Text("非会员最多添加3个自定义忍住项，解锁后可无限添加。")
         }
         .onAppear {
             updateAmountText(for: selectedCategory)
@@ -424,7 +424,7 @@ struct AddCategorySheet: View {
                 Section("基本信息") {
                     HStack {
                         Text("名称")
-                        TextField("克制项名称", text: $name)
+                        TextField("忍住项名称", text: $name)
                             .multilineTextAlignment(.trailing)
                     }
 
@@ -445,7 +445,7 @@ struct AddCategorySheet: View {
                     }
                 }
             }
-            .navigationTitle(isEditing ? "编辑克制项" : "新增克制项")
+            .navigationTitle(isEditing ? "编辑忍住项" : "新增忍住项")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -465,7 +465,7 @@ struct AddCategorySheet: View {
                 }
                 Button("暂不需要", role: .cancel) { }
             } message: {
-                Text("非会员最多添加 3 个自定义克制项，解锁后可无限添加。")
+                Text("非会员最多添加3个自定义忍住项，解锁后可无限添加。")
             }
         }
         .onAppear {

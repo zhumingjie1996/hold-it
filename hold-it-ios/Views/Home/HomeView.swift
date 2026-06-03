@@ -13,6 +13,8 @@ struct HomeView: View {
     @State private var showRecordSheet = false
     @State private var currentQuoteIndex: Int = EncourageQuote.todayIndex()
     @State private var showCelebration = false
+    @State private var carouselIndex: Int = 0
+    @State private var carouselTask: Task<Void, Never>?
 
     
     var body: some View {
@@ -69,22 +71,23 @@ struct HomeView: View {
         }
     }
     
-    // MARK: - 最近克制
+    // MARK: - 最近克制轮播
     private var lastRecordCard: some View {
         Group {
-            if let last = records.first {
+            if !records.isEmpty {
+                let record = records[carouselIndex % records.count]
                 HStack(spacing: 12) {
-                    Text(last.categoryEmoji)
+                    Text(record.categoryEmoji)
                         .font(.title)
 
                     VStack(alignment: .leading, spacing: 2) {
-                        Text(last.category)
+                        Text(record.category)
                             .font(.subheadline.weight(.medium))
                         HStack(spacing: 4) {
-                            Text(relativeTimeString(from: last.createdAt))
+                            Text(relativeTimeString(from: record.createdAt))
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
-                            if let amount = last.amount, amount > 0 {
+                            if let amount = record.amount, amount > 0 {
                                 Text("·")
                                     .font(.caption)
                                     .foregroundStyle(.secondary)
@@ -93,8 +96,8 @@ struct HomeView: View {
                                     .foregroundStyle(Color.brand)
                             }
                         }
-                        if !last.note.isEmpty {
-                            Text(last.note)
+                        if !record.note.isEmpty {
+                            Text(record.note)
                                 .font(.caption)
                                 .foregroundStyle(.secondary.opacity(0.8))
                                 .lineLimit(1)
@@ -110,6 +113,34 @@ struct HomeView: View {
                 .padding(16)
                 .background(Color.secondarySystemGroupedBackground)
                 .cornerRadius(16)
+                .id(carouselIndex)
+                .transition(.asymmetric(
+                    insertion: .move(edge: .trailing).combined(with: .opacity),
+                    removal: .move(edge: .leading).combined(with: .opacity)
+                ))
+                .animation(.easeInOut(duration: 0.4), value: carouselIndex)
+            }
+        }
+        .onAppear {
+            startCarousel()
+        }
+        .onChange(of: records.count) { _, _ in
+            // 新增记录时重置轮播
+            carouselIndex = 0
+            startCarousel()
+        }
+    }
+
+    private func startCarousel() {
+        carouselTask?.cancel()
+        guard records.count > 1 else { return }
+        carouselTask = Task {
+            while !Task.isCancelled {
+                try? await Task.sleep(for: .seconds(5))
+                guard !Task.isCancelled else { return }
+                withAnimation {
+                    carouselIndex = (carouselIndex + 1) % records.count
+                }
             }
         }
     }
