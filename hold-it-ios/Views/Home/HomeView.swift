@@ -149,6 +149,34 @@ struct HomeView: View {
         }
     }
 
+    // MARK: - Logo 摇动动画
+    private func wiggleLogo() {
+        withAnimation(.spring(response: 0.3, dampingFraction: 0.3)) {
+            logoRotation = -8
+            logoScale = 0.9
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+            withAnimation(.spring(response: 0.4, dampingFraction: 0.4)) {
+                logoRotation = 12
+                logoScale = 1.0
+            }
+        }
+    }
+
+    private func startLogoIdleAnimation() {
+        logoIdleTask?.cancel()
+        logoIdleTask = Task {
+            while !Task.isCancelled {
+                // 随机间隔 8~15 秒
+                let interval = Double.random(in: 8...15)
+                try? await Task.sleep(for: .seconds(interval))
+                guard !Task.isCancelled else { return }
+                guard !logoTapLocked else { continue }
+                wiggleLogo()
+            }
+        }
+    }
+
     // MARK: - 鼓励卡片
     private var encourageCard: some View {
         let quote = EncourageQuote.allQuotes[currentQuoteIndex]
@@ -188,16 +216,7 @@ struct HomeView: View {
                     guard !logoTapLocked else { return }
                     logoTapLocked = true
                     UIImpactFeedbackGenerator(style: .medium).impactOccurred()
-                    withAnimation(.spring(response: 0.3, dampingFraction: 0.3)) {
-                        logoRotation = -8
-                        logoScale = 0.9
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-                        withAnimation(.spring(response: 0.4, dampingFraction: 0.4)) {
-                            logoRotation = 12
-                            logoScale = 1.0
-                        }
-                    }
+                    wiggleLogo()
                     withAnimation(.easeInOut(duration: 0.3)) {
                         currentQuoteIndex = EncourageQuote.randomIndex(excluding: currentQuoteIndex)
                     }
@@ -205,6 +224,8 @@ struct HomeView: View {
                         logoTapLocked = false
                     }
                 }
+                .onAppear { startLogoIdleAnimation() }
+                .onDisappear { logoIdleTask?.cancel() }
         }
     }
     
