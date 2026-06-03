@@ -6,8 +6,8 @@
 import Foundation
 
 extension EncourageQuote {
-    /// 所有鼓励语（约 300 条）
-    static let allQuotes: [String] = [
+    /// 简体中文鼓励语（约 300 条）
+    static let zhHansQuotes: [String] = [
         // — 克制与自律 —
         "每一次克制，都是对自己的一次胜利",
         "忍住的不是欲望，是通往更好自己的路",

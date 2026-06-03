@@ -7,6 +7,21 @@ import Foundation
 
 struct EncourageQuote {
 
+    /// 根据当前语言返回对应鼓励语数组
+    static var allQuotes: [String] {
+        let locale = Locale.current
+        let langCode = locale.language.languageCode?.identifier ?? ""
+        let script = locale.language.script?.identifier ?? ""
+
+        if langCode == "en" { return enQuotes }
+        if langCode == "ja" { return jaQuotes }
+        if langCode == "zh" {
+            if script == "Hant" { return zhHantQuotes }
+            return zhHansQuotes
+        }
+        return zhHansQuotes // 默认简体中文
+    }
+
     /// 总数
     static var count: Int { allQuotes.count }
 
