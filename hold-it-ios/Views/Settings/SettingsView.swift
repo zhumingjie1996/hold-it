@@ -205,9 +205,11 @@ struct AboutView: View {
         List {
             Section {
                 VStack(spacing: 16) {
-                    Image(systemName: "hand.raised.fill")
-                        .font(.system(size: 60))
-                        .foregroundStyle(Color.brand)
+                    Image("AppLogo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 80, height: 80)
+                        .clipShape(RoundedRectangle(cornerRadius: 18))
 
                     Text("忍一下")
                         .font(.title.weight(.bold))
