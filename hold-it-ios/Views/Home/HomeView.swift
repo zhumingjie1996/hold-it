@@ -316,6 +316,8 @@ struct StatCard: View {
             HStack(alignment: .lastTextBaseline, spacing: 2) {
                 Text(value)
                     .font(.system(size: 32, weight: .bold))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
                 Text(unit)
                     .font(.caption)
                     .foregroundStyle(.secondary)
