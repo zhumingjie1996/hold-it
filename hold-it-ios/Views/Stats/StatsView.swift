@@ -12,6 +12,44 @@ struct StatsView: View {
     @Query(sort: \ResistRecord.createdAt, order: .reverse) private var records: [ResistRecord]
     @AppStorage("currencyCode") private var currencyCode: String = "auto"
     @State private var showVipAlert = false
+    @AppStorage("statsModuleOrder") private var moduleOrderData: Data = Data()
+    @State private var showSortSheet = false
+
+    private var moduleOrder: [String] {
+        get { (try? JSONDecoder().decode([String].self, from: moduleOrderData)) ?? [] }
+    }
+    private func saveModuleOrder(_ names: [String]) {
+        moduleOrderData = (try? JSONEncoder().encode(names)) ?? Data()
+    }
+
+    /// 默认模块顺序
+    private let defaultModuleOrder = [
+        "savedAmount", "category", "weekday", "timeOfDay", "heatmap", "monthlyTrend"
+    ]
+
+    /// 按用户排序返回模块 ID 列表
+    private var orderedModules: [String] {
+        let order = moduleOrder.isEmpty ? defaultModuleOrder : moduleOrder
+        var sorted: [String] = []
+        for id in order {
+            if defaultModuleOrder.contains(id) { sorted.append(id) }
+        }
+        for id in defaultModuleOrder where !sorted.contains(id) { sorted.append(id) }
+        return sorted
+    }
+
+    @ViewBuilder
+    private func moduleView(for id: String) -> some View {
+        switch id {
+        case "savedAmount": savedAmountEntry
+        case "category": CategoryStatsView(records: records)
+        case "weekday": WeekdayDistributionView(records: records)
+        case "timeOfDay": TimeOfDayView(records: records)
+        case "heatmap": HeatmapView(records: records)
+        case "monthlyTrend": MonthlyTrendView(records: records)
+        default: EmptyView()
+        }
+    }
     
     var body: some View {
         NavigationStack {
@@ -57,9 +95,15 @@ struct StatsView: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Text("全部记录")
                         .font(.subheadline.weight(.medium))
-                    Text(records.isEmpty ? "暂无记录" : "共 \(records.count) 条克制记录")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                    if records.isEmpty {
+                        Text("暂无记录")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    } else {
+                        Text("共 \(records.count) 条克制记录")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
                 }
 
                 Spacer()
@@ -92,12 +136,29 @@ struct StatsView: View {
     
     private var vipContent: some View {
         VStack(spacing: 20) {
-            savedAmountEntry
-            CategoryStatsView(records: records)
-            WeekdayDistributionView(records: records)
-            TimeOfDayView(records: records)
-            HeatmapView(records: records)
-            MonthlyTrendView(records: records)
+            ForEach(orderedModules, id: \.self) { moduleId in
+                moduleView(for: moduleId)
+            }
+
+            // 排序按钮
+            Button {
+                showSortSheet = true
+            } label: {
+                HStack(spacing: 6) {
+                    Image(systemName: "arrow.up.arrow.down")
+                    Text("排序")
+                }
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .background(Color.secondarySystemGroupedBackground)
+                .cornerRadius(20)
+            }
+            .buttonStyle(.plain)
+        }
+        .sheet(isPresented: $showSortSheet) {
+            StatsSortSheet(modules: orderedModules, onSave: saveModuleOrder)
         }
     }
     
@@ -357,5 +418,63 @@ struct BasicStatBox: View {
         .padding(.vertical, 16)
         .background(Color.secondarySystemGroupedBackground)
         .cornerRadius(16)
+    }
+}
+
+// MARK: - 统计模块排序 Sheet
+struct StatsSortSheet: View {
+    let modules: [String]
+    let onSave: ([String]) -> Void
+
+    @Environment(\.dismiss) private var dismiss
+    @State private var items: [String] = []
+
+    private let moduleInfo: [String: (icon: String, name: String)] = [
+        "savedAmount": ("banknote.fill", "节省统计"),
+        "category": ("chart.pie.fill", "分类统计"),
+        "weekday": ("calendar.badge.clock", "周几分布"),
+        "timeOfDay": ("clock.badge.fill", "时段分析"),
+        "heatmap": ("calendar", "热力图"),
+        "monthlyTrend": ("chart.line.uptrend.xyaxis", "月度趋势"),
+    ]
+
+    var body: some View {
+        NavigationStack {
+            List {
+                ForEach(items, id: \.self) { moduleId in
+                    HStack(spacing: 12) {
+                        Image(systemName: moduleInfo[moduleId]?.icon ?? "square")
+                            .foregroundStyle(.brand)
+                            .frame(width: 24)
+                        Text(moduleInfo[moduleId]?.name ?? moduleId)
+                            .font(.subheadline)
+                        Spacer()
+                        Image(systemName: "line.3.horizontal")
+                            .foregroundStyle(.tertiary)
+                    }
+                    .padding(.vertical, 4)
+                }
+                .onMove { from, to in
+                    items.move(fromOffsets: from, toOffset: to)
+                }
+            }
+            .navigationTitle("模块排序")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("取消") { dismiss() }
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("完成") {
+                        onSave(items)
+                        dismiss()
+                    }
+                    .fontWeight(.semibold)
+                }
+            }
+        }
+        .onAppear {
+            items = modules
+        }
     }
 }

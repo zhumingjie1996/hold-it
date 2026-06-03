@@ -8,7 +8,7 @@ import StoreKit
 
 @Observable
 class StoreManager {
-    var isVip: Bool = false // TODO: 模拟付费成功，真实对接时改回 false
+    var isVip: Bool = true // TODO: 模拟付费成功，真实对接时改回 false
     var product: Product?
     
     private let productID = "lifetime_vip"

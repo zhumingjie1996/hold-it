@@ -261,9 +261,9 @@ struct HomeView: View {
 }
 
 struct StatCard: View {
-    let title: String
+    let title: LocalizedStringKey
     let value: String
-    let unit: String
+    let unit: LocalizedStringKey
     let icon: String
     let color: Color
     var showArrow: Bool = false

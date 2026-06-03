@@ -130,7 +130,11 @@ struct SettingsView: View {
             .alert("恢复购买", isPresented: $showRestoreAlert) {
                 Button("确定", role: .cancel) { }
             } message: {
-                Text(restoreSuccess ? "已成功恢复购买" : "未找到购买记录")
+                if restoreSuccess {
+                    Text("已成功恢复购买")
+                } else {
+                    Text("未找到购买记录")
+                }
             }
             .alert("抹除所有数据", isPresented: $showClearDataAlert) {
                 Button("抹除", role: .destructive) {
@@ -151,11 +155,11 @@ struct SettingsView: View {
                     .foregroundStyle(storeManager.isVip ? Color.green : Color(hex: "F59E0B"))
 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text(storeManager.isVip ? "已激活终身会员" : "解锁终身会员")
+                    Text(storeManager.isVip ? String(localized: "已激活终身会员") : String(localized: "解锁终身会员"))
                         .font(.headline)
                     Text(storeManager.isVip
-                         ? "享受所有高级功能"
-                         : "热力图、趋势图、年度报告等")
+                         ? String(localized: "享受所有高级功能")
+                         : String(localized: "热力图、趋势图、年度报告等"))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
