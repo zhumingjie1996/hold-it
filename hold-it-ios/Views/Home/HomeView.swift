@@ -101,26 +101,38 @@ struct HomeView: View {
     // MARK: - 鼓励卡片
     private var encourageCard: some View {
         let quote = EncourageQuote.allQuotes[currentQuoteIndex]
-        return VStack(alignment: .leading, spacing: 8) {
-            HStack(spacing: 4) {
-                Image(systemName: "quote.opening")
-                    .foregroundStyle(Color.brand.opacity(1))
-                Text("To Myself")
-                    .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(Color.brandDark.opacity(1))
+        return ZStack(alignment: .topTrailing) {
+            VStack(alignment: .leading, spacing: 8) {
+                HStack(spacing: 4) {
+                    Image(systemName: "quote.opening")
+                        .foregroundStyle(Color.brand.opacity(1))
+                    Text("To Myself")
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(Color.brandDark.opacity(1))
+                }
+            
+                Text(quote)
+                    .font(.footnote)
+                    .foregroundStyle(.primary.opacity(0.6))
+                    .lineSpacing(3)
             }
-        
-            Text(quote)
-                .font(.footnote)
-                .foregroundStyle(.primary.opacity(0.6))
-                .lineSpacing(3)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(16)
+            .background(Color.secondarySystemGroupedBackground)
+            .cornerRadius(16)
+            .id(currentQuoteIndex)
+            .transition(.opacity.combined(with: .move(edge: .trailing)))
+
+            // 贴纸 Logo
+            Image("AppLogo")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 70, height: 70)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .shadow(color: .black.opacity(0.15), radius: 3, x: 1, y: 2)
+                .rotationEffect(.degrees(12))
+                .offset(x: 15, y: -25)
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(16)
-        .background(Color.secondarySystemGroupedBackground)
-        .cornerRadius(16)
-        .id(currentQuoteIndex)
-        .transition(.opacity.combined(with: .move(edge: .trailing)))
     }
     
     private var mainButton: some View {
