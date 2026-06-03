@@ -31,6 +31,7 @@ struct HomeView: View {
             .navigationTitle("忍一下")
             .sheet(isPresented: $showRecordSheet) {
                 RecordSheet(onSave: {
+                    UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                     showCelebration = true
                 })
             }
