@@ -621,29 +621,6 @@
         }
       }
     },
-    "全年克制频率可视化": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Visualize yearly restraint frequency"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "年間の記録頻度を可視化"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "全年克制頻率可視化"
-          }
-        }
-      }
-    },
     "全部": {
       "localizations": {
         "en": {
@@ -684,28 +661,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "全部記錄"
-          }
-        }
-      }
-    },
-    "共 %lld 条克制记录": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld restraint records"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%lld 件の記録"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "共 %lld 條克制記錄"
           }
         }
       }
@@ -1046,28 +1001,6 @@
         }
       }
     },
-    "去首页记录你的第一次克制吧": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Go to Home to record your first restraint"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ホームで最初の記録をしましょう"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "去首頁記錄你的第一次克制吧"
-          }
-        }
-      }
-    },
     "取消": {
       "localizations": {
         "en": {
@@ -1262,28 +1195,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "週六"
-          }
-        }
-      }
-    },
-    "周几最克制": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Best Restraint Day"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "最も我慢した曜日"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "週幾最克制"
           }
         }
       }
@@ -1735,28 +1646,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "忍一下"
-          }
-        }
-      }
-    },
-    "忍一下是一款专门记录克制行为的极简 App。我们不记录「完成了什么」，而是记录「忍住了什么」——没喝奶茶、没刷短视频、没冲动消费。每一次克制，都是对自己的一次胜利。": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Hold It is a minimalist app for recording moments of self-restraint. Instead of tracking what you completed, you track what you resisted — skipping milk tea, avoiding impulse buys, not doom-scrolling. Every act of restraint is a small victory."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "「我慢」は自制の瞬間を記録するミニマルなアプリです。「完了したこと」ではなく「我慢したこと」を記録します。タピオカを我慢した、衝動買いを避けた、動画を見るのをやめた。すべての我慢が小さな勝利です。"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "忍一下是一款專門記錄克制行為的極簡 App。我們不記錄「完成了什麼」，而是記錄「忍住了什麼」——沒喝奶茶、沒刷短視頻、沒衝動消費。每一次克制，都是對自己的一次勝利。"
           }
         }
       }
@@ -2406,29 +2295,6 @@
         }
       }
     },
-    "查看每个分类的克制次数": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "View restraint count by category"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "カテゴリ別の記録数を見る"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "查看每個分類的克制次數"
-          }
-        }
-      }
-    },
     "次": {
       "extractionState": "stale",
       "localizations": {
@@ -2470,28 +2336,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "歐元 (€)"
-          }
-        }
-      }
-    },
-    "此操作不可恢复，所有克制记录和自定义分类将被永久删除。": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "This action cannot be undone. All records and custom categories will be permanently deleted."
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "この操作は元に戻せません。すべての記録とカスタムカテゴリが永久に削除されます。"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "此操作不可恢復，所有克制記錄和自定義分類將被永久刪除。"
           }
         }
       }
@@ -3325,28 +3169,6 @@
         }
       }
     },
-    "记录克制，成就更好的自己": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Record restraint, become your best self"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "節制を記録して、より良い自分へ"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "記錄克制，成就更好的自己"
-          }
-        }
-      }
-    },
     "记录越多，热力图越丰富": {
       "localizations": {
         "en": {
@@ -3808,6 +3630,184 @@
           "stringUnit": {
             "state": "translated",
             "value": "今年"
+          }
+        }
+      }
+    },
+    "全年忍住频率可视化": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Visualize yearly restraint frequency"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "年間の記録頻度を可視化"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全年忍住頻率可視化"
+          }
+        }
+      }
+    },
+    "共 %lld 条忍住记录": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld restraint records"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld 件の記録"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "共 %lld 條忍住記錄"
+          }
+        }
+      }
+    },
+    "去首页记录你的第一次忍住吧": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Go to Home to record your first restraint"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ホームで最初の記録をしましょう"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "去首頁記錄你的第一次忍住吧"
+          }
+        }
+      }
+    },
+    "周几最忍住": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Best Restraint Day"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最も我慢した曜日"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "週幾最忍住"
+          }
+        }
+      }
+    },
+    "查看每个分类的忍住次数": {
+      "extractionState": "stale",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "View restraint count by category"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "カテゴリ別の記録数を見る"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "查看每個分類的忍住次數"
+          }
+        }
+      }
+    },
+    "此操作不可恢复，所有忍住记录和自定义分类将被永久删除。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This action cannot be undone. All records and custom categories will be permanently deleted."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "この操作は元に戻せません。すべての記録とカスタムカテゴリが永久に削除されます。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "此操作不可恢復，所有忍住記錄和自定義分類將被永久刪除。"
+          }
+        }
+      }
+    },
+    "记录忍住，成就更好的自己": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Record restraint, become your best self"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "節制を記録して、より良い自分へ"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "記錄忍住，成就更好的自己"
+          }
+        }
+      }
+    },
+    "忍一下是一款专门记录忍住行为的极简 App。我们不记录「完成了什么」，而是记录「忍住了什么」——没喝奶茶、没刷短视频、没冲动消费。每一次忍住，都是对自己的一次胜利。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hold It is a minimalist app for recording moments of self-restraint. Instead of tracking what you completed, you track what you resisted — skipping milk tea, avoiding impulse buys, not doom-scrolling. Every act of restraint is a small victory."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "「我慢」は自制の瞬間を記録するミニマルなアプリです。「完了したこと」ではなく「我慢したこと」を記録します。タピオカを我慢した、衝動買いを避けた、動画を見るのをやめた。すべての我慢が小さな勝利です。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "忍一下是一款專門記錄忍住行為的極簡 App。我們不記錄「完成了什麼」，而是記錄「忍住了什麼」——沒喝奶茶、沒刷短視頻、沒衝動消費。每一次忍住，都是對自己的一次勝利。"
           }
         }
       }

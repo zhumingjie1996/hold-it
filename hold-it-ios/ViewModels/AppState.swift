@@ -175,11 +175,12 @@ class AppState {
     /// 按分类的节省金额统计
     func savedAmountByCategory(from records: [ResistRecord]) -> [(emoji: String, name: String, amount: Double, count: Int)] {
         let withAmount = records.filter { $0.amount != nil }
-        let grouped = Dictionary(grouping: withAmount) { $0.category }
-        return grouped.map { category, items in
+        let grouped = Dictionary(grouping: withAmount) { $0.effectiveCategoryID }
+        return grouped.map { catID, items in
             let emoji = items.first?.categoryEmoji ?? ""
+            let name = items.first?.category ?? catID
             let total = items.compactMap { $0.amount }.reduce(0, +)
-            return (emoji, category, total, items.count)
+            return (emoji, name, total, items.count)
         }.sorted { $0.amount > $1.amount }
     }
 

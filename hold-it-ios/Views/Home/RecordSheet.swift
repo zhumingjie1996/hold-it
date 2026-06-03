@@ -319,6 +319,7 @@ struct RecordSheet: View {
         let record = ResistRecord(
             category: selectedCategory.name,
             categoryEmoji: selectedCategory.emoji,
+            categoryID: selectedCategory.stableID,
             note: note,
             amount: finalAmount
         )

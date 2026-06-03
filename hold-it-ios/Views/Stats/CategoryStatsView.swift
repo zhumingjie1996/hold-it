@@ -9,20 +9,20 @@ struct CategoryStatsView: View {
     let records: [ResistRecord]
 
     var categoryStats: [(String, String, Int, Double)] {
-        // 按 category+emoji 组合分组，再按名称合并
-        var merged: [String: (emoji: String, count: Int)] = [:]
+        // 按 categoryID 分组，避免同名分类合并；旧记录 categoryID 为空则用 category 名作为 fallback
+        var merged: [String: (emoji: String, name: String, count: Int)] = [:]
         for record in records {
-            let key = record.category
+            let key = record.effectiveCategoryID
             if merged[key] != nil {
                 merged[key]?.count += 1
             } else {
-                merged[key] = (emoji: record.categoryEmoji, count: 1)
+                merged[key] = (emoji: record.categoryEmoji, name: record.category, count: 1)
             }
         }
         let total = records.count
-        return merged.map { name, info in
+        return merged.map { _, info in
             let percentage = total > 0 ? Double(info.count) / Double(total) : 0
-            return (info.emoji, name, info.count, percentage)
+            return (info.emoji, info.name, info.count, percentage)
         }.sorted { $0.2 > $1.2 }
     }
 

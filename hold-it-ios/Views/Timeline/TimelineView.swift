@@ -38,7 +38,7 @@ struct TimelineView: View {
                         ContentUnavailableView {
                             Label("暂无记录", systemImage: "doc.text")
                         } description: {
-                            Text("去首页记录你的第一次克制吧")
+                            Text("去首页记录你的第一次忍住吧")
                         }
                     }
                 } else {
@@ -86,13 +86,13 @@ struct RecordsListView: View {
 
     // MARK: - 计算属性
 
-    /// 所有出现过的分类（去重）
-    var availableCategories: [(emoji: String, name: String)] {
+    /// 所有出现过的分类（按 categoryID 去重）
+    var availableCategories: [(emoji: String, name: String, id: String)] {
         var seen = Set<String>()
-        var result: [(String, String)] = []
-        for r in records where !seen.contains(r.category) {
-            seen.insert(r.category)
-            result.append((r.categoryEmoji, r.category))
+        var result: [(String, String, String)] = []
+        for r in records where !seen.contains(r.effectiveCategoryID) {
+            seen.insert(r.effectiveCategoryID)
+            result.append((r.categoryEmoji, r.category, r.effectiveCategoryID))
         }
         return result
     }
@@ -119,7 +119,7 @@ struct RecordsListView: View {
                 } else { passTime = false }
             }
             // 分类筛选
-            let passCategory = selectedCategory == nil || record.category == selectedCategory
+            let passCategory = selectedCategory == nil || record.effectiveCategoryID == selectedCategory
             return passTime && passCategory
         }
     }
@@ -167,12 +167,12 @@ struct RecordsListView: View {
                         ) {
                             selectedCategory = nil
                         }
-                        ForEach(availableCategories, id: \.name) { cat in
+                        ForEach(availableCategories, id: \.id) { cat in
                             FilterChip(
                                 label: "\(cat.emoji) \(cat.name)",
-                                isSelected: selectedCategory == cat.name
+                                isSelected: selectedCategory == cat.id
                             ) {
-                                selectedCategory = selectedCategory == cat.name ? nil : cat.name
+                                selectedCategory = selectedCategory == cat.id ? nil : cat.id
                             }
                         }
                     }
@@ -193,7 +193,7 @@ struct RecordsListView: View {
                         } description: {
                             Text(selectedCategory != nil || timeFilter != .all
                                  ? "换个筛选条件试试"
-                                 : "去首页记录你的第一次克制吧")
+                                 : "去首页记录你的第一次忍住吧")
                         }
                     }
                 } else {

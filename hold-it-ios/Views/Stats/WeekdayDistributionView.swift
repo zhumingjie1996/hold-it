@@ -36,7 +36,7 @@ struct WeekdayDistributionView: View {
             HStack {
                 Image(systemName: "calendar.badge.clock")
                     .foregroundStyle(Color.brand)
-                Text("周几最克制")
+                Text("周几最忍住")
                     .font(.headline)
                 Spacer()
                 if let day = busiestDay {

@@ -142,7 +142,7 @@ struct SettingsView: View {
                 }
                 Button("取消", role: .cancel) { }
             } message: {
-                Text("此操作不可恢复，所有克制记录和自定义分类将被永久删除。")
+                Text("此操作不可恢复，所有忍住记录和自定义分类将被永久删除。")
             }
         }
     }
@@ -212,7 +212,7 @@ struct AboutView: View {
                     Text("忍一下")
                         .font(.title.weight(.bold))
 
-                    Text("记录克制，成就更好的自己")
+                    Text("记录忍住，成就更好的自己")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
 
@@ -225,7 +225,7 @@ struct AboutView: View {
             }
 
             Section {
-                Text("忍一下是一款专门记录克制行为的极简 App。我们不记录「完成了什么」，而是记录「忍住了什么」——没喝奶茶、没刷短视频、没冲动消费。每一次克制，都是对自己的一次胜利。")
+                Text("忍一下是一款专门记录忍住行为的极简 App。我们不记录「完成了什么」，而是记录「忍住了什么」——没喝奶茶、没刷短视频、没冲动消费。每一次忍住，都是对自己的一次胜利。")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
                     .padding(.vertical, 8)
@@ -277,7 +277,7 @@ private let termsOfService = """
 使用本应用即表示您同意本协议的所有条款。
 
 2. 服务内容
-本应用提供克制行为记录和统计功能。
+本应用提供忍住行为记录和统计功能。
 
 3. 会员服务
 终身会员为一次性购买，购买后即可永久使用所有高级功能。

@@ -18,6 +18,7 @@ struct HomeView: View {
     @State private var logoRotation: Double = 12
     @State private var logoScale: CGFloat = 1.0
     @State private var logoTapLocked = false
+    @State private var logoIdleTask: Task<Void, Never>?
 
     
     var body: some View {
@@ -74,7 +75,7 @@ struct HomeView: View {
         }
     }
     
-    // MARK: - 最近克制轮播
+    // MARK: - 最近忍住轮播
     private var lastRecordCard: some View {
         Group {
             if !records.isEmpty {

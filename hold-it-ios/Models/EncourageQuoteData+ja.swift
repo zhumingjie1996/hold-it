@@ -8,7 +8,7 @@ import Foundation
 extension EncourageQuote {
     /// 日本語の励ましの言葉（約300語）
     static let jaQuotes: [String] = [
-        // — 克制と自律 —
+        // — 忍住と自律 —
         "自制するたび、自分への勝利となる",
         "我慢しているのは欲望ではなく、より良い自分への道だ",
         "あなたは想像以上に強い",

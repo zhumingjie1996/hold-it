@@ -100,7 +100,7 @@ struct StatsView: View {
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     } else {
-                        Text("共 \(records.count) 条克制记录")
+                        Text("共 \(records.count) 条忍住记录")
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
