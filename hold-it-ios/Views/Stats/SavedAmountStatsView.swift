@@ -83,9 +83,17 @@ struct SavedAmountStatsView: View {
 
                 Spacer()
 
-                Text("\(appState.recordsWithAmountCount(from: records)) 条金额记录")
-                    .font(.caption2)
-                    .foregroundStyle(.tertiary)
+                NavigationLink {
+                    SavedRecordsListView()
+                } label: {
+                    HStack(spacing: 4) {
+                        Text("全部记录")
+                            .font(.caption2)
+                        Image(systemName: "chevron.right")
+                            .font(.system(size: 8, weight: .bold))
+                    }
+                    .foregroundStyle(.secondary)
+                }
             }
         }
         .padding(16)
