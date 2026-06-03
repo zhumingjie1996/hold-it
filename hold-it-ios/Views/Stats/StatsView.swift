@@ -10,6 +10,7 @@ struct StatsView: View {
     @Environment(AppState.self) private var appState
     @Environment(StoreManager.self) private var storeManager
     @Query(sort: \ResistRecord.createdAt, order: .reverse) private var records: [ResistRecord]
+    @State private var showVipAlert = false
     
     var body: some View {
         NavigationStack {
@@ -29,6 +30,16 @@ struct StatsView: View {
             }
             .background(Color.systemGroupedBackground)
             .navigationTitle("统计")
+            .alert("解锁高级功能", isPresented: $showVipAlert) {
+                Button("解锁终身会员") {
+                    Task {
+                        _ = await storeManager.purchase()
+                    }
+                }
+                Button("暂不需要", role: .cancel) { }
+            } message: {
+                Text("该功能为会员专属，解锁后可永久使用分类分析、热力图、月度趋势等高级统计功能")
+            }
         }
     }
 
@@ -128,61 +139,42 @@ struct StatsView: View {
             lockedFeature(icon: "calendar", title: "热力图", description: "全年克制频率可视化")
             lockedFeature(icon: "chart.line.uptrend.xyaxis", title: "月度趋势", description: "过去6个月的变化趋势")
             lockedFeature(icon: "banknote.fill", title: "节省统计", description: "累计节省金额统计")
-            
-            Button {
-                Task {
-                    _ = await storeManager.purchase()
-                }
-            } label: {
-                HStack {
-                    Image(systemName: "crown.fill")
-                    Text("解锁终身会员")
-                }
-                .font(.headline)
-                .foregroundStyle(.white)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 16)
-                .background(
-                    LinearGradient(
-                        colors: [Color(hex: "F59E0B"), Color(hex: "D97706")],
-                        startPoint: .leading,
-                        endPoint: .trailing
-                    )
-                )
-                .cornerRadius(16)
-            }
-            .padding(.top, 8)
         }
     }
     
     private func lockedFeature(icon: String, title: String, description: String) -> some View {
-        HStack(spacing: 14) {
-            Image(systemName: icon)
-                .font(.title2)
-                .foregroundStyle(.secondary)
-                .frame(width: 40)
-            
-            VStack(alignment: .leading, spacing: 2) {
-                Text(title)
-                    .font(.subheadline.weight(.medium))
-                Text(description)
+        Button {
+            showVipAlert = true
+        } label: {
+            HStack(spacing: 14) {
+                Image(systemName: icon)
+                    .font(.title2)
+                    .foregroundStyle(.secondary)
+                    .frame(width: 40)
+                
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(title)
+                        .font(.subheadline.weight(.medium))
+                    Text(description)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                
+                Spacer()
+                
+                Image(systemName: "lock.fill")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
-            
-            Spacer()
-            
-            Image(systemName: "lock.fill")
-                .font(.caption)
-                .foregroundStyle(.secondary)
+            .padding(16)
+            .background(Color.secondarySystemGroupedBackground)
+            .cornerRadius(16)
+            .overlay(
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color.systemBackground.opacity(0.4))
+            )
         }
-        .padding(16)
-        .background(Color.secondarySystemGroupedBackground)
-        .cornerRadius(16)
-        .overlay(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color.systemBackground.opacity(0.4))
-        )
+        .buttonStyle(.plain)
     }
 }
 
