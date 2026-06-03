@@ -25,6 +25,8 @@ struct RecordSheet: View {
     @State private var deletingCategory: ResistCategory?
     @State private var showDeleteAlert = false
     @State private var showVipAlert = false
+    @State private var draggingCategory: ResistCategory?
+    @AppStorage("categoryOrder") private var categoryOrderData: Data = Data()
 
     private let columns = [
         GridItem(.flexible()),
@@ -32,9 +34,34 @@ struct RecordSheet: View {
         GridItem(.flexible())
     ]
 
-    /// 默认 + 自定义分类合并
+    /// 排序顺序（存储 name）
+    private var categoryOrder: [String] {
+        get {
+            (try? JSONDecoder().decode([String].self, from: categoryOrderData)) ?? []
+        }
+    }
+
+    /// 保存排序顺序
+    private func saveCategoryOrder(_ names: [String]) {
+        categoryOrderData = (try? JSONEncoder().encode(names)) ?? Data()
+    }
+
+    /// 默认 + 自定义分类合并，按用户排序
     private var allCategories: [ResistCategory] {
-        ResistCategory.defaults + customCategories.map { ResistCategory(from: $0) }
+        let all = ResistCategory.defaults + customCategories.map { ResistCategory(from: $0) }
+        let order = categoryOrder
+        if order.isEmpty { return all }
+        // 按 order 排序，不在 order 中的保持原序追加到末尾
+        var sorted: [ResistCategory] = []
+        for name in order {
+            if let cat = all.first(where: { $0.name == name }) {
+                sorted.append(cat)
+            }
+        }
+        for cat in all where !sorted.contains(where: { $0.name == cat.name }) {
+            sorted.append(cat)
+        }
+        return sorted
     }
 
     var body: some View {
@@ -110,6 +137,18 @@ struct RecordSheet: View {
                             updateAmountText(for: category)
                         }
                     }
+                    .onDrag {
+                        draggingCategory = category
+                        return NSItemProvider(object: category.name as NSString)
+                    }
+                    .onDrop(of: ["public.text"], delegate: CategoryDropDelegate(
+                        category: category,
+                        categories: allCategories,
+                        draggingCategory: $draggingCategory,
+                        onReorder: { newOrder in
+                            saveCategoryOrder(newOrder)
+                        }
+                    ))
                 }
                 // "+" 新增按钮
                 addCategoryCell
@@ -320,22 +359,35 @@ struct CategoryCell: View {
 
     var body: some View {
         Button(action: action) {
-            VStack(spacing: 6) {
-                Text(category.emoji)
-                    .font(.system(size: 32))
-                Text(LocalizedStringKey(category.name))
-                    .font(.caption)
-                    .lineLimit(1)
+            ZStack(alignment: .topTrailing) {
+                VStack(spacing: 6) {
+                    Text(category.emoji)
+                        .font(.system(size: 32))
+                    Text(LocalizedStringKey(category.name))
+                        .font(.caption)
+                        .lineLimit(1)
+                }
+                .padding(.vertical, 12)
+                .frame(maxWidth: .infinity)
+                .background(isSelected ? Color.brand.opacity(0.18) : Color.secondarySystemGroupedBackground)
+                .foregroundStyle(isSelected ? Color.brandDark : Color.primary)
+                .cornerRadius(12)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(isSelected ? Color.brand : Color.clear, lineWidth: 2)
+                )
+
+                // 自定义角标
+                if category.isCustom {
+                    Image(systemName: "star.fill")
+                        .font(.system(size: 8))
+                        .foregroundStyle(.white)
+                        .padding(3)
+                        .background(Color.brand)
+                        .clipShape(Circle())
+                        .offset(x: -4, y: 4)
+                }
             }
-            .padding(.vertical, 12)
-            .frame(maxWidth: .infinity)
-            .background(isSelected ? Color.brand.opacity(0.18) : Color.secondarySystemGroupedBackground)
-            .foregroundStyle(isSelected ? Color.brandDark : Color.primary)
-            .cornerRadius(12)
-            .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(isSelected ? Color.brand : Color.clear, lineWidth: 2)
-            )
         }
         .buttonStyle(.plain)
         .contextMenu {
@@ -508,5 +560,34 @@ struct AddCategorySheet: View {
             modelContext.insert(category)
         }
         dismiss()
+    }
+}
+
+// MARK: - 拖拽排序 DropDelegate
+struct CategoryDropDelegate: DropDelegate {
+    let category: ResistCategory
+    let categories: [ResistCategory]
+    @Binding var draggingCategory: ResistCategory?
+    let onReorder: ([String]) -> Void
+
+    func performDrop(info: DropInfo) -> Bool {
+        draggingCategory = nil
+        return true
+    }
+
+    func dropEntered(info: DropInfo) {
+        guard let dragging = draggingCategory,
+              dragging != category else { return }
+
+        var newCategories = categories
+        let fromIndex = newCategories.firstIndex(where: { $0.name == dragging.name }) ?? 0
+        let toIndex = newCategories.firstIndex(where: { $0.name == category.name }) ?? 0
+
+        guard fromIndex != toIndex else { return }
+
+        withAnimation(.spring(response: 0.3)) {
+            newCategories.move(fromOffsets: IndexSet(integer: fromIndex), toOffset: toIndex > fromIndex ? toIndex + 1 : toIndex)
+            onReorder(newCategories.map { $0.name })
+        }
     }
 }
