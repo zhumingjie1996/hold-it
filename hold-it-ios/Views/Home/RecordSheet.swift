@@ -138,7 +138,7 @@ struct CategoryCell: View {
             VStack(spacing: 6) {
                 Text(category.emoji)
                     .font(.system(size: 32))
-                Text(category.name)
+                Text(LocalizedStringKey(category.name))
                     .font(.caption)
                     .lineLimit(1)
             }

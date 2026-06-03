@@ -5,6 +5,7 @@
 
 import SwiftUI
 import StoreKit
+import UIKit
 
 enum ThemeMode: Int, CaseIterable {
     case system = 0
@@ -13,9 +14,9 @@ enum ThemeMode: Int, CaseIterable {
 
     var label: String {
         switch self {
-        case .system: return "跟随系统"
-        case .light: return "浅色"
-        case .dark: return "深色"
+        case .system: return String(localized: "跟随系统")
+        case .light: return String(localized: "浅色")
+        case .dark: return String(localized: "深色")
         }
     }
 
@@ -38,6 +39,7 @@ enum ThemeMode: Int, CaseIterable {
 
 struct SettingsView: View {
     @Environment(StoreManager.self) private var storeManager
+    @Environment(\.openURL) private var openURL
     @AppStorage("themeMode") private var themeModeRaw: Int = 0
     @State private var showRestoreAlert = false
     @State private var restoreSuccess = false
@@ -59,6 +61,15 @@ struct SettingsView: View {
                         }
                     } label: {
                         Label("主题", systemImage: "paintbrush.fill")
+                    }
+
+                    Button {
+                        if let url = URL(string: UIApplication.openSettingsURLString) {
+                            openURL(url)
+                        }
+                    } label: {
+                        Label("语言", systemImage: "globe")
+                            .foregroundStyle(.primary)
                     }
                 }
 

@@ -13,12 +13,13 @@ struct TimelineView: View {
         let calendar = Calendar.current
         let grouped = Dictionary(grouping: records) { record in
             if calendar.isDateInToday(record.createdAt) {
-                return "今天"
+                return String(localized: "今天")
             } else if calendar.isDateInYesterday(record.createdAt) {
-                return "昨天"
+                return String(localized: "昨天")
             } else {
                 let formatter = DateFormatter()
-                formatter.dateFormat = "M月d日"
+                formatter.locale = .current
+                formatter.setLocalizedDateFormatFromTemplate("Md")
                 return formatter.string(from: record.createdAt)
             }
         }
@@ -117,12 +118,13 @@ struct RecordsListView: View {
         let calendar = Calendar.current
         let grouped = Dictionary(grouping: filteredRecords) { record in
             if calendar.isDateInToday(record.createdAt) {
-                return "今天"
+                return String(localized: "今天")
             } else if calendar.isDateInYesterday(record.createdAt) {
-                return "昨天"
+                return String(localized: "昨天")
             } else {
                 let formatter = DateFormatter()
-                formatter.dateFormat = "M月d日"
+                formatter.locale = .current
+                formatter.setLocalizedDateFormatFromTemplate("Md")
                 return formatter.string(from: record.createdAt)
             }
         }
@@ -136,7 +138,7 @@ struct RecordsListView: View {
             // 时间筛选 Picker
             Picker("时间", selection: $timeFilter) {
                 ForEach(TimeFilter.allCases, id: \.self) { f in
-                    Text(f.rawValue).tag(f)
+                    Text(LocalizedStringKey(f.rawValue)).tag(f)
                 }
             }
             .pickerStyle(.segmented)
@@ -150,7 +152,7 @@ struct RecordsListView: View {
                     HStack(spacing: 8) {
                         // 「全部」chip
                         FilterChip(
-                            label: "全部",
+                            label: String(localized: "全部"),
                             isSelected: selectedCategory == nil
                         ) {
                             selectedCategory = nil
@@ -249,7 +251,7 @@ struct TimelineRow: View {
             
             VStack(alignment: .leading, spacing: 4) {
                 HStack {
-                    Text(record.category)
+                    Text(LocalizedStringKey(record.category))
                         .font(.subheadline.weight(.medium))
                     
                     if let amount = record.amount {

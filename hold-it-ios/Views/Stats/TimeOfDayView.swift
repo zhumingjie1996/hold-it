@@ -10,7 +10,7 @@ struct TimeOfDayView: View {
 
     struct TimeSlot: Identifiable {
         let id = UUID()
-        let label: String
+        let label: LocalizedStringKey
         let icon: String
         let range: Range<Int> // hour range
         let color: Color
