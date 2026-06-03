@@ -26,7 +26,34 @@ struct hold_it_iosApp: App {
                 .environment(storeManager)
                 .preferredColorScheme(themeMode.colorScheme)
         }
-        .modelContainer(for: [ResistRecord.self, CustomCategory.self])
+        .modelContainer(hold_it_iosApp.createModelContainer())
+    }
+
+    /// 创建 ModelContainer，若 schema 不兼容则删除旧库重建
+    static func createModelContainer() -> ModelContainer {
+        let schema = Schema([ResistRecord.self, CustomCategory.self])
+        let config = ModelConfiguration(isStoredInMemoryOnly: false)
+
+        do {
+            return try ModelContainer(for: schema, configurations: [config])
+        } catch {
+            // schema 变更导致加载失败，删除旧数据库重建
+            print("ModelContainer load failed: \(error). Rebuilding...")
+            let url = config.url
+            let urls = [
+                url,
+                url.appendingPathExtension("-wal"),
+                url.appendingPathExtension("-shm")
+            ]
+            for fileURL in urls {
+                try? FileManager.default.removeItem(at: fileURL)
+            }
+            do {
+                return try ModelContainer(for: schema, configurations: [config])
+            } catch {
+                fatalError("Failed to create ModelContainer: \(error)")
+            }
+        }
     }
 }
 

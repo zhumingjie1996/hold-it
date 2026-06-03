@@ -11,7 +11,7 @@ class ResistRecord {
     var id: UUID
     var category: String
     var categoryEmoji: String
-    var categoryID: String
+    var categoryID: String = ""
     var note: String
     var createdAt: Date
     var amount: Double?
