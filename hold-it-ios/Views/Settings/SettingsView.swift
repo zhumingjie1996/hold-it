@@ -55,6 +55,17 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             List {
+                // 非会员：CTA 横幅跟随列表滚动
+                if !storeManager.isLoading && !storeManager.isVip {
+                    Section {
+                        ctaBanner
+                            .listRowInsets(EdgeInsets())
+                            .listRowBackground(Color.clear)
+                            .listRowSeparator(.hidden)
+                    }
+                    .listSectionSeparator(.hidden)
+                }
+
                 // VIP 已激活或加载中：显示在 Section 里
                 if storeManager.isLoading || storeManager.isVip {
                     vipSection
@@ -131,11 +142,6 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle("设置")
-            .safeAreaInset(edge: .top, spacing: 0) {
-                if !storeManager.isLoading && !storeManager.isVip {
-                    ctaBanner
-                }
-            }
             .alert("恢复购买", isPresented: $showRestoreAlert) {
                 Button("确定", role: .cancel) { }
             } message: {
@@ -227,18 +233,29 @@ struct SettingsView: View {
             }
         } label: {
             if storeManager.purchaseState == .purchasing {
-                ProgressView()
-                    .tint(.white)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 56)
-                    .background(
-                        LinearGradient(
-                            colors: [Color.brand, Color.brandDark],
-                            startPoint: .leading,
-                            endPoint: .trailing
-                        )
+                VStack(spacing: 4) {
+                    HStack(spacing: 8) {
+                        ProgressView()
+                            .tint(.white)
+                            .scaleEffect(0.9)
+                        Text(String(localized: "支付中…"))
+                            .font(.headline)
+                            .foregroundStyle(.white)
+                    }
+                    Text(String(localized: "请稍候"))
+                        .font(.caption)
+                        .foregroundStyle(.white.opacity(0.8))
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 16)
+                .background(
+                    LinearGradient(
+                        colors: [Color.brand, Color.brandDark],
+                        startPoint: .leading,
+                        endPoint: .trailing
                     )
-                    .cornerRadius(16)
+                )
+                .cornerRadius(16)
             } else {
                 VStack(spacing: 4) {
                     HStack(spacing: 6) {
@@ -270,7 +287,6 @@ struct SettingsView: View {
             }
         }
         .buttonStyle(.plain)
-        .padding(.horizontal, 16)
         .padding(.vertical, 8)
     }
 

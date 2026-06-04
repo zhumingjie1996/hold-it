@@ -199,18 +199,29 @@ struct RecordSheet: View {
                     }
                 } label: {
                     if storeManager.purchaseState == .purchasing {
-                        ProgressView()
-                            .tint(.white)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 56)
-                            .background(
-                                LinearGradient(
-                                    colors: [Color.brand, Color.brandDark],
-                                    startPoint: .leading,
-                                    endPoint: .trailing
-                                )
+                        VStack(spacing: 8) {
+                            HStack(spacing: 8) {
+                                ProgressView()
+                                    .tint(.white)
+                                    .scaleEffect(0.9)
+                                Text(String(localized: "支付中…"))
+                                    .font(.headline)
+                                    .foregroundStyle(.white)
+                            }
+                            Text(String(localized: "请稍候"))
+                                .font(.caption)
+                                .foregroundStyle(.white.opacity(0.8))
+                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 16)
+                        .background(
+                            LinearGradient(
+                                colors: [Color.brand, Color.brandDark],
+                                startPoint: .leading,
+                                endPoint: .trailing
                             )
-                            .cornerRadius(16)
+                        )
+                        .cornerRadius(16)
                     } else {
                         VStack(spacing: 8) {
                             HStack(spacing: 6) {
