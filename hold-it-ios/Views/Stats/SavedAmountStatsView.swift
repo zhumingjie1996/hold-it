@@ -455,7 +455,7 @@ struct SavedAmountStatsView: View {
         }
     }
 
-    private func savedHighlightItem(icon: String, title: String, color: Color) -> some View {
+    private func savedHighlightItem(icon: String, title: LocalizedStringKey, color: Color) -> some View {
         HStack(spacing: 8) {
             Image(systemName: icon)
                 .font(.subheadline)

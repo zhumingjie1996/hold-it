@@ -99,11 +99,11 @@ struct ResistCategory: Identifiable {
     }
 
     static let defaults: [ResistCategory] = [
-        ResistCategory(emoji: "🧋", name: "奶茶",   defaultAmount: 15, fixedID: "default_milk_tea", placeholder: "忍住没喝一杯…"),
-        ResistCategory(emoji: "💸", name: "冲动消费", defaultAmount: 100, fixedID: "default_impulse_buy", placeholder: "忍住买了一个…"),
-        ResistCategory(emoji: "🎮", name: "游戏",   defaultAmount: nil, fixedID: "default_gaming", placeholder: "忍住又玩了一局…"),
-        ResistCategory(emoji: "📱", name: "短视频",  defaultAmount: nil, fixedID: "default_short_video", placeholder: "忍住刷了一会…"),
-        ResistCategory(emoji: "❤️", name: "想TA",   defaultAmount: nil, fixedID: "default_miss_him", placeholder: "聊表心意")
+        ResistCategory(emoji: "🧋", name: String(localized: "奶茶"),   defaultAmount: 15, fixedID: "default_milk_tea", placeholder: String(localized: "忍住没喝一杯…")),
+        ResistCategory(emoji: "💸", name: String(localized: "冲动消费"), defaultAmount: 100, fixedID: "default_impulse_buy", placeholder: String(localized: "忍住买了一个…")),
+        ResistCategory(emoji: "🎮", name: String(localized: "游戏"),   defaultAmount: nil, fixedID: "default_gaming", placeholder: String(localized: "忍住又玩了一局…")),
+        ResistCategory(emoji: "📱", name: String(localized: "短视频"),  defaultAmount: nil, fixedID: "default_short_video", placeholder: String(localized: "忍住刷了一会…")),
+        ResistCategory(emoji: "❤️", name: String(localized: "想TA"),   defaultAmount: nil, fixedID: "default_miss_him", placeholder: String(localized: "聊表心意"))
     ]
 }
 

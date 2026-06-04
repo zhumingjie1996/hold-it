@@ -334,7 +334,7 @@ struct StatsView: View {
     private var featureHighlights: some View {
         VStack(spacing: 12) {
             HStack(spacing: 12) {
-                highlightItem(icon: "chart.pie.fill", title: "分类分析", color: .brand)
+                highlightItem(icon: "calendar.badge.clock", title: "周几分布", color: .pink)
                 highlightItem(icon: "calendar", title: "热力图", color: .orange)
             }
             HStack(spacing: 12) {
@@ -342,12 +342,12 @@ struct StatsView: View {
                 highlightItem(icon: "clock.badge.fill", title: "时段分析", color: .purple)
             }
             HStack(spacing: 12) {
-                highlightItem(icon: "calendar.badge.clock", title: "周几分布", color: .pink)
+                highlightItem(icon: "chart.pie.fill", title: "分类分析", color: .brand)
             }
         }
     }
     
-    private func highlightItem(icon: String, title: String, color: Color) -> some View {
+    private func highlightItem(icon: String, title: LocalizedStringKey, color: Color) -> some View {
         HStack(spacing: 8) {
             Image(systemName: icon)
                 .font(.subheadline)
@@ -402,9 +402,9 @@ struct StatsView: View {
 }
 
 struct BasicStatBox: View {
-    let title: String
+    let title: LocalizedStringKey
     let value: String
-    let unit: String
+    let unit: LocalizedStringKey
     let color: Color
     
     var body: some View {
@@ -434,7 +434,7 @@ struct StatsSortSheet: View {
     @Environment(\.dismiss) private var dismiss
     @State private var items: [String] = []
 
-    private let moduleInfo: [String: (icon: String, name: String)] = [
+    private let moduleInfo: [String: (icon: String, name: LocalizedStringKey)] = [
         "category": ("chart.pie.fill", "分类统计"),
         "weekday": ("calendar.badge.clock", "周几分布"),
         "timeOfDay": ("clock.badge.fill", "时段分析"),
@@ -450,7 +450,7 @@ struct StatsSortSheet: View {
                         Image(systemName: moduleInfo[moduleId]?.icon ?? "square")
                             .foregroundStyle(Color.brand)
                             .frame(width: 24)
-                        Text(moduleInfo[moduleId]?.name ?? moduleId)
+                        Text(moduleInfo[moduleId]?.name ?? LocalizedStringKey(moduleId))
                             .font(.subheadline)
                         Spacer()
                         Image(systemName: "line.3.horizontal")
