@@ -40,7 +40,7 @@ struct StatsSnapshotView: View {
                         .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2)
 
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("统计报告")
+                        Text(String(localized: "统计报告"))
                             .font(.title3.weight(.bold))
                             .foregroundStyle(.white)
                         Text(exportDateString)
@@ -54,7 +54,7 @@ struct StatsSnapshotView: View {
                         Text("\(appState.totalCount(from: records))")
                             .font(.system(size: 32, weight: .bold))
                             .foregroundStyle(.white)
-                        Text("累计忍住次数")
+                        Text(String(localized: "累计忍住次数"))
                             .font(.caption2)
                             .foregroundStyle(.white.opacity(0.8))
                     }
@@ -87,7 +87,7 @@ struct StatsSnapshotView: View {
                 // 底部署名
                 HStack {
                     Spacer()
-                    Text("Hold it · 忍一下")
+                    Text(String(localized: "Hold it · 忍一下"))
                         .font(.caption2)
                         .foregroundStyle(.secondary)
                 }
@@ -104,14 +104,14 @@ struct StatsSnapshotView: View {
     private var basicStatsGrid: some View {
         VStack(spacing: 8) {
             HStack(spacing: 8) {
-                snapshotBox(title: "今天", value: "\(appState.todayCount(from: records))", unit: "次", color: .green)
-                snapshotBox(title: "本月", value: "\(appState.thisMonthCount(from: records))", unit: "次", color: .purple)
-                snapshotBox(title: "今年", value: "\(appState.thisYearCount(from: records))", unit: "次", color: .indigo)
+                snapshotBox(title: String(localized: "今天"), value: "\(appState.todayCount(from: records))", unit: String(localized: "次"), color: .green)
+                snapshotBox(title: String(localized: "本月"), value: "\(appState.thisMonthCount(from: records))", unit: String(localized: "次"), color: .purple)
+                snapshotBox(title: String(localized: "今年"), value: "\(appState.thisYearCount(from: records))", unit: String(localized: "次"), color: .indigo)
             }
             HStack(spacing: 8) {
-                snapshotBox(title: "连续记录", value: "\(appState.streakDays(from: records))", unit: "天", color: .orange)
-                snapshotBox(title: "最长连续", value: "\(appState.bestStreak(from: records))", unit: "天", color: .red)
-                snapshotBox(title: "累计忍住", value: "\(appState.totalCount(from: records))", unit: "次", color: Color.brand)
+                snapshotBox(title: String(localized: "连续记录"), value: "\(appState.streakDays(from: records))", unit: String(localized: "天"), color: .orange)
+                snapshotBox(title: String(localized: "最长连续"), value: "\(appState.bestStreak(from: records))", unit: String(localized: "天"), color: .red)
+                snapshotBox(title: String(localized: "累计忍住"), value: "\(appState.totalCount(from: records))", unit: String(localized: "次"), color: Color.brand)
             }
         }
     }
@@ -138,7 +138,7 @@ struct StatsSnapshotView: View {
     private var savedAmountRow: some View {
         HStack {
             VStack(alignment: .leading, spacing: 2) {
-                Text("累计节省")
+                Text(String(localized: "累计节省"))
                     .font(.caption)
                     .foregroundStyle(.secondary)
                 HStack(alignment: .lastTextBaseline, spacing: 3) {
@@ -154,8 +154,8 @@ struct StatsSnapshotView: View {
             Spacer()
 
             VStack(alignment: .trailing, spacing: 6) {
-                savedPillItem(label: "今天", value: "\(symbol)\(fmt(appState.todaySavedAmount(from: records)))")
-                savedPillItem(label: "本月", value: "\(symbol)\(fmt(appState.thisMonthSavedAmount(from: records)))")
+                savedPillItem(label: String(localized: "今天"), value: "\(symbol)\(fmt(appState.todaySavedAmount(from: records)))")
+                savedPillItem(label: String(localized: "本月"), value: "\(symbol)\(fmt(appState.thisMonthSavedAmount(from: records)))")
             }
         }
         .padding(14)
@@ -177,7 +177,7 @@ struct StatsSnapshotView: View {
     // MARK: - 分类统计（Top 5）
     private var categorySection: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Label("分类统计", systemImage: "chart.pie.fill")
+            Label(String(localized: "分类统计"), systemImage: "chart.pie.fill")
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(Color.brand)
 
@@ -239,7 +239,7 @@ struct StatsSnapshotView: View {
         let maxCount = max(countData.map { $0.1 }.max() ?? 1, 1)
 
         return VStack(alignment: .leading, spacing: 10) {
-            Label("月度趋势", systemImage: "chart.line.uptrend.xyaxis")
+            Label(String(localized: "月度趋势"), systemImage: "chart.line.uptrend.xyaxis")
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(.green)
 

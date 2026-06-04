@@ -3543,7 +3543,26 @@
       }
     },
     "累计忍住次数" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Total Holds"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "合計我慢回数"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "累計忍住次數"
+          }
+        }
+      }
     },
     "累计节省" : {
       "localizations" : {
@@ -3635,7 +3654,26 @@
       }
     },
     "统计报告" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stats Report"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "統計レポート"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "統計報告"
+          }
+        }
+      }
     },
     "编辑" : {
       "localizations" : {
