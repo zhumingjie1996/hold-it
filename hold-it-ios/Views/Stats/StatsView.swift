@@ -76,7 +76,11 @@ struct StatsView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        exportSnapshot()
+                        if storeManager.isVip {
+                            exportSnapshot()
+                        } else {
+                            showVipAlert = true
+                        }
                     } label: {
                         if isExporting {
                             ProgressView()
