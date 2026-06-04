@@ -10,6 +10,7 @@ import UIKit
 struct HomeView: View {
     @Environment(AppState.self) private var appState
     @Query(sort: \ResistRecord.createdAt, order: .reverse) private var records: [ResistRecord]
+    @AppStorage("currencyCode") private var currencyCode: String = "auto"
     @State private var showRecordSheet = false
     @State private var currentQuoteIndex: Int = EncourageQuote.todayIndex()
     @State private var showCelebration = false
@@ -285,7 +286,6 @@ struct HomeView: View {
     }
 
     private func savedAmountText(_ amount: Double) -> String {
-        let currencyCode = UserDefaults.standard.string(forKey: "currencyCode") ?? "auto"
         let symbol = SupportedCurrency(rawValue: currencyCode)?.symbol ?? SupportedCurrency.systemSymbol
         if amount.truncatingRemainder(dividingBy: 1) == 0 {
             return "\(symbol)\(Int(amount))"

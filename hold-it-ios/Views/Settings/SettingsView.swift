@@ -188,31 +188,28 @@ struct SettingsView: View {
                 .padding(.vertical, 8)
             } else if storeManager.isVip {
                 HStack(spacing: 16) {
-                    Image(systemName: "checkmark.seal.fill")
-                        .font(.system(size: 36))
-                        .foregroundStyle(Color.green)
+                    ZStack(alignment: .bottomTrailing) {
+                        Image("AppLogo")
+                            .resizable()
+                            .frame(width: 80, height: 80)
+                            .scaledToFit()
+                            .opacity(1)
+                        Text("👑")
+                            .font(.system(size: 22))
+                            .rotationEffect(.degrees(18))
+                            .offset(x: -20, y: -57)
+                    }
 
-                    VStack(alignment: .leading, spacing: 4) {
+                    VStack(alignment: .leading, spacing: 6) {
                         Text(String(localized: "已激活终身会员"))
                             .font(.headline)
                         Text(String(localized: "享受所有高级功能"))
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
-                    //                     ZStack(alignment: .bottomTrailing) {
-                    //     Image("AppLogo")
-                    //         .resizable()
-                    //         .scaledToFit()
-                    //         .frame(width: 60, height: 60)
-                    //         .opacity(1)
-                    //     Text("👑")
-                    //         .font(.system(size: 20))
-                    //         .offset(x: 0, y: -50)
-                    // }
-
                     Spacer()
                 }
-                .padding(.vertical, 8)
+                .padding(.vertical, 4)
             }
         }
     }
