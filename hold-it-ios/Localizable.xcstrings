@@ -1658,12 +1658,12 @@
         }
       }
     },
-    "多维统计(PRO)" : {
+    "多维统计(VIP)" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Advanced Stats (PRO)"
+            "value" : "Advanced Stats (VIP)"
           }
         },
         "ja" : {
@@ -3735,12 +3735,12 @@
         }
       }
     },
-    "自定义分类(PRO)" : {
+    "自定义分类(VIP)" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Custom Categories (PRO)"
+            "value" : "Custom Categories (VIP)"
           }
         },
         "ja" : {
@@ -3801,12 +3801,12 @@
         }
       }
     },
-    "节省统计(PRO)" : {
+    "节省统计(VIP)" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Savings Stats (PRO)"
+            "value" : "Savings Stats (VIP)"
           }
         },
         "ja" : {

@@ -295,6 +295,7 @@ struct AboutView: View {
                 Text(desc)
                     .font(.caption)
                     .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
     }
@@ -343,9 +344,9 @@ struct AboutView: View {
 
                     VStack(alignment: .leading, spacing: 12) {
                         featureRow(emoji: "📝", title: "忍住记录", desc: "一键记录你每一次忍住的努力")
-                        featureRow(emoji: "🎨", title: "自定义分类(PRO)", desc: "添加你自己想记录的任意忍住项")
-                        featureRow(emoji: "📊", title: "多维统计(PRO)", desc: "热力图、分类分析、月度趋势一目了然")
-                        featureRow(emoji: "💰", title: "节省统计(PRO)", desc: "计算忍住消费所节省的真实金额")
+                        featureRow(emoji: "🎨", title: "自定义分类(VIP)", desc: "添加你自己想记录的任意忍住项")
+                        featureRow(emoji: "📊", title: "多维统计(VIP)", desc: "热力图、分类分析、月度趋势一目了然")
+                        featureRow(emoji: "💰", title: "节省统计(VIP)", desc: "计算忍住消费所节省的真实金额")
                     }
                 }
                 .padding(.vertical, 8)
