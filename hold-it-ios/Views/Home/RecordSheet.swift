@@ -197,7 +197,7 @@ struct RecordSheet: View {
                         HStack(spacing: 6) {
                             Image(systemName: "crown.fill")
                                 .foregroundStyle(.yellow)
-                            Text("解锁无限自定义")
+                            Text("解锁终身会员")
                                 .font(.headline)
                                 .foregroundStyle(.white)
                         }

@@ -197,51 +197,64 @@ struct SettingsView: View {
                 }
                 .padding(.vertical, 8)
             } else {
-                // 未激活：购买入口
-                HStack(spacing: 16) {
-                    Image(systemName: "crown.fill")
-                        .font(.system(size: 36))
-                        .foregroundStyle(Color(hex: "F59E0B"))
-
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(String(localized: "解锁终身会员"))
-                            .font(.headline)
-                        Text(String(localized: "热力图、趋势图、年度报告等"))
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
+                // 未激活：全宽横幅 CTA
+                Button {
+                    Task {
+                        _ = await storeManager.purchase()
+                        if storeManager.purchaseState == .success {
+                            showPurchaseResult = true
+                        } else if storeManager.purchaseState == .failed {
+                            showPurchaseResult = true
+                        }
                     }
-
-                    Spacer()
-
-                    Button {
-                        Task {
-                            _ = await storeManager.purchase()
-                            if storeManager.purchaseState == .success {
-                                showPurchaseResult = true
-                            } else if storeManager.purchaseState == .failed {
-                                showPurchaseResult = true
+                } label: {
+                    if storeManager.purchaseState == .purchasing {
+                        ProgressView()
+                            .tint(.white)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 56)
+                            .background(
+                                LinearGradient(
+                                    colors: [Color.brand, Color.brandDark],
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                )
+                            )
+                            .cornerRadius(16)
+                    } else {
+                        VStack(spacing: 4) {
+                            HStack(spacing: 6) {
+                                Image(systemName: "crown.fill")
+                                    .foregroundStyle(.yellow)
+                                Text(String(localized: "解锁终身会员"))
+                                    .font(.headline)
+                                    .foregroundStyle(.white)
+                                if !storeManager.displayPrice.isEmpty {
+                                    Text(storeManager.displayPrice)
+                                        .font(.headline.weight(.bold))
+                                        .foregroundStyle(.white)
+                                }
                             }
+                            Text(String(localized: "一次购买，终身使用"))
+                                .font(.caption)
+                                .foregroundStyle(.white.opacity(0.8))
                         }
-                    } label: {
-                        if storeManager.purchaseState == .purchasing {
-                            ProgressView()
-                                .scaleEffect(0.8)
-                                .frame(width: 80, height: 32)
-                                .background(Color(hex: "F59E0B"))
-                                .cornerRadius(20)
-                        } else {
-                            Text(storeManager.displayPrice.isEmpty ? String(localized: "购买") : storeManager.displayPrice)
-                                .font(.subheadline.weight(.semibold))
-                                .foregroundStyle(.white)
-                                .padding(.horizontal, 16)
-                                .padding(.vertical, 8)
-                                .background(Color(hex: "F59E0B"))
-                                .cornerRadius(20)
-                        }
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 16)
+                        .background(
+                            LinearGradient(
+                                colors: [Color.brand, Color.brandDark],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                        )
+                        .cornerRadius(16)
+                        .shadow(color: Color.brand.opacity(0.3), radius: 12, x: 0, y: 6)
                     }
-                    .disabled(storeManager.purchaseState == .purchasing)
                 }
-                .padding(.vertical, 8)
+                .buttonStyle(.plain)
+                .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                .listRowBackground(Color.clear)
             }
         }
     }

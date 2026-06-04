@@ -963,28 +963,6 @@
         }
       }
     },
-    "分类统计" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "By Category"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "カテゴリ別"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "分類統計"
-          }
-        }
-      }
-    },
     "分类排行" : {
       "localizations" : {
         "en" : {
@@ -1003,6 +981,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "分類排行"
+          }
+        }
+      }
+    },
+    "分类统计" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "By Category"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "カテゴリ別"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分類統計"
           }
         }
       }
@@ -3308,6 +3308,7 @@
       }
     },
     "热力图、趋势图、年度报告等" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -3911,6 +3912,7 @@
       }
     },
     "解锁无限自定义" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -4264,6 +4266,7 @@
       }
     },
     "购买" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

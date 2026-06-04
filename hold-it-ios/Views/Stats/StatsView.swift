@@ -371,11 +371,11 @@ struct StatsView: View {
                 HStack(spacing: 6) {
                     Image(systemName: "crown.fill")
                         .foregroundStyle(.yellow)
-                    Text("解锁全部高级统计")
+                    Text("解锁终身会员")
                         .font(.headline)
                         .foregroundStyle(.white)
                 }
-                Text("一次购买，终身使用")
+                Text("解锁全部高级统计")
                     .font(.caption)
                     .foregroundStyle(.white.opacity(0.8))
             }
