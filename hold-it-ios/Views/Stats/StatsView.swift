@@ -5,6 +5,7 @@
 
 import SwiftUI
 import SwiftData
+import UIKit
 
 struct StatsView: View {
     @Environment(AppState.self) private var appState
@@ -12,6 +13,9 @@ struct StatsView: View {
     @Query(sort: \ResistRecord.createdAt, order: .reverse) private var records: [ResistRecord]
     @AppStorage("currencyCode") private var currencyCode: String = "auto"
     @State private var showVipAlert = false
+    @State private var showExportSheet = false
+    @State private var exportImage: UIImage? = nil
+    @State private var isExporting = false
     @AppStorage("statsModuleOrder") private var moduleOrderData: Data = Data()
     @State private var showSortSheet = false
 
@@ -69,6 +73,21 @@ struct StatsView: View {
             }
             .background(Color.systemGroupedBackground)
             .navigationTitle("统计")
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        exportSnapshot()
+                    } label: {
+                        if isExporting {
+                            ProgressView()
+                                .scaleEffect(0.8)
+                        } else {
+                            Image(systemName: "square.and.arrow.up")
+                        }
+                    }
+                    .disabled(isExporting || records.isEmpty)
+                }
+            }
             .alert("解锁高级功能", isPresented: $showVipAlert) {
                 Button(statsVipTitle) {
                     Task {
@@ -78,6 +97,11 @@ struct StatsView: View {
                 Button("暂不需要", role: .cancel) { }
             } message: {
                 Text("该功能为会员专属，解锁后可永久使用分类分析、热力图、月度趋势等高级统计功能")
+            }
+            .sheet(isPresented: $showExportSheet) {
+                if let img = exportImage {
+                    ShareSheet(image: img)
+                }
             }
         }
     }
@@ -424,6 +448,24 @@ struct StatsView: View {
             ? String(localized: "解锁终身会员")
             : String(localized: "解锁终身会员") + "(" + storeManager.displayPrice + ")"
     }
+
+    // MARK: - 导出快照
+    @MainActor
+    private func exportSnapshot() {
+        isExporting = true
+        let snapshot = StatsSnapshotView(
+            records: records,
+            appState: appState,
+            currencyCode: currencyCode
+        )
+        let renderer = ImageRenderer(content: snapshot)
+        renderer.scale = 3.0
+        if let uiImage = renderer.uiImage {
+            exportImage = uiImage
+            showExportSheet = true
+        }
+        isExporting = false
+    }
 }
 
 struct BasicStatBox: View {
@@ -449,6 +491,20 @@ struct BasicStatBox: View {
         .background(Color.secondarySystemGroupedBackground)
         .cornerRadius(16)
     }
+}
+
+// MARK: - 系统分享面板
+struct ShareSheet: UIViewControllerRepresentable {
+    let image: UIImage
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(
+            activityItems: [image],
+            applicationActivities: nil
+        )
+    }
+
+    func updateUIViewController(_ vc: UIActivityViewController, context: Context) {}
 }
 
 // MARK: - 统计模块排序 Sheet
