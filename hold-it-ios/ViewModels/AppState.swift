@@ -171,14 +171,15 @@ class AppState {
     }
 
     /// 按分类的节省金额统计
-    func savedAmountByCategory(from records: [ResistRecord]) -> [(emoji: String, name: String, amount: Double, count: Int)] {
+    func savedAmountByCategory(from records: [ResistRecord]) -> [(emoji: String, name: String, categoryID: String, amount: Double, count: Int)] {
         let withAmount = records.filter { $0.amount != nil }
         let grouped = Dictionary(grouping: withAmount) { $0.effectiveCategoryID }
         return grouped.map { catID, items in
             let emoji = items.first?.categoryEmoji ?? ""
-            let name = items.first?.category ?? catID
+            let fallback = items.first?.category ?? catID
+            let name = localizedCategoryName(categoryID: catID, fallback: fallback)
             let total = items.compactMap { $0.amount }.reduce(0, +)
-            return (emoji, name, total, items.count)
+            return (emoji, name, catID, total, items.count)
         }.sorted { $0.amount > $1.amount }
     }
 
@@ -196,7 +197,8 @@ class AppState {
                 let key = formatter.string(from: date)
                 let amount = grouped[key]?.compactMap { $0.amount }.reduce(0, +) ?? 0
                 let displayFormatter = DateFormatter()
-                displayFormatter.dateFormat = "M月"
+                displayFormatter.locale = Locale.current
+                displayFormatter.setLocalizedDateFormatFromTemplate("MMM")
                 let label = displayFormatter.string(from: date)
                 data.append((label, amount))
             }

@@ -148,7 +148,7 @@ struct SavedAmountStatsView: View {
         .cornerRadius(16)
     }
 
-    private func periodItem(title: String, amount: Double, color: Color) -> some View {
+    private func periodItem(title: LocalizedStringKey, amount: Double, color: Color) -> some View {
         VStack(spacing: 6) {
             Text(title)
                 .font(.caption)
@@ -248,7 +248,7 @@ struct SavedAmountStatsView: View {
 
                             VStack(alignment: .leading, spacing: 4) {
                                 HStack {
-                                    Text(LocalizedStringKey(item.name))
+                                    Text(item.name)
                                         .font(.subheadline)
                                     Spacer()
                                     Text("\(symbol)\(formatAmount(item.amount))")
@@ -334,7 +334,7 @@ struct SavedAmountStatsView: View {
         .cornerRadius(16)
     }
 
-    private func highlightRow(icon: String, color: Color, title: String, value: String, subtitle: String) -> some View {
+    private func highlightRow(icon: String, color: Color, title: LocalizedStringKey, value: String, subtitle: String) -> some View {
         HStack(spacing: 12) {
             Image(systemName: icon)
                 .font(.body)

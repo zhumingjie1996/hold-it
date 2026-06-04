@@ -93,7 +93,7 @@ struct HomeView: View {
                         .font(.title)
 
                     VStack(alignment: .leading, spacing: 2) {
-                        Text(record.category)
+                        Text(localizedCategoryName(categoryID: record.effectiveCategoryID, fallback: record.category))
                             .font(.subheadline.weight(.medium))
                         HStack(spacing: 4) {
                             Text(relativeTimeString(from: record.createdAt))
@@ -346,7 +346,7 @@ struct RecordRow: View {
                 .font(.title2)
             
             VStack(alignment: .leading, spacing: 2) {
-                Text(record.category)
+                Text(localizedCategoryName(categoryID: record.effectiveCategoryID, fallback: record.category))
                     .font(.subheadline.weight(.medium))
                 if !record.note.isEmpty {
                     Text(record.note)

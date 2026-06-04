@@ -199,6 +199,16 @@ struct SettingsView: View {
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
+                    //                     ZStack(alignment: .bottomTrailing) {
+                    //     Image("AppLogo")
+                    //         .resizable()
+                    //         .scaledToFit()
+                    //         .frame(width: 60, height: 60)
+                    //         .opacity(1)
+                    //     Text("👑")
+                    //         .font(.system(size: 20))
+                    //         .offset(x: 0, y: -50)
+                    // }
 
                     Spacer()
                 }

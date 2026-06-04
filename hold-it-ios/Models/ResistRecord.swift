@@ -118,3 +118,20 @@ extension ResistCategory: Hashable {
         hasher.combine(id)
     }
 }
+
+// MARK: - 默认分类名称本地化辅助
+/// 根据 categoryID 返回本地化名称：默认分类走 xcstrings，自定义分类直接用 fallback
+func localizedCategoryName(categoryID: String, fallback: String) -> String {
+    // 默认分类 ID 映射表
+    let defaultIDToKey: [String: String] = [
+        "default_milk_tea":    "奶茶",
+        "default_impulse_buy": "冲动消费",
+        "default_gaming":      "游戏",
+        "default_short_video": "短视频",
+        "default_miss_him":    "想TA",
+    ]
+    if let key = defaultIDToKey[categoryID] {
+        return String(localized: String.LocalizationValue(key))
+    }
+    return fallback
+}

@@ -16,7 +16,7 @@ struct CategoryStatsView: View {
             if merged[key] != nil {
                 merged[key]?.count += 1
             } else {
-                merged[key] = (emoji: record.categoryEmoji, name: record.category, count: 1)
+                merged[key] = (emoji: record.categoryEmoji, name: localizedCategoryName(categoryID: key, fallback: record.category), count: 1)
             }
         }
         let total = records.count

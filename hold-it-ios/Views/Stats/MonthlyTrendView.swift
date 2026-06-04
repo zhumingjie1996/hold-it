@@ -31,7 +31,8 @@ struct MonthlyTrendView: View {
             let key = String(format: "%04d-%02d", selectedYear, month)
             let count = grouped[key]?.count ?? 0
             let displayFormatter = DateFormatter()
-            displayFormatter.dateFormat = "M月"
+            displayFormatter.locale = Locale.current
+            displayFormatter.setLocalizedDateFormatFromTemplate("MMM")
             let label = displayFormatter.string(from: calendar.date(from: DateComponents(year: selectedYear, month: month))!)
             data.append((label, count))
         }

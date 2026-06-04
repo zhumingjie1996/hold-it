@@ -55,7 +55,7 @@ struct WeekdayDistributionView: View {
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             } else {
-                HStack(alignment: .bottom, spacing: 0) {
+                HStack(alignment: .bottom, spacing: 4) {
                     ForEach(0..<7, id: \.self) { index in
                         let count = weekdayCounts[index]
                         let isMax = count == maxCount && count > 0
@@ -66,7 +66,7 @@ struct WeekdayDistributionView: View {
 
                             RoundedRectangle(cornerRadius: 5)
                                 .fill(isMax ? Color.brand : Color.brand.opacity(0.25))
-                                .frame(height: max(CGFloat(count) / CGFloat(maxCount) * 100, 4))
+                                .frame(width: 28, height: max(CGFloat(count) / CGFloat(maxCount) * 100, 4))
 
                             Text(weekdayNames[index])
                                 .font(.caption2)

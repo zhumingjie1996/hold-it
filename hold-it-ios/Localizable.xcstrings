@@ -831,7 +831,6 @@
       }
     },
     "最佳一天" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1881,7 +1880,6 @@
       }
     },
     "平均每次" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2773,7 +2771,6 @@
       }
     },
     "本月已省" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
