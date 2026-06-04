@@ -423,33 +423,58 @@ struct SavedAmountStatsView: View {
                 }
             }
 
-            // 开通会员按钮
+            // 开通会员按鈕
             Button {
-                showVipAlert = true
-            } label: {
-                VStack(spacing: 8) {
-                    HStack(spacing: 6) {
-                        Image(systemName: "crown.fill")
-                            .foregroundStyle(.yellow)
-                        Text("解锁终身会员")
-                            .font(.headline)
-                            .foregroundStyle(.white)
+                Task {
+                    _ = await storeManager.purchase()
+                    if storeManager.purchaseState == .success || storeManager.purchaseState == .failed {
+                        showVipAlert = true
                     }
-                    Text("解锁全部节省统计")
-                        .font(.caption)
-                        .foregroundStyle(.white.opacity(0.8))
                 }
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 16)
-                .background(
-                    LinearGradient(
-                        colors: [Color.brand, Color.brandDark],
-                        startPoint: .leading,
-                        endPoint: .trailing
+            } label: {
+                if storeManager.purchaseState == .purchasing {
+                    ProgressView()
+                        .tint(.white)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 56)
+                        .background(
+                            LinearGradient(
+                                colors: [Color.brand, Color.brandDark],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                        )
+                        .cornerRadius(16)
+                } else {
+                    VStack(spacing: 4) {
+                        HStack(spacing: 6) {
+                            Image(systemName: "crown.fill")
+                                .foregroundStyle(.yellow)
+                            Text("解锁终身会员")
+                                .font(.headline)
+                                .foregroundStyle(.white)
+                            if !storeManager.displayPrice.isEmpty {
+                                Text(storeManager.displayPrice)
+                                    .font(.headline.weight(.bold))
+                                    .foregroundStyle(.white)
+                            }
+                        }
+                        Text("解锁全部节省统计")
+                            .font(.caption)
+                            .foregroundStyle(.white.opacity(0.8))
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 16)
+                    .background(
+                        LinearGradient(
+                            colors: [Color.brand, Color.brandDark],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
                     )
-                )
-                .cornerRadius(16)
-                .shadow(color: Color.brand.opacity(0.3), radius: 12, x: 0, y: 6)
+                    .cornerRadius(16)
+                    .shadow(color: Color.brand.opacity(0.3), radius: 12, x: 0, y: 6)
+                }
             }
             .buttonStyle(.plain)
         }

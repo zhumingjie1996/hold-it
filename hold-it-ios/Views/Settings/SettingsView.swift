@@ -55,7 +55,10 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             List {
-                vipSection
+                // VIP 已激活或加载中：显示在 Section 里
+                if storeManager.isLoading || storeManager.isVip {
+                    vipSection
+                }
 
                 Section("外观") {
                     Picker(selection: $themeModeRaw) {
@@ -128,6 +131,11 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle("设置")
+            .safeAreaInset(edge: .top, spacing: 0) {
+                if !storeManager.isLoading && !storeManager.isVip {
+                    ctaBanner
+                }
+            }
             .alert("恢复购买", isPresented: $showRestoreAlert) {
                 Button("确定", role: .cancel) { }
             } message: {
@@ -159,10 +167,10 @@ struct SettingsView: View {
         }
     }
 
+    // MARK: - VIP 已激活 / 加载中状态（在 List Section 里）
     private var vipSection: some View {
         Section {
             if storeManager.isLoading {
-                // 加载中状态
                 HStack(spacing: 16) {
                     ProgressView()
                         .scaleEffect(1.2)
@@ -179,7 +187,6 @@ struct SettingsView: View {
                 }
                 .padding(.vertical, 8)
             } else if storeManager.isVip {
-                // 已激活状态
                 HStack(spacing: 16) {
                     Image(systemName: "checkmark.seal.fill")
                         .font(.system(size: 36))
@@ -196,67 +203,68 @@ struct SettingsView: View {
                     Spacer()
                 }
                 .padding(.vertical, 8)
-            } else {
-                // 未激活：全宽横幅 CTA
-                Button {
-                    Task {
-                        _ = await storeManager.purchase()
-                        if storeManager.purchaseState == .success {
-                            showPurchaseResult = true
-                        } else if storeManager.purchaseState == .failed {
-                            showPurchaseResult = true
-                        }
-                    }
-                } label: {
-                    if storeManager.purchaseState == .purchasing {
-                        ProgressView()
-                            .tint(.white)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 56)
-                            .background(
-                                LinearGradient(
-                                    colors: [Color.brand, Color.brandDark],
-                                    startPoint: .leading,
-                                    endPoint: .trailing
-                                )
-                            )
-                            .cornerRadius(16)
-                    } else {
-                        VStack(spacing: 4) {
-                            HStack(spacing: 6) {
-                                Image(systemName: "crown.fill")
-                                    .foregroundStyle(.yellow)
-                                Text(String(localized: "解锁终身会员"))
-                                    .font(.headline)
-                                    .foregroundStyle(.white)
-                                if !storeManager.displayPrice.isEmpty {
-                                    Text(storeManager.displayPrice)
-                                        .font(.headline.weight(.bold))
-                                        .foregroundStyle(.white)
-                                }
-                            }
-                            Text(String(localized: "一次购买，终身使用"))
-                                .font(.caption)
-                                .foregroundStyle(.white.opacity(0.8))
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
-                        .background(
-                            LinearGradient(
-                                colors: [Color.brand, Color.brandDark],
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
-                        .cornerRadius(16)
-                        .shadow(color: Color.brand.opacity(0.3), radius: 12, x: 0, y: 6)
-                    }
-                }
-                .buttonStyle(.plain)
-                .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
-                .listRowBackground(Color.clear)
             }
         }
+    }
+
+    // MARK: - 未激活：全宽 CTA 横幅（在 List 外部）
+    private var ctaBanner: some View {
+        Button {
+            Task {
+                _ = await storeManager.purchase()
+                if storeManager.purchaseState == .success {
+                    showPurchaseResult = true
+                } else if storeManager.purchaseState == .failed {
+                    showPurchaseResult = true
+                }
+            }
+        } label: {
+            if storeManager.purchaseState == .purchasing {
+                ProgressView()
+                    .tint(.white)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 56)
+                    .background(
+                        LinearGradient(
+                            colors: [Color.brand, Color.brandDark],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
+                    .cornerRadius(16)
+            } else {
+                VStack(spacing: 4) {
+                    HStack(spacing: 6) {
+                        Image(systemName: "crown.fill")
+                            .foregroundStyle(.yellow)
+                        Text(String(localized: "解锁终身会员"))
+                            .font(.headline)
+                            .foregroundStyle(.white)
+                        if !storeManager.displayPrice.isEmpty {
+                            Text(storeManager.displayPrice)
+                                .font(.headline.weight(.bold))
+                                .foregroundStyle(.white)
+                        }
+                    }
+                    Text(String(localized: "一次购买，终身使用"))
+                        .font(.caption)
+                        .foregroundStyle(.white.opacity(0.8))
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 16)
+                .background(
+                    LinearGradient(
+                        colors: [Color.brand, Color.brandDark],
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    )
+                )
+                .cornerRadius(16)
+            }
+        }
+        .buttonStyle(.plain)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 8)
     }
 
     // MARK: - 抹除数据
