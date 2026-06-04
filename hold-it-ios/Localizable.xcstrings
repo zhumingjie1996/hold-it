@@ -990,13 +990,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Category Ranking"
+            "value" : "By Category"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "カテゴリランキング"
+            "value" : "カテゴリ別"
           }
         },
         "zh-Hant" : {
@@ -2446,7 +2446,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Period Comparison"
+            "value" : "Time Compare"
           }
         },
         "ja" : {
