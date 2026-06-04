@@ -427,7 +427,7 @@ struct SavedAmountStatsView: View {
             Button {
                 Task {
                     _ = await storeManager.purchase()
-                    if storeManager.purchaseState == .success || storeManager.purchaseState == .failed {
+                    if storeManager.purchaseState == .failed {
                         showVipAlert = true
                     }
                 }
