@@ -23,6 +23,28 @@
         }
       }
     },
+    "「忍一下」是一款专注于『克制』的极简记录 App。" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hold It is a minimalist app focused on self-restraint."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "「我慢」は自制心に特化したミニマルな記録アプリです。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "「忍一下」是一款專注於『克制』的極簡記錄 App。"
+          }
+        }
+      }
+    },
     "%@" : {
       "localizations" : {
         "en" : {
@@ -199,6 +221,12 @@
         }
       }
     },
+    "💔" : {
+
+    },
+    "🫰" : {
+
+    },
     "To Myself" : {
       "localizations" : {
         "en" : {
@@ -245,6 +273,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "一次購買，終身使用"
+          }
+        }
+      }
+    },
+    "一键记录你每一次忍住的努力" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap to log every act of restraint"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ワンタップで我慢を記録"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "一鍵記錄你每一次忍住的努力"
           }
         }
       }
@@ -710,6 +760,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "關於"
+          }
+        }
+      }
+    },
+    "关于应用" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アプリについて"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "關於應用"
           }
         }
       }
@@ -1546,6 +1618,51 @@
         }
       }
     },
+    "多维统计" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Multi-Dimensional Stats"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "多角的な統計"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "多維統計"
+          }
+        }
+      }
+    },
+    "多维统计(PRO)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Advanced Stats (PRO)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "高度な統計（PRO）"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "多維統計（PRO）"
+          }
+        }
+      }
+    },
     "天" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -1681,6 +1798,28 @@
         }
       }
     },
+    "已成功解锁终身会员！" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lifetime membership unlocked successfully!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "生涯会員の解除に成功しました！"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已成功解鎖終身會員！"
+          }
+        }
+      }
+    },
     "已激活终身会员" : {
       "localizations" : {
         "en" : {
@@ -1800,6 +1939,7 @@
       }
     },
     "忍一下是一款专门记录忍住行为的极简 App。我们不记录「完成了什么」，而是记录「忍住了什么」——没喝奶茶、没刷短视频、没冲动消费。每一次忍住，都是对自己的一次胜利。" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1913,6 +2053,28 @@
         }
       }
     },
+    "忍住记录" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restraint Log"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "我慢記録"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "忍住記錄"
+          }
+        }
+      }
+    },
     "忍住项名称" : {
       "localizations" : {
         "en" : {
@@ -1975,6 +2137,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "意見反饋"
+          }
+        }
+      }
+    },
+    "我们不记录「完成了什么」，而是记录「忍住了什么」——没喝奶茶、没刷短视频、没冲动消费。每一次忍住，都是对自己的一次胜利。" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Instead of tracking what you completed, you track what you resisted — skipping milk tea, avoiding short videos, saying no to impulse buys. Every act of restraint is a small victory."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "「完了したこと」ではなく「我慢したこと」を記録します。タピオカを我慢した、動画を見るのをやめた、衝動買いを避けた。すべての我慢が小さな勝利です。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "我們不記錄「完成了什麼」，而是記錄「忍住了什麼」——沒喝奶茶、沒刷短視頻、沒衝動消費。每一次忍住，都是對自己的一次勝利。"
           }
         }
       }
@@ -2736,6 +2920,28 @@
         }
       }
     },
+    "正在加载会员信息…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loading membership info…"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "会員情報を読み込み中…"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正在載入會員資訊…"
+          }
+        }
+      }
+    },
     "此操作不可恢复，所有忍住记录和自定义分类将被永久删除。" : {
       "localizations" : {
         "en" : {
@@ -2865,6 +3071,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "深色"
+          }
+        }
+      }
+    },
+    "添加你自己想记录的任意忍住项" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add any restraint you want to track"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "記録したい任意の我慢項目を追加"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增你自己想記錄的任意忍住項"
           }
         }
       }
@@ -3022,6 +3250,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "熱力圖"
+          }
+        }
+      }
+    },
+    "热力图、分类分析、月度趋势一目了然" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Heatmap, category analysis & monthly trends at a glance"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ヒートマップ、カテゴリ分析、月次トレンドが一目でわかる"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "熱力圖、分類分析、月度趨勢一目了然"
           }
         }
       }
@@ -3456,6 +3706,28 @@
         }
       }
     },
+    "自定义分类(PRO)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom Categories (PRO)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "カスタムカテゴリ（PRO）"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自訂分類（PRO）"
+          }
+        }
+      }
+    },
     "节省了多少钱？（可选）" : {
       "localizations" : {
         "en" : {
@@ -3496,6 +3768,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "節省統計"
+          }
+        }
+      }
+    },
+    "节省统计(PRO)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Savings Stats (PRO)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "節約統計（PRO）"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "節省統計（PRO）"
           }
         }
       }
@@ -3545,7 +3839,26 @@
       }
     },
     "解锁全部节省统计" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unlock All Savings Stats"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すべての節約統計をアンロック"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "解鎖全部節省統計"
+          }
+        }
+      }
     },
     "解锁全部高级统计" : {
       "localizations" : {
@@ -3657,7 +3970,52 @@
         }
       }
     },
+    "计算忍住消费所节省的真实金额" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "See how much you've actually saved"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "我慢した消費で節約した実際の金額を確認"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "計算忍住消費所節省的真實金額"
+          }
+        }
+      }
+    },
+    "记录克制，成就更好的自己" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Track restraint, become your best self"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "克己を記録して、より良い自分へ"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "記錄克制，成就更好的自己"
+          }
+        }
+      }
+    },
     "记录忍住，成就更好的自己" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -3814,6 +4172,28 @@
         }
       }
     },
+    "请稍候" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please wait"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "お待ちください"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "請稍候"
+          }
+        }
+      }
+    },
     "货币单位" : {
       "localizations" : {
         "en" : {
@@ -3858,28 +4238,6 @@
         }
       }
     },
-    "购买结果" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Purchase Result"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "購入結果"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "購買結果"
-          }
-        }
-      }
-    },
     "购买失败，请稍后重试或检查网络连接。" : {
       "localizations" : {
         "en" : {
@@ -3902,68 +4260,24 @@
         }
       }
     },
-    "正在加载会员信息…" : {
+    "购买结果" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Loading membership info…"
+            "value" : "Purchase Result"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "会員情報を読み込み中…"
+            "value" : "購入結果"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "正在載入會員資訊…"
-          }
-        }
-      }
-    },
-    "已成功解锁终身会员！" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Lifetime membership unlocked successfully!"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "生涯会員の解除に成功しました！"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "已成功解鎖終身會員！"
-          }
-        }
-      }
-    },
-    "请稍候" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Please wait"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "お待ちください"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "請稍候"
+            "value" : "購買結果"
           }
         }
       }

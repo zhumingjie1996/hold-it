@@ -261,20 +261,42 @@ struct SettingsView: View {
 }
 
 struct AboutView: View {
+
+    @ViewBuilder
+    private func featureRow(emoji: String, title: LocalizedStringKey, desc: LocalizedStringKey) -> some View {
+        HStack(alignment: .top, spacing: 12) {
+            Text(emoji)
+                .font(.system(size: 20))
+                .frame(width: 28)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title)
+                    .font(.subheadline.weight(.medium))
+                Text(desc)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+        }
+    }
+
     var body: some View {
         List {
             Section {
                 VStack(spacing: 16) {
-                    Image("AppLogo")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 80, height: 80)
-                        .clipShape(RoundedRectangle(cornerRadius: 18))
+                    ZStack(alignment: .bottomTrailing) {
+                        Image("AppLogo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 80, height: 80)
+                            .opacity(1)
+                        Text("🫰")
+                            .font(.system(size: 20))
+                            .offset(x: -50, y: -10)
+                    }
 
                     Text("忍一下")
                         .font(.title.weight(.bold))
 
-                    Text("记录忍住，成就更好的自己")
+                    Text("记录克制，成就更好的自己")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
 
@@ -287,10 +309,27 @@ struct AboutView: View {
             }
 
             Section {
-                Text("忍一下是一款专门记录忍住行为的极简 App。我们不记录「完成了什么」，而是记录「忍住了什么」——没喝奶茶、没刷短视频、没冲动消费。每一次忍住，都是对自己的一次胜利。")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                    .padding(.vertical, 8)
+                VStack(alignment: .leading, spacing: 16) {
+                    Text("「忍一下」是一款专注于『克制』的极简记录 App。")
+                        .font(.subheadline.weight(.medium))
+
+                    Text("我们不记录「完成了什么」，而是记录「忍住了什么」——没喝奶茶、没刷短视频、没冲动消费。每一次忍住，都是对自己的一次胜利。")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+
+                    Divider()
+
+                    VStack(alignment: .leading, spacing: 12) {
+                        featureRow(emoji: "📝", title: "忍住记录", desc: "一键记录你每一次忍住的努力")
+                        featureRow(emoji: "🎨", title: "自定义分类(PRO)", desc: "添加你自己想记录的任意忍住项")
+                        featureRow(emoji: "📊", title: "多维统计(PRO)", desc: "热力图、分类分析、月度趋势一目了然")
+                        featureRow(emoji: "💰", title: "节省统计(PRO)", desc: "计算忍住消费所节省的真实金额")
+                    }
+                }
+                .padding(.vertical, 8)
+            } header: {
+                Text("关于应用")
             }
         }
         .navigationTitle("关于")

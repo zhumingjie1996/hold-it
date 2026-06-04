@@ -34,13 +34,29 @@ struct TimelineView: View {
         NavigationStack {
             List {
                 if records.isEmpty {
-                    Section {
-                        ContentUnavailableView {
-                            Label("暂无记录", systemImage: "doc.text")
-                        } description: {
-                            Text("去首页记录你的第一次忍住吧")
+                    VStack(spacing: 12) {
+                        ZStack(alignment: .bottomTrailing) {
+                            Image("AppLogo")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 80, height: 80)
+                                .opacity(1)
+                            Text("💔")
+                                .font(.system(size: 20))
+                                .offset(x: -50, y: -10)
                         }
+                        .padding(.bottom, 6)
+                        Text("暂无记录")
+                            .font(.headline)
+                        Text("去首页记录你的第一次忍住吧")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
                     }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 60)
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
                 } else {
                     ForEach(groupedRecords, id: \.0) { date, dayRecords in
                         Section {
@@ -187,15 +203,31 @@ struct RecordsListView: View {
             // 记录列表
             List {
                 if filteredRecords.isEmpty {
-                    Section {
-                        ContentUnavailableView {
-                            Label("暂无记录", systemImage: "doc.text")
-                        } description: {
-                            Text(selectedCategory != nil || timeFilter != .all
-                                 ? "换个筛选条件试试"
-                                 : "去首页记录你的第一次忍住吧")
+                    VStack(spacing: 12) {
+                        ZStack(alignment: .bottomTrailing) {
+                            Image("AppLogo")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 80, height: 80)
+                                .opacity(1)
+                            Text("💔")
+                                .font(.system(size: 20))
+                                .offset(x: -50, y: -10)
                         }
+                        .padding(.bottom, 6)
+                        Text("暂无记录")
+                            .font(.headline)
+                        Text(selectedCategory != nil || timeFilter != .all
+                             ? "换个筛选条件试试"
+                             : "去首页记录你的第一次忍住吧")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
                     }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 60)
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
                 } else {
                     ForEach(groupedRecords, id: \.0) { date, dayRecords in
                         Section {
@@ -462,13 +494,29 @@ struct SavedRecordsListView: View {
             // 记录列表
             List {
                 if filteredRecords.isEmpty {
-                    Section {
-                        ContentUnavailableView {
-                            Label("暂无金额记录", systemImage: "banknote")
-                        } description: {
-                            Text("记录忍住项时填写金额即可查看")
+                    VStack(spacing: 12) {
+                        ZStack(alignment: .bottomTrailing) {
+                            Image("AppLogo")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 80, height: 80)
+                                .opacity(1)
+                            Text("💔")
+                                .font(.system(size: 20))
+                                .offset(x: -50, y: -10)
                         }
+                        .padding(.bottom, 6)
+                        Text("暂无金额记录")
+                            .font(.headline)
+                        Text("记录忍住项时填写金额即可查看")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
                     }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 60)
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
                 } else {
                     ForEach(groupedRecords, id: \.0) { date, dayRecords in
                         Section {
