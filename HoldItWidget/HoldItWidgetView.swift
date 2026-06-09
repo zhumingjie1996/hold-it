@@ -44,9 +44,12 @@ struct HoldItWidgetView: View {
         VStack(alignment: .leading, spacing: 0) {
             // App 名称
             HStack(spacing: 5) {
-                Image(systemName: "hand.raised.fill")
-                    .font(.system(size: 10, weight: .bold))
-                    .foregroundStyle(.white.opacity(0.9))
+                Image("AppLogo")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 18, height: 18)
+                    .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
+                    .opacity(0.9)
                 Text(String(localized: "忍一下"))
                     .font(.system(size: 12, weight: .bold))
                     .foregroundStyle(.white.opacity(0.9))
@@ -73,7 +76,6 @@ struct HoldItWidgetView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .padding(16)
         .containerBackground(brandGradient, for: .widget)
     }
 
@@ -84,9 +86,12 @@ struct HoldItWidgetView: View {
             // 左侧：品牌 + 今日核心
             VStack(alignment: .leading, spacing: 0) {
                 HStack(spacing: 5) {
-                    Image(systemName: "hand.raised.fill")
-                        .font(.system(size: 10, weight: .bold))
-                        .foregroundStyle(.white.opacity(0.85))
+                    Image("AppLogo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 16, height: 16)
+                        .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
+                        .opacity(0.85)
                     Text(String(localized: "忍一下"))
                         .font(.system(size: 12, weight: .bold))
                         .foregroundStyle(.white.opacity(0.85))
@@ -154,7 +159,7 @@ struct HoldItWidgetView: View {
             }
             .frame(maxWidth: .infinity)
         }
-        .padding(14)
+        .padding(0)
         .containerBackground(.fill.tertiary, for: .widget)
     }
 
@@ -202,9 +207,11 @@ struct HoldItWidgetView: View {
             // 顶部品牌栏
             HStack {
                 HStack(spacing: 5) {
-                    Image(systemName: "hand.raised.fill")
-                        .font(.system(size: 11, weight: .bold))
-                        .foregroundStyle(brand)
+                    Image("AppLogo")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 20, height: 20)
+                        .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
                     Text(String(localized: "忍一下"))
                         .font(.system(size: 14, weight: .bold))
                         .foregroundStyle(.primary)
