@@ -42,22 +42,20 @@ struct HoldItWidgetView: View {
 
     private var smallWidget: some View {
         VStack(alignment: .leading, spacing: 0) {
-            // App 名称
-            HStack(spacing: 5) {
+            HStack(spacing: 8) {
                 Image("AppLogo")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 18, height: 18)
-                    .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
-                    .opacity(0.9)
+                    .frame(width: 26, height: 26)
+                    .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
                 Text(String(localized: "忍一下"))
-                    .font(.system(size: 12, weight: .bold))
-                    .foregroundStyle(.white.opacity(0.9))
+                    .font(.system(size: 17, weight: .semibold))
+                    .foregroundStyle(.primary)
+                Spacer()
             }
 
             Spacer(minLength: 0)
 
-            // 核心数据：今日忍住
             VStack(alignment: .leading, spacing: 4) {
                 Text(String(localized: "今日忍住"))
                     .font(.system(size: 11, weight: .medium))
@@ -82,28 +80,25 @@ struct HoldItWidgetView: View {
     // MARK: - Medium Widget
 
     private var mediumWidget: some View {
-        HStack(spacing: 16) {
-            // 左侧：品牌 + 今日核心
+        HStack(spacing: 12) {
+            // 左侧：今日忍住绿色卡片
             VStack(alignment: .leading, spacing: 0) {
-                HStack(spacing: 5) {
-                    Image("AppLogo")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 16, height: 16)
-                        .clipShape(RoundedRectangle(cornerRadius: 4, style: .continuous))
-                        .opacity(0.85)
-                    Text(String(localized: "忍一下"))
-                        .font(.system(size: 12, weight: .bold))
-                        .foregroundStyle(.white.opacity(0.85))
-                }
-
+            HStack(spacing: 8) {
+                Image("AppLogo")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 26, height: 26)
+                    .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
+                Text(String(localized: "忍一下"))
+                    .font(.system(size: 17, weight: .semibold))
+                    .foregroundStyle(.primary)
+                Spacer()
+            }
                 Spacer(minLength: 0)
-
-                VStack(alignment: .leading, spacing: 3) {
+                VStack(alignment: .leading, spacing: 2) {
                     Text(String(localized: "今日忍住"))
                         .font(.system(size: 10, weight: .medium))
                         .foregroundStyle(.white.opacity(0.6))
-
                     HStack(alignment: .firstTextBaseline, spacing: 2) {
                         Text("\(entry.stats.todayCount)")
                             .font(.system(size: 42, weight: .heavy, design: .rounded))
@@ -113,221 +108,159 @@ struct HoldItWidgetView: View {
                             .foregroundStyle(.white.opacity(0.65))
                     }
                 }
-
-                Spacer(minLength: 8)
-
-                // 连续天数
-                HStack(spacing: 4) {
-                    Image(systemName: "flame.fill")
-                        .font(.system(size: 10))
-                        .foregroundStyle(.orange)
-                    Text("\(entry.stats.streakDays)")
-                        .font(.system(size: 14, weight: .bold, design: .rounded))
-                        .foregroundStyle(.white)
-                    Text(String(localized: "天连续"))
-                        .font(.system(size: 10, weight: .medium))
-                        .foregroundStyle(.white.opacity(0.6))
-                }
             }
             .padding(14)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .background(brandGradient)
-            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+            .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
 
-            // 右侧：两个指标
-            VStack(spacing: 12) {
-                mediumStatItem(
-                    icon: "checkmark.circle.fill",
-                    iconColor: brand,
-                    value: "\(entry.stats.totalCount)",
-                    unit: String(localized: "次"),
-                    label: String(localized: "累计忍住")
-                )
+            // 右侧：连续天数 + 累计节省
+            VStack(alignment: .leading, spacing: 10) {
+                // 连续天数卡片
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(String(localized: "连续天数"))
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundStyle(.secondary)
+                    HStack(alignment: .firstTextBaseline, spacing: 2) {
+                        Text("\(entry.stats.streakDays)")
+                            .font(.system(size: 28, weight: .bold, design: .rounded))
+                            .foregroundStyle(brand)
+                        Text(String(localized: "天"))
+                            .font(.system(size: 12, weight: .medium))
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                .padding(.horizontal, 10)
+                .padding(.vertical, 8)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color(UIColor.secondarySystemGroupedBackground))
+                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
 
-                Divider()
-                    .padding(.horizontal, 2)
-
-                mediumStatItem(
-                    icon: "banknote.fill",
-                    iconColor: .green,
-                    value: entry.stats.totalSaved > 0
+                // 累计节省卡片
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(String(localized: "累计节省"))
+                        .font(.system(size: 10, weight: .medium))
+                        .foregroundStyle(.secondary)
+                    Text(entry.stats.totalSaved > 0
                         ? "\(entry.stats.currencySymbol)\(formatAmount(entry.stats.totalSaved))"
-                        : "—",
-                    unit: "",
-                    label: String(localized: "累计节省")
-                )
+                        : "—")
+                        .font(.system(size: 22, weight: .bold, design: .rounded))
+                        .foregroundStyle(.primary)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.6)
+                }
+                .padding(.horizontal, 10)
+                .padding(.vertical, 8)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color(UIColor.secondarySystemGroupedBackground))
+                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
             }
             .frame(maxWidth: .infinity)
         }
-        .padding(0)
         .containerBackground(.fill.tertiary, for: .widget)
-    }
-
-    private func mediumStatItem(
-        icon: String,
-        iconColor: Color,
-        value: String,
-        unit: String,
-        label: String
-    ) -> some View {
-        VStack(alignment: .leading, spacing: 4) {
-            HStack(spacing: 6) {
-                Image(systemName: icon)
-                    .font(.system(size: 12, weight: .semibold))
-                    .foregroundStyle(iconColor)
-                    .frame(width: 24, height: 24)
-                    .background(iconColor.opacity(0.12))
-                    .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
-
-                Text(label)
-                    .font(.system(size: 10, weight: .medium))
-                    .foregroundStyle(.secondary)
-            }
-
-            HStack(alignment: .firstTextBaseline, spacing: 2) {
-                Text(value)
-                    .font(.system(size: 22, weight: .bold, design: .rounded))
-                    .foregroundStyle(.primary)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.7)
-                if !unit.isEmpty {
-                    Text(unit)
-                        .font(.system(size: 11))
-                        .foregroundStyle(.secondary)
-                }
-            }
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     // MARK: - Large Widget
 
     private var largeWidget: some View {
-        VStack(spacing: 12) {
-            // 顶部品牌栏
-            HStack {
-                HStack(spacing: 5) {
-                    Image("AppLogo")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 20, height: 20)
-                        .clipShape(RoundedRectangle(cornerRadius: 5, style: .continuous))
-                    Text(String(localized: "忍一下"))
-                        .font(.system(size: 14, weight: .bold))
-                        .foregroundStyle(.primary)
-                }
+        VStack(alignment: .leading, spacing: 14) {
+            // 品牌标题
+            HStack(spacing: 8) {
+                Image("AppLogo")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 26, height: 26)
+                    .clipShape(RoundedRectangle(cornerRadius: 6, style: .continuous))
+                Text(String(localized: "忍一下"))
+                    .font(.system(size: 17, weight: .semibold))
+                    .foregroundStyle(.primary)
                 Spacer()
-                // 连续天数
-                HStack(spacing: 4) {
-                    Image(systemName: "flame.fill")
-                        .font(.system(size: 12))
-                        .foregroundStyle(.orange)
-                    Text("\(entry.stats.streakDays)")
-                        .font(.system(size: 15, weight: .bold, design: .rounded))
-                        .foregroundStyle(.primary)
-                    Text(String(localized: "天连续"))
-                        .font(.system(size: 11, weight: .medium))
-                        .foregroundStyle(.secondary)
-                }
             }
 
-            // 今日忍住 - 大卡片
-            HStack {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(String(localized: "今日忍住"))
-                        .font(.system(size: 12, weight: .medium))
-                        .foregroundStyle(.white.opacity(0.65))
+            // 模块一：次数统计
+            largeSection(title: String(localized: "忍住次数")) {
+                HStack(spacing: 0) {
+                    largePill(label: String(localized: "今日"), value: "\(entry.stats.todayCount)", unit: String(localized: "次"), highlight: true)
+                    largeDivider()
+                    largePill(label: String(localized: "本周"), value: "\(entry.stats.weekCount)", unit: String(localized: "次"))
+                    largeDivider()
+                    largePill(label: String(localized: "本月"), value: "\(entry.stats.monthCount)", unit: String(localized: "次"))
+                    largeDivider()
+                    largePill(label: String(localized: "累计"), value: "\(entry.stats.totalCount)", unit: String(localized: "次"))
+                }
+                .padding(.vertical, 12)
+                .padding(.horizontal, 10)
+                .background(Color(UIColor.secondarySystemGroupedBackground))
+                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+            }
 
-                    HStack(alignment: .firstTextBaseline, spacing: 3) {
-                        Text("\(entry.stats.todayCount)")
-                            .font(.system(size: 52, weight: .heavy, design: .rounded))
-                            .foregroundStyle(.white)
-                        Text(String(localized: "次"))
-                            .font(.system(size: 18, weight: .semibold))
-                            .foregroundStyle(.white.opacity(0.7))
+            // 模块二：连续记录
+            largeSection(title: String(localized: "连续天数")) {
+                HStack(spacing: 0) {
+                    largePill(label: String(localized: "当前"), value: "\(entry.stats.streakDays)", unit: String(localized: "天"), highlight: true)
+                    largeDivider()
+                    largePill(label: String(localized: "最长"), value: "\(entry.stats.bestStreak)", unit: String(localized: "天"))
+                }
+                .padding(.vertical, 12)
+                .padding(.horizontal, 10)
+                .background(Color(UIColor.secondarySystemGroupedBackground))
+                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+            }
+
+            // 模块三：节省（有数据才展示）
+            if entry.stats.totalSaved > 0 {
+                largeSection(title: String(localized: "累计节省")) {
+                    HStack(spacing: 0) {
+                        largePill(label: String(localized: "金额"), value: "\(entry.stats.currencySymbol)\(formatAmount(entry.stats.totalSaved))", unit: "", highlight: true)
                     }
+                    .padding(.vertical, 12)
+                    .padding(.horizontal, 10)
+                    .background(Color(UIColor.secondarySystemGroupedBackground))
+                    .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
                 }
-                Spacer()
-            }
-            .padding(16)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(brandGradient)
-            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-
-            // 三列统计
-            HStack(spacing: 10) {
-                largeStatBox(
-                    icon: "checkmark.circle.fill",
-                    iconColor: brand,
-                    value: "\(entry.stats.totalCount)",
-                    unit: String(localized: "次"),
-                    label: String(localized: "累计忍住")
-                )
-
-                largeStatBox(
-                    icon: "banknote.fill",
-                    iconColor: .green,
-                    value: entry.stats.totalSaved > 0
-                        ? "\(entry.stats.currencySymbol)\(formatAmount(entry.stats.totalSaved))"
-                        : "—",
-                    unit: "",
-                    label: String(localized: "累计节省")
-                )
-
-                largeStatBox(
-                    icon: "calendar",
-                    iconColor: .blue,
-                    value: "\(entry.stats.streakDays)",
-                    unit: String(localized: "天"),
-                    label: String(localized: "连续记录")
-                )
             }
 
             Spacer(minLength: 0)
         }
-        .padding(16)
         .containerBackground(.fill.tertiary, for: .widget)
     }
 
-    private func largeStatBox(
-        icon: String,
-        iconColor: Color,
-        value: String,
-        unit: String,
-        label: String
-    ) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Image(systemName: icon)
-                .font(.system(size: 13, weight: .semibold))
-                .foregroundStyle(iconColor)
-                .frame(width: 28, height: 28)
-                .background(iconColor.opacity(0.12))
-                .clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
-
-            Spacer(minLength: 0)
-
+    private func largePill(label: String, value: String, unit: String, highlight: Bool = false) -> some View {
+        VStack(spacing: 3) {
             HStack(alignment: .firstTextBaseline, spacing: 2) {
                 Text(value)
                     .font(.system(size: 20, weight: .bold, design: .rounded))
-                    .foregroundStyle(.primary)
+                    .foregroundStyle(highlight ? brand : .primary)
                     .lineLimit(1)
                     .minimumScaleFactor(0.6)
                 if !unit.isEmpty {
                     Text(unit)
-                        .font(.system(size: 11))
+                        .font(.system(size: 10, weight: .medium))
                         .foregroundStyle(.secondary)
                 }
             }
-
             Text(label)
                 .font(.system(size: 10, weight: .medium))
                 .foregroundStyle(.secondary)
-                .lineLimit(1)
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(12)
-        .background(Color(UIColor.secondarySystemGroupedBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+        .frame(maxWidth: .infinity)
+    }
+
+    private func largeDivider() -> some View {
+        Rectangle()
+            .fill(Color(UIColor.separator).opacity(0.4))
+            .frame(width: 0.5)
+            .padding(.vertical, 4)
+    }
+
+    private func largeSection<Content: View>(title: String, @ViewBuilder content: () -> Content) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(title)
+                .font(.system(size: 11, weight: .medium))
+                .foregroundStyle(.secondary)
+                .padding(.leading, 2)
+            content()
+        }
     }
 
     // MARK: - Helpers
