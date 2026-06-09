@@ -4,6 +4,9 @@
     "" : {
 
     },
+    "—" : {
+
+    },
     "·" : {
       "localizations" : {
         "en" : {
@@ -22,248 +25,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "·"
-          }
-        }
-      }
-    },
-    "今日忍住" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Today's Holds"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "今日の我慢"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "今日忍住"
-          }
-        }
-      }
-    },
-    "忍住次数" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hold Count"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "我慢回数"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "忍住次數"
-          }
-        }
-      }
-    },
-    "连续天数" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Streak Days"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "連続日数"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "連續天數"
-          }
-        }
-      }
-    },
-    "当前" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Current"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "現在"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "目前"
-          }
-        }
-      }
-    },
-    "最长" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Best"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "最長"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "最長"
-          }
-        }
-      }
-    },
-    "次" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : ""
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "回"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "次"
-          }
-        }
-      }
-    },
-    "天" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "d"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "日"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "天"
-          }
-        }
-      }
-    },
-    "点击记录" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tap to Record"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "タップして記録"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "點擊記錄"
-          }
-        }
-      }
-    },
-    "快速记录" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Quick Record"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "クイック記録"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "快速記錄"
-          }
-        }
-      }
-    },
-    "一键打开忍住记录" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tap to open and record"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ワンタップで記録を開く"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "一鍵開啟忍住記錄"
-          }
-        }
-      }
-    },
-    "展示你的忍住记录统计" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Show your hold stats"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "忍住記録の統計を表示"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "展示你的忍住記錄統計"
           }
         }
       }
@@ -478,6 +239,9 @@
     "Hold it · 忍一下" : {
 
     },
+    "Key" : {
+      "extractionState" : "manual"
+    },
     "To Myself" : {
       "localizations" : {
         "en" : {
@@ -524,6 +288,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "一次購買，終身使用"
+          }
+        }
+      }
+    },
+    "一键打开忍住记录" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap to open and record"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ワンタップで記録を開く"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "一鍵開啟忍住記錄"
           }
         }
       }
@@ -766,6 +552,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "今年"
+          }
+        }
+      }
+    },
+    "今日忍住" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Today's Holds"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今日の我慢"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今日忍住"
           }
         }
       }
@@ -1099,6 +907,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "最佳一天"
+          }
+        }
+      }
+    },
+    "最长" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Best"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最長"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "最長"
           }
         }
       }
@@ -1935,7 +1765,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "days"
+            "value" : "d"
           }
         },
         "ja" : {
@@ -2014,6 +1844,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "少"
+          }
+        }
+      }
+    },
+    "展示你的忍住记录统计" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show your hold stats"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "忍住記録の統計を表示"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "展示你的忍住記錄統計"
           }
         }
       }
@@ -2180,6 +2032,28 @@
         }
       }
     },
+    "当前" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Current"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "現在"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "目前"
+          }
+        }
+      }
+    },
     "忍一下" : {
       "localizations" : {
         "en" : {
@@ -2291,6 +2165,28 @@
         }
       }
     },
+    "忍住次数" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hold Count"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "我慢回数"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "忍住次數"
+          }
+        }
+      }
+    },
     "忍住没喝一杯…" : {
       "localizations" : {
         "en" : {
@@ -2353,6 +2249,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "忍住項名稱"
+          }
+        }
+      }
+    },
+    "快速记录" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quick Record"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "クイック記録"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "快速記錄"
           }
         }
       }
@@ -2575,6 +2493,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "摸魚"
+          }
+        }
+      }
+    },
+    "支付中…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Processing…"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "処理中…"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "支付中…"
           }
         }
       }
@@ -2977,7 +2917,6 @@
       }
     },
     "本周" : {
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -3161,7 +3100,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "times"
+            "value" : ""
           }
         },
         "ja" : {
@@ -4513,28 +4452,6 @@
         }
       }
     },
-    "支付中…" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Processing…"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "処理中…"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "支付中…"
-          }
-        }
-      }
-    },
     "请稍候" : {
       "localizations" : {
         "en" : {
@@ -4709,6 +4626,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "過去6個月的變化趨勢"
+          }
+        }
+      }
+    },
+    "连续天数" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Streak Days"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "連続日数"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "連續天數"
           }
         }
       }
