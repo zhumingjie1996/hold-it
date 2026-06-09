@@ -180,13 +180,13 @@ struct HoldItWidgetView: View {
             // 模块一：次数统计
             largeSection(title: String(localized: "忍住次数")) {
                 HStack(spacing: 0) {
-                    largePill(label: String(localized: "今日"), value: "\(entry.stats.todayCount)", unit: String(localized: "次"), highlight: true)
+                    largePill(label: String(localized: "今天"), value: "\(entry.stats.todayCount)", unit: String(localized: "次"), highlight: true)
                     largeDivider()
                     largePill(label: String(localized: "本周"), value: "\(entry.stats.weekCount)", unit: String(localized: "次"))
                     largeDivider()
                     largePill(label: String(localized: "本月"), value: "\(entry.stats.monthCount)", unit: String(localized: "次"))
                     largeDivider()
-                    largePill(label: String(localized: "累计"), value: "\(entry.stats.totalCount)", unit: String(localized: "次"))
+                    largePill(label: String(localized: "累计忍住"), value: "\(entry.stats.totalCount)", unit: String(localized: "次"))
                 }
                 .padding(.vertical, 12)
                 .padding(.horizontal, 10)
@@ -211,7 +211,7 @@ struct HoldItWidgetView: View {
             if entry.stats.totalSaved > 0 {
                 largeSection(title: String(localized: "累计节省")) {
                     HStack(spacing: 0) {
-                        largePill(label: String(localized: "金额"), value: "\(entry.stats.currencySymbol)\(formatAmount(entry.stats.totalSaved))", unit: "", highlight: true)
+                        largePill(label: String(localized: "累计节省"), value: "\(entry.stats.currencySymbol)\(formatAmount(entry.stats.totalSaved))", unit: "", highlight: true)
                     }
                     .padding(.vertical, 12)
                     .padding(.horizontal, 10)
