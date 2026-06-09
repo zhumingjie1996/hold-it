@@ -5,7 +5,6 @@
 
 import SwiftUI
 import WidgetKit
-import UIKit
 
 struct HoldItWidgetView: View {
     var entry: HoldItEntry
@@ -59,22 +58,23 @@ struct HoldItWidgetView: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(String(localized: "今日忍住"))
                     .font(.system(size: 11, weight: .medium))
-                    .foregroundStyle(.white.opacity(0.65))
+                    .foregroundStyle(.secondary)
 
                 HStack(alignment: .firstTextBaseline, spacing: 3) {
                     Text("\(entry.stats.todayCount)")
                         .font(.system(size: 48, weight: .heavy, design: .rounded))
-                        .foregroundStyle(.white)
+                        .foregroundStyle(brand)
                         .minimumScaleFactor(0.6)
                         .lineLimit(1)
                     Text(String(localized: "次"))
                         .font(.system(size: 16, weight: .semibold))
-                        .foregroundStyle(.white.opacity(0.7))
+                        .foregroundStyle(.secondary)
                 }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .containerBackground(brandGradient, for: .widget)
+        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+        .containerBackground(.fill.tertiary, for: .widget)
     }
 
     // MARK: - Medium Widget
@@ -98,20 +98,20 @@ struct HoldItWidgetView: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(String(localized: "今日忍住"))
                         .font(.system(size: 10, weight: .medium))
-                        .foregroundStyle(.white.opacity(0.6))
+                        .foregroundStyle(.secondary)
                     HStack(alignment: .firstTextBaseline, spacing: 2) {
                         Text("\(entry.stats.todayCount)")
                             .font(.system(size: 42, weight: .heavy, design: .rounded))
-                            .foregroundStyle(.white)
+                            .foregroundStyle(brand)
                         Text(String(localized: "次"))
                             .font(.system(size: 14, weight: .semibold))
-                            .foregroundStyle(.white.opacity(0.65))
+                            .foregroundStyle(.secondary)
                     }
                 }
             }
             .padding(14)
+            .background(.fill.quaternary)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .background(brandGradient)
             .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
 
             // 右侧：连续天数 + 累计节省
@@ -133,7 +133,7 @@ struct HoldItWidgetView: View {
                 .padding(.horizontal, 10)
                 .padding(.vertical, 8)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color(UIColor.secondarySystemGroupedBackground))
+                .background(.fill.quaternary)
                 .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
 
                 // 累计节省卡片
@@ -152,7 +152,7 @@ struct HoldItWidgetView: View {
                 .padding(.horizontal, 10)
                 .padding(.vertical, 8)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .background(Color(UIColor.secondarySystemGroupedBackground))
+                .background(.fill.quaternary)
                 .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
             }
             .frame(maxWidth: .infinity)
@@ -190,7 +190,7 @@ struct HoldItWidgetView: View {
                 }
                 .padding(.vertical, 12)
                 .padding(.horizontal, 10)
-                .background(Color(UIColor.secondarySystemGroupedBackground))
+                .background(.fill.quaternary)
                 .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
             }
 
@@ -203,7 +203,7 @@ struct HoldItWidgetView: View {
                 }
                 .padding(.vertical, 12)
                 .padding(.horizontal, 10)
-                .background(Color(UIColor.secondarySystemGroupedBackground))
+                .background(.fill.quaternary)
                 .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
             }
 
@@ -215,7 +215,7 @@ struct HoldItWidgetView: View {
                     }
                     .padding(.vertical, 12)
                     .padding(.horizontal, 10)
-                    .background(Color(UIColor.secondarySystemGroupedBackground))
+                    .background(.fill.quaternary)
                     .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
                 }
             }
@@ -248,7 +248,7 @@ struct HoldItWidgetView: View {
 
     private func largeDivider() -> some View {
         Rectangle()
-            .fill(Color(UIColor.separator).opacity(0.4))
+            .fill(.separator.opacity(0.4))
             .frame(width: 0.5)
             .padding(.vertical, 4)
     }
