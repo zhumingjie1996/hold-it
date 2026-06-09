@@ -6,6 +6,7 @@
 import SwiftUI
 import SwiftData
 import UIKit
+import WidgetKit
 
 struct HomeView: View {
     @Environment(AppState.self) private var appState
@@ -46,6 +47,12 @@ struct HomeView: View {
                 if showCelebration {
                     CelebrationView(isActive: $showCelebration)
                 }
+            }
+            .onChange(of: records.count) {
+                appState.syncWidgetData(from: records)
+            }
+            .onAppear {
+                appState.syncWidgetData(from: records)
             }
         }
     }

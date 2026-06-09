@@ -7,6 +7,7 @@ import SwiftUI
 import StoreKit
 import SwiftData
 import UIKit
+import WidgetKit
 
 enum ThemeMode: Int, CaseIterable {
     case system = 0
@@ -298,6 +299,9 @@ struct SettingsView: View {
             try modelContext.delete(model: ResistRecord.self)
             try modelContext.delete(model: CustomCategory.self)
             try modelContext.save()
+            // 清空 Widget 共享数据
+            WidgetDataStore.save(stats: WidgetDataStore.Stats())
+            WidgetCenter.shared.reloadTimelines(ofKind: "HoldItWidget")
         } catch {
             print("清除数据失败: \(error)")
         }

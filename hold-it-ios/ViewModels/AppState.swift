@@ -5,6 +5,7 @@
 
 import SwiftUI
 import SwiftData
+import WidgetKit
 
 // MARK: - 货币配置
 
@@ -229,5 +230,20 @@ class AppState {
     /// 含有金额的记录数
     func recordsWithAmountCount(from records: [ResistRecord]) -> Int {
         records.filter { $0.amount != nil }.count
+    }
+
+    // MARK: - Widget 数据同步
+
+    /// 将关键统计数据写入 App Group 共享容器，供 Widget Extension 读取
+    func syncWidgetData(from records: [ResistRecord]) {
+        let stats = WidgetDataStore.Stats(
+            todayCount:     todayCount(from: records),
+            totalCount:     totalCount(from: records),
+            streakDays:     streakDays(from: records),
+            totalSaved:     totalSavedAmount(from: records),
+            currencySymbol: SupportedCurrency.systemSymbol
+        )
+        WidgetDataStore.save(stats: stats)
+        WidgetCenter.shared.reloadTimelines(ofKind: "HoldItWidget")
     }
 }
