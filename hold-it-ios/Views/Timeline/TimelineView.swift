@@ -480,7 +480,7 @@ struct SavedRecordsListView: View {
                         .font(.caption)
                         .foregroundStyle(.secondary)
                     Spacer()
-                    Text("合计 \(symbol)\(formatAmount(filteredTotal))")
+                    Text(String(format: String(localized: "合计 %@%@"), symbol, formatAmount(filteredTotal)))
                         .font(.caption.weight(.semibold))
                         .foregroundStyle(.green)
                 }
