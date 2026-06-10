@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "ceshitu.png",
+      "filename" : "holdItLogoLight.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -13,7 +13,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "ceshitu 1.png",
+      "filename" : "holdItLogoDark.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
@@ -25,7 +25,7 @@
           "value" : "tinted"
         }
       ],
-      "filename" : "ceshitu 2.png",
+      "filename" : "holdItLogoLight 1.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
