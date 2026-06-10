@@ -125,11 +125,11 @@ struct SettingsView: View {
                 }
 
                 Section("法律") {
-                    NavigationLink("隐私政策") {
-                        LegalView(title: "隐私政策", content: localizedPrivacyPolicy)
+                    NavigationLink(String(localized: "隐私政策")) {
+                        LegalView(title: String(localized: "隐私政策"), content: localizedPrivacyPolicy)
                     }
-                    NavigationLink("用户协议") {
-                        LegalView(title: "用户协议", content: localizedTermsOfService)
+                    NavigationLink(String(localized: "用户协议")) {
+                        LegalView(title: String(localized: "用户协议"), content: localizedTermsOfService)
                     }
                 }
 
