@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>支持 – 忍一下 / Support – Hold It</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1c1c1e;
+      --muted: #6e6e73;
+      --accent: #34c759;
+      --border: #e5e5ea;
+      --card: #f9f9f9;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #000000;
+        --text: #f2f2f7;
+        --muted: #98989d;
+        --accent: #30d158;
+        --border: #2c2c2e;
+        --card: #1c1c1e;
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+      padding: 48px 24px 80px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    header { margin-bottom: 40px; }
+    header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    header p {
+      font-size: 15px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 40px 0;
+    }
+    section { margin-bottom: 32px; }
+    h2 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 6px;
+      margin-top: 20px;
+    }
+    p { font-size: 15px; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .contact-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      margin-top: 4px;
+    }
+    .faq-block {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+    }
+    .faq-block h3 { margin-top: 0; }
+    .faq-block h3 + p { margin-top: 0; }
+    .faq-item { margin-bottom: 20px; }
+    .faq-item:last-child { margin-bottom: 0; }
+    .lang-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      margin: 40px 0;
+    }
+    .lang-divider::before,
+    .lang-divider::after {
+      content: "";
+      flex: 1;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 中文 -->
+  <header>
+    <h1>Hold It · 忍一下 — 支持</h1>
+    <p>感谢您使用「忍一下」！如有任何问题或建议，请通过以下方式联系我们。</p>
+  </header>
+
+  <section>
+    <h2>联系方式</h2>
+    <div class="contact-card">
+      <span>📧</span>
+      <a href="mailto:zhumingjie0822@gmail.com">zhumingjie0822@gmail.com</a>
+    </div>
+  </section>
+
+  <section>
+    <h2>常见问题</h2>
+    <div class="faq-block">
+      <div class="faq-item">
+        <h3>数据会上传到服务器吗？</h3>
+        <p>不会。所有数据均存储在您的设备本地，我们不会收集任何信息。</p>
+      </div>
+      <div class="faq-item">
+        <h3>如何恢复已购买的会员？</h3>
+        <p>打开设置页面，点击「恢复购买」按钮即可。</p>
+      </div>
+      <div class="faq-item">
+        <h3>数据如何备份？</h3>
+        <p>如已开启 iCloud 备份，数据会随系统备份自动保存到您的 iCloud 个人空间。</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="lang-divider">English</div>
+
+  <!-- English -->
+  <header>
+    <h1>Hold It — Support</h1>
+    <p>Thank you for using Hold It! If you have any questions or feedback, please reach out.</p>
+  </header>
+
+  <section>
+    <h2>Contact</h2>
+    <div class="contact-card">
+      <span>📧</span>
+      <a href="mailto:zhumingjie0822@gmail.com">zhumingjie0822@gmail.com</a>
+    </div>
+  </section>
+
+  <section>
+    <h2>FAQ</h2>
+    <div class="faq-block">
+      <div class="faq-item">
+        <h3>Is my data uploaded to a server?</h3>
+        <p>No. All data is stored locally on your device. We do not collect any information.</p>
+      </div>
+      <div class="faq-item">
+        <h3>How do I restore my purchase?</h3>
+        <p>Go to the Settings page and tap the "Restore Purchase" button.</p>
+      </div>
+      <div class="faq-item">
+        <h3>How is my data backed up?</h3>
+        <p>If you have iCloud Backup enabled, your data will be included automatically in your personal iCloud backup.</p>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>
