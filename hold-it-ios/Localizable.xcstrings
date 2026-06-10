@@ -149,7 +149,26 @@
       }
     },
     "%lld 条记录" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld records"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld件の記録"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld 筆記錄"
+          }
+        }
+      }
     },
     "%lld 条金额记录" : {
       "extractionState" : "stale",

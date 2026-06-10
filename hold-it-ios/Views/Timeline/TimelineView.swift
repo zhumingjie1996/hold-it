@@ -476,7 +476,7 @@ struct SavedRecordsListView: View {
             // 汇总条
             if !filteredRecords.isEmpty {
                 HStack {
-                    Text("\(filteredRecords.count) 条记录")
+                    Text(String(format: String(localized: "%lld 条记录"), filteredRecords.count))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                     Spacer()
