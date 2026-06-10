@@ -13,7 +13,7 @@ struct RecordSheet: View {
     @Environment(StoreManager.self) private var storeManager
     @Environment(\.modelContext) private var modelContext
     @AppStorage("currencyCode") private var currencyCode: String = "auto"
-    var onSave: (() -> Void)? = nil
+    var onSave: ((_ unlockedReward: Reward?) -> Void)? = nil
 
     @Query(sort: \CustomCategory.createdAt) private var customCategories: [CustomCategory]
 
@@ -356,6 +356,8 @@ struct RecordSheet: View {
         }
     }
 
+    @Query(filter: #Predicate<Reward> { $0.statusRaw == "IN_PROGRESS" }) private var activeRewards: [Reward]
+
     private func saveRecord() {
         // 解析用户输入的金额
         let finalAmount: Double?
@@ -374,8 +376,28 @@ struct RecordSheet: View {
         )
         modelContext.insert(record)
 
+        // 自动给关联的奖励加忍币
+        let catID = selectedCategory.stableID
+        var unlockedReward: Reward?
+        for reward in activeRewards {
+            if reward.categoryIDs.contains(catID) {
+                reward.currentCoins += 1
+                let coinRecord = RewardCoinRecord(
+                    rewardID: reward.id,
+                    restraintRecordID: record.id
+                )
+                modelContext.insert(coinRecord)
+                // 检查是否解锁
+                if reward.currentCoins >= reward.targetCoins, reward.status == .inProgress {
+                    reward.status = .unlocked
+                    reward.unlockedAt = Date()
+                    unlockedReward = reward
+                }
+            }
+        }
+
         dismiss()
-        onSave?()
+        onSave?(unlockedReward)
     }
 
     private func deleteCategory() {
