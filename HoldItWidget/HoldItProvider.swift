@@ -18,7 +18,10 @@ struct HoldItProvider: TimelineProvider {
             totalCount: 42,
             streakDays: 7,
             totalSaved: 258.0,
-            currencySymbol: "¥"
+            currencySymbol: "¥",
+            weekCount: 12,
+            monthCount: 38,
+            bestStreak: 14
         ))
     }
 

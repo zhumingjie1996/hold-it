@@ -67,6 +67,9 @@ enum SupportedCurrency: String, CaseIterable, Identifiable {
 
 @Observable
 class AppState {
+    /// Widget 点击快速记录触发信号
+    var triggerRecordSheet: Bool = false
+
     func todayCount(from records: [ResistRecord]) -> Int {
         let calendar = Calendar.current
         let startOfDay = calendar.startOfDay(for: Date())
@@ -241,7 +244,10 @@ class AppState {
             totalCount:     totalCount(from: records),
             streakDays:     streakDays(from: records),
             totalSaved:     totalSavedAmount(from: records),
-            currencySymbol: SupportedCurrency.systemSymbol
+            currencySymbol: SupportedCurrency.systemSymbol,
+            weekCount:      thisWeekCount(from: records),
+            monthCount:     thisMonthCount(from: records),
+            bestStreak:     bestStreak(from: records)
         )
         WidgetDataStore.save(stats: stats)
         WidgetCenter.shared.reloadTimelines(ofKind: "HoldItWidget")
