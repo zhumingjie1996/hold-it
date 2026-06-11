@@ -99,16 +99,21 @@ struct SettingsView: View {
                 }
 
                 Section("关于") {
-                    NavigationLink("关于忍一下") {
+                    NavigationLink {
                         AboutView()
+                    } label: {
+                        Label(String(localized: "关于忍一下"), systemImage: "info.circle.fill")
                     }
 
-                    Button(String(localized: "评价应用")) {
+                    Button {
                         if let scene = UIApplication.shared.connectedScenes
                             .compactMap({ $0 as? UIWindowScene })
                             .first(where: { $0.activationState == .foregroundActive }) {
                             SKStoreReviewController.requestReview(in: scene)
                         }
+                    } label: {
+                        Label(String(localized: "评价应用"), systemImage: "star.fill")
+                            .foregroundStyle(.primary)
                     }
                 }
 
@@ -130,16 +135,22 @@ struct SettingsView: View {
                     .disabled({ if case .restoring = storeManager.restoreState { return true }; return false }())
 
                     if let url = URL(string: "mailto:zhumingjie0822@gmail.com") {
-                        Link(String(localized: "意见反馈"), destination: url)
+                        Link(destination: url) {
+                            Label(String(localized: "意见反馈"), systemImage: "envelope.fill")
+                        }
                     }
                 }
 
                 Section("法律") {
-                    NavigationLink(String(localized: "隐私政策")) {
+                    NavigationLink {
                         LegalView(title: String(localized: "隐私政策"), content: localizedPrivacyPolicy)
+                    } label: {
+                        Label(String(localized: "隐私政策"), systemImage: "lock.shield.fill")
                     }
-                    NavigationLink(String(localized: "用户协议")) {
+                    NavigationLink {
                         LegalView(title: String(localized: "用户协议"), content: localizedTermsOfService)
+                    } label: {
+                        Label(String(localized: "用户协议"), systemImage: "doc.text.fill")
                     }
                 }
 

@@ -142,8 +142,6 @@ class StoreManager {
             }
         } catch let error as StoreKitError {
             switch error {
-            case .notAvailableInCurrentRegion:
-                restoreState = .failed(String(localized: "当前地区不支持此操作"))
             case .networkError:
                 restoreState = .networkError
             default:

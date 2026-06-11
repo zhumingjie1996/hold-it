@@ -20,6 +20,8 @@
 | 🎨 **自定义分类** | 在5个默认分类基础上，无限添加你自己的忍住项（PRO） |
 | 📊 **多维统计** | 热力图、分类分析、月度趋势、时段分布、周几分布（PRO） |
 | 💰 **节省统计** | 记录金额后自动计算累计节省、月度趋势、分类排行（PRO） |
+| 🗂️ **时间线** | 按月浏览全部记录，支持分类/金额筛选 |
+| 📱 **桌面小组件** | 支持「忍一下统计」和「快速记录」两种小组件，多尺寸可选 |
 | ✨ **每日鼓励** | 每日固定一句鼓励语，伴你坚持 |
 | 🌍 **多语言** | 支持简体中文、繁体中文、English、日本語 |
 | 🌙 **深色模式** | 跟随系统或手动切换明暗主题 |
@@ -43,7 +45,7 @@
 | 忍住记录（无限） | 自定义忍住项（无限） |
 | 基础统计卡片 | 热力图、分类分析、月度趋势、时段分析、周几分布 |
 | 每日鼓励语 | 节省金额统计（时段对比、月度趋势、分类排行） |
-| — | 抹除数据功能 |
+| 桌面小组件 | 抹除数据功能 |
 
 - **Product ID**：`mj.holdit.lifetimeVip`（Non-Consumable）
 - **付款方式**：一次购买，永久有效，通过 App Store 内购
@@ -57,6 +59,7 @@
 | UI | SwiftUI |
 | 数据持久化 | SwiftData（SQLite） |
 | 内购 | StoreKit 2 |
+| 小组件 | WidgetKit（Static Configuration） |
 | 轻量存储 | UserDefaults（主题、货币单位等偏好设置） |
 | 国际化 | Localizable.xcstrings（xcstrings 格式） |
 | 最低支持 | iOS 17+ |
@@ -96,6 +99,14 @@ hold-it-ios/
 ├── Localizable.xcstrings           # 多语言翻译文件
 ├── ContentView.swift               # 根视图（TabView）
 └── hold_it_iosApp.swift            # App 入口
+HoldItWidget/                       # Widget Extension
+├── HoldItWidget.swift              # 忍一下统计小组件（Small/Medium/Large）
+├── HoldItWidgetView.swift          # 统计小组件视图
+├── HoldItWidgetBundle.swift        # Widget Bundle 注册
+├── HoldItProvider.swift            # Timeline Provider（读取 SwiftData）
+├── QuickRecordWidget.swift         # 快速记录小组件
+├── QuickRecordWidgetView.swift     # 快速记录视图（点击直达记录页）
+└── WidgetDataStore.swift           # App Group 数据桥接
 ```
 
 ---
