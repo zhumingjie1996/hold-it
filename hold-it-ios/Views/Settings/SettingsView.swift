@@ -105,8 +105,12 @@ struct SettingsView: View {
                         AboutView()
                     }
 
-                    if let url = URL(string: "https://apps.apple.com") {
-                        Link("评价应用", destination: url)
+                    Button(String(localized: "评价应用")) {
+                        if let scene = UIApplication.shared.connectedScenes
+                            .compactMap({ $0 as? UIWindowScene })
+                            .first(where: { $0.activationState == .foregroundActive }) {
+                            SKStoreReviewController.requestReview(in: scene)
+                        }
                     }
                 }
 
