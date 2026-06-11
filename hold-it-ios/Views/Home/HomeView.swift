@@ -100,7 +100,7 @@ struct HomeView: View {
                 StatCard(
                     title: "今天已忍住",
                     value: "\(appState.todayCount(from: records))",
-                    unit: String(localized: "次"),
+                    unit: "次",
                     icon: "checkmark.circle.fill",
                     color: .brand,
                     showArrow: true
