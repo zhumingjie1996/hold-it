@@ -93,7 +93,7 @@ class StoreManager {
         }
     }
 
-    func checkEntitlements() async {
+    func checkEntitlements(forceResult: Bool = false) async {
         // 不立刻把 isVip 置 false：避免 StoreKit 异步查询期间或查询失败时 UI 闪烁回非会员
         var found = false
         var revoked = false
@@ -116,8 +116,11 @@ class StoreManager {
         } else if revoked {
             // 明确被退款/撤销
             isVip = false
+        } else if forceResult {
+            // AppStore.sync() 已强制同步，此时空结果可信 → 用户确实没有购买
+            isVip = false
         }
-        // 未找到交易且未撤销 → 保持当前值（缓存）
+        // 非强制模式 + 未找到交易 → 保持当前值（缓存）
         // 沙盒环境下 Transaction.currentEntitlements 冷启动经常返回空结果，
         // 不能因为查不到就否定已有的购买状态
 
@@ -164,7 +167,8 @@ class StoreManager {
 
         do {
             try await AppStore.sync()
-            await checkEntitlements()
+            // AppStore.sync() 已强制与服务端同步，此时结果可信
+            await checkEntitlements(forceResult: true)
 
             if isVip {
                 restoreState = .success

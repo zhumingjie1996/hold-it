@@ -53,32 +53,34 @@ enum SupportedCurrency: String, CaseIterable, Identifiable {
         }
     }
 
+    /// 地区码 → 货币符号映射表
+    private static let regionSymbolMap: [String: String] = [
+        "CN": "¥", "HK": "HK$", "TW": "NT$", "MO": "MOP$",
+        "US": "$", "CA": "CA$", "AU": "A$", "NZ": "NZ$", "SG": "S$",
+        "GB": "£", "JP": "¥", "KR": "₩",
+        "DE": "€", "FR": "€", "IT": "€", "ES": "€", "NL": "€", "BE": "€",
+        "AT": "€", "PT": "€", "IE": "€", "FI": "€", "GR": "€", "LU": "€",
+        "RU": "\u{20BD}", "IN": "\u{20B9}", "TH": "\u{E3F}",
+        "VN": "\u{20AB}", "MY": "RM", "PH": "\u{20B1}", "ID": "Rp",
+        "BR": "R$", "MX": "MX$", "AR": "AR$", "CL": "CL$", "CO": "COL$",
+        "ZA": "R", "NG": "\u{20A6}", "EG": "E\u{A3}",
+        "AE": "AED", "SA": "SAR", "TR": "\u{20BA}", "PL": "z\u{142}",
+        "SE": "kr", "NO": "kr", "DK": "kr", "CH": "CHF", "CZ": "K\u{10D}",
+    ]
+
     /// 读取设备地区对应的货币符号
-    /// 优先基于 region（地区）而非 language（语言），避免英文语言+中国地区时返回 $ 的问题
+    /// 优先基于 region（地区），避免英文语言+中国地区时返回 $ 的问题
     static var systemSymbol: String {
-        // 1. 基于设备地区构造 Locale（语言无关）
-        if let regionCode = Locale.current.region?.identifier {
-            let regionLocale = Locale(identifier: regionCode)
-            if let code = regionLocale.currency?.identifier {
-                let formatter = NumberFormatter()
-                formatter.numberStyle = .currency
-                formatter.currencyCode = code
-                formatter.locale = regionLocale
-                if let symbol = formatter.currencySymbol {
-                    return symbol
-                }
-            }
+        // 1. 直接从地区码查表
+        if let regionCode = Locale.current.region?.identifier,
+           let symbol = regionSymbolMap[regionCode] {
+            return symbol
         }
-        // 2. 回退：基于当前 Locale
-        if let code = Locale.current.currency?.identifier {
-            let formatter = NumberFormatter()
-            formatter.numberStyle = .currency
-            formatter.currencyCode = code
-            formatter.locale = Locale.current
-            if let symbol = formatter.currencySymbol {
-                return symbol
-            }
+        // 2. 回退：基于当前 Locale 的 currencySymbol
+        if let symbol = Locale.current.currencySymbol, symbol != "\u{00A4}" {
+            return symbol
         }
+        // 3. 最终回退
         return "¥"
     }
 }
