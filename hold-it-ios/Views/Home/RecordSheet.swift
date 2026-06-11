@@ -26,6 +26,9 @@ struct RecordSheet: View {
     @State private var showDeleteAlert = false
     @State private var showVipAlert = false
     @State private var draggingCategory: ResistCategory?
+    @State private var showRewardPicker = false
+    @State private var pendingRecord: ResistRecord?
+    @State private var matchingRewards: [Reward] = []
     @AppStorage("categoryOrder") private var categoryOrderData: Data = Data()
 
     private let columns = [
@@ -107,6 +110,15 @@ struct RecordSheet: View {
             Button("暂不需要", role: .cancel) { }
         } message: {
             Text("非会员最多添加3个自定义忍住项，解锁后可无限添加。")
+        }
+        .sheet(isPresented: $showRewardPicker) {
+            RewardPickerSheet(
+                categoryName: selectedCategory.name,
+                categoryEmoji: selectedCategory.emoji,
+                rewards: matchingRewards
+            ) { selectedIDs in
+                confirmRewardSelection(selectedRewardIDs: selectedIDs)
+            }
         }
         .onAppear {
             updateAmountText(for: selectedCategory)
@@ -376,28 +388,49 @@ struct RecordSheet: View {
         )
         modelContext.insert(record)
 
-        // 自动给关联的奖励加忍币
+        // 查找关联的奖励任务
         let catID = selectedCategory.stableID
+        let matched = activeRewards.filter { $0.categoryIDs.contains(catID) }
+
+        if matched.count <= 1 {
+            // 0 或 1 个奖励 → 直接加币
+            assignCoins(to: matched, for: record)
+            dismiss()
+        } else {
+            // 多个奖励 → 弹出选择器
+            pendingRecord = record
+            matchingRewards = matched
+            showRewardPicker = true
+        }
+    }
+
+    /// 给指定奖励加忍币
+    private func assignCoins(to rewards: [Reward], for record: ResistRecord) {
         var unlockedReward: Reward?
-        for reward in activeRewards {
-            if reward.categoryIDs.contains(catID) {
-                reward.currentCoins += 1
-                let coinRecord = RewardCoinRecord(
-                    rewardID: reward.id,
-                    restraintRecordID: record.id
-                )
-                modelContext.insert(coinRecord)
-                // 检查是否解锁
-                if reward.currentCoins >= reward.targetCoins, reward.status == .inProgress {
-                    reward.status = .unlocked
-                    reward.unlockedAt = Date()
-                    unlockedReward = reward
-                }
+        for reward in rewards {
+            reward.currentCoins += 1
+            let coinRecord = RewardCoinRecord(
+                rewardID: reward.id,
+                restraintRecordID: record.id
+            )
+            modelContext.insert(coinRecord)
+            if reward.currentCoins >= reward.targetCoins, reward.status == .inProgress {
+                reward.status = .unlocked
+                reward.unlockedAt = Date()
+                unlockedReward = reward
             }
         }
-
-        dismiss()
         onSave?(unlockedReward)
+    }
+
+    /// 用户选择奖励后确认
+    private func confirmRewardSelection(selectedRewardIDs: Set<UUID>) {
+        guard let record = pendingRecord else { return }
+        let selected = matchingRewards.filter { selectedRewardIDs.contains($0.id) }
+        assignCoins(to: selected, for: record)
+        pendingRecord = nil
+        matchingRewards = []
+        dismiss()
     }
 
     private func deleteCategory() {
@@ -668,6 +701,151 @@ struct CategoryDropDelegate: DropDelegate {
         withAnimation(.spring(response: 0.3)) {
             newCategories.move(fromOffsets: IndexSet(integer: fromIndex), toOffset: toIndex > fromIndex ? toIndex + 1 : toIndex)
             onReorder(newCategories.map { $0.name })
+        }
+    }
+}
+
+// MARK: - 奖励选择器 Sheet
+struct RewardPickerSheet: View {
+    @Environment(\.dismiss) private var dismiss
+    let categoryName: String
+    let categoryEmoji: String
+    let rewards: [Reward]
+    let onConfirm: (Set<UUID>) -> Void
+
+    @State private var selectedIDs: Set<UUID> = []
+
+    var body: some View {
+        NavigationStack {
+            VStack(spacing: 16) {
+                // 分类信息提示
+                HStack(spacing: 10) {
+                    Text(categoryEmoji)
+                        .font(.title2)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(LocalizedStringKey(categoryName))
+                            .font(.subheadline.weight(.medium))
+                        Text("多个奖励关联了该忍住项，请选择要获得忍币的奖励")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                }
+                .padding(14)
+                .background(Color.brand.opacity(0.08))
+                .cornerRadius(12)
+
+                // 奖励列表
+                ScrollView {
+                    VStack(spacing: 10) {
+                        ForEach(rewards) { reward in
+                            Button {
+                                toggleReward(reward.id)
+                            } label: {
+                                HStack(spacing: 12) {
+                                    // 图片/占位
+                                    Group {
+                                        if let data = reward.imageData,
+                                           let uiImage = UIImage(data: data) {
+                                            Image(uiImage: uiImage)
+                                                .resizable()
+                                                .scaledToFill()
+                                        } else {
+                                            Image(systemName: "gift.fill")
+                                                .foregroundStyle(Color.brand)
+                                        }
+                                    }
+                                    .frame(width: 44, height: 44)
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text(reward.title)
+                                            .font(.subheadline.weight(.medium))
+                                            .foregroundStyle(.primary)
+                                        ProgressView(value: reward.progress)
+                                            .tint(Color.brand)
+                                        Text("\(reward.currentCoins)/\(reward.targetCoins) \(String(localized: "忍币"))")
+                                            .font(.caption)
+                                            .foregroundStyle(.secondary)
+                                    }
+
+                                    Spacer()
+
+                                    Image(systemName: selectedIDs.contains(reward.id)
+                                          ? "checkmark.circle.fill"
+                                          : "circle")
+                                        .font(.title3)
+                                        .foregroundStyle(selectedIDs.contains(reward.id) ? Color.brand : .tertiary)
+                                }
+                                .padding(12)
+                                .background(Color(.secondarySystemGroupedBackground))
+                                .cornerRadius(12)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(selectedIDs.contains(reward.id) ? Color.brand : .clear, lineWidth: 1.5)
+                                )
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }
+                }
+
+                // 操作按钮
+                VStack(spacing: 10) {
+                    // 确认按钮
+                    Button {
+                        onConfirm(selectedIDs)
+                    } label: {
+                        HStack {
+                            Text("确认")
+                                .font(.headline)
+                            if !selectedIDs.isEmpty {
+                                Text("(\(selectedIDs.count))")
+                                    .font(.subheadline)
+                            }
+                        }
+                        .foregroundStyle(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 14)
+                        .background(selectedIDs.isEmpty ? Color.gray.opacity(0.4) : Color.brand)
+                        .cornerRadius(12)
+                    }
+                    .disabled(selectedIDs.isEmpty)
+
+                    // 全部添加
+                    Button {
+                        selectedIDs = Set(rewards.map { $0.id })
+                        onConfirm(selectedIDs)
+                    } label: {
+                        Text("全部添加")
+                            .font(.subheadline.weight(.medium))
+                            .foregroundStyle(Color.brand)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 10)
+                    }
+                }
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 12)
+            .navigationTitle("选择奖励")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("取消") { dismiss() }
+                }
+            }
+        }
+        .onAppear {
+            // 默认全选
+            selectedIDs = Set(rewards.map { $0.id })
+        }
+    }
+
+    private func toggleReward(_ id: UUID) {
+        if selectedIDs.contains(id) {
+            selectedIDs.remove(id)
+        } else {
+            selectedIDs.insert(id)
         }
     }
 }
