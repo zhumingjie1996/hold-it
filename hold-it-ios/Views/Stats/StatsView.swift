@@ -531,7 +531,7 @@ struct StatsView: View {
 struct BasicStatBox: View {
     let title: LocalizedStringKey
     let value: String
-    let unit: LocalizedStringKey
+    let unit: String
     let color: Color
     
     var body: some View {

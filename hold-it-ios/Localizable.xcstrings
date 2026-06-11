@@ -1,7 +1,28 @@
 {
   "sourceLanguage": "zh-Hans",
   "strings": {
-    "": {},
+    "": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": ""
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": ""
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": ""
+          }
+        }
+      }
+    },
     "%@": {
       "localizations": {
         "en": {
@@ -109,6 +130,24 @@
             "state": "new",
             "value": "%1$lld / %2$lld"
           }
+        },
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld / %lld"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld / %lld"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld / %lld"
+          }
         }
       }
     },
@@ -207,7 +246,28 @@
         }
       }
     },
-    "%lld%%": {},
+    "%lld%%": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld%%"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld%%"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld%%"
+          }
+        }
+      }
+    },
     "+%d 忍币": {
       "localizations": {
         "en": {
@@ -230,9 +290,50 @@
         }
       }
     },
-    "Hold it · 忍一下": {},
+    "Hold it · 忍一下": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hold it · 忍一下"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hold it · 忍一下"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hold it · 忍一下"
+          }
+        }
+      }
+    },
     "Key": {
-      "extractionState": "manual"
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Key"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Key"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Key"
+          }
+        }
+      }
     },
     "To Myself": {
       "localizations": {
@@ -284,7 +385,28 @@
         }
       }
     },
-    "—": {},
+    "—": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "—"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "—"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "—"
+          }
+        }
+      }
+    },
     "「忍一下」是一款专注于『克制』的极简记录 App。": {
       "localizations": {
         "en": {
@@ -1213,7 +1335,28 @@
         }
       }
     },
-    "创建": {},
+    "创建": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Create"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "作成"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "建立"
+          }
+        }
+      }
+    },
     "创建一个奖励，记录克制即可自动获得忍币": {
       "localizations": {
         "en": {
@@ -2000,7 +2143,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "d"
+            "value": "days"
           }
         },
         "ja": {
@@ -2348,7 +2491,28 @@
         }
       }
     },
-    "已成功恢复您的购买，会员权益已激活。": {},
+    "已成功恢复您的购买，会员权益已激活。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your purchase has been restored and your membership is active."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "購入が復元され、メンバーシップが有効になりました。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已成功恢復您的購買，會員權益已啟用。"
+          }
+        }
+      }
+    },
     "已成功恢复购买": {
       "extractionState": "stale",
       "localizations": {
@@ -2556,8 +2720,50 @@
         }
       }
     },
-    "当前": {},
-    "当前 Apple ID 下未找到任何购买记录。请确认您使用的是购买时所用的 Apple ID。": {},
+    "当前": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Current"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "現在"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "當前"
+          }
+        }
+      }
+    },
+    "当前 Apple ID 下未找到任何购买记录。请确认您使用的是购买时所用的 Apple ID。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No purchases found under the current Apple ID. Please make sure you are signed in with the Apple ID used for the purchase."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "現在の Apple ID には購入履歴が見つかりません。購入時に使用した Apple ID でサインインしていることを確認してください。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "當前 Apple ID 下未找到任何購買記錄。請確認您使用的是購買時所用的 Apple ID。"
+          }
+        }
+      }
+    },
     "当前进度": {
       "localizations": {
         "en": {
@@ -3266,8 +3472,50 @@
         }
       }
     },
-    "新建奖励": {},
-    "无法连接到 App Store，请检查网络连接后重试。": {},
+    "新建奖励": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "New Reward"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新規報酬"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "新建獎勵"
+          }
+        }
+      }
+    },
+    "无法连接到 App Store，请检查网络连接后重试。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unable to connect to the App Store. Please check your network connection and try again."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App Store に接続できません。ネットワーク接続を確認してからもう一度お試しください。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無法連線到 App Store，請檢查網路連線後重試。"
+          }
+        }
+      }
+    },
     "日元 (¥)": {
       "localizations": {
         "en": {
@@ -3712,7 +3960,28 @@
         }
       }
     },
-    "最长": {},
+    "最长": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Best"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最長"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最長"
+          }
+        }
+      }
+    },
     "最长连续": {
       "localizations": {
         "en": {
@@ -4074,7 +4343,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": ""
+            "value": "times"
           }
         },
         "ja": {
@@ -5758,7 +6027,28 @@
         }
       }
     },
-    "请先登录您的 Apple ID，再尝试恢复购买。": {},
+    "请先登录您的 Apple ID，再尝试恢复购买。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Please sign in to your Apple ID before attempting to restore purchases."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "購入を復元する前に、Apple ID でサインインしてください。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "請先登入您的 Apple ID，再嘗試恢復購買。"
+          }
+        }
+      }
+    },
     "请稍候": {
       "localizations": {
         "en": {
@@ -6136,7 +6426,28 @@
         }
       }
     },
-    "连续天数": {},
+    "连续天数": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Streak Days"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "連続日数"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "連續天數"
+          }
+        }
+      }
+    },
     "连续记录": {
       "localizations": {
         "en": {
@@ -6358,7 +6669,28 @@
         }
       }
     },
-    "🎁": {},
+    "🎁": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "🎁"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "🎁"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "🎁"
+          }
+        }
+      }
+    },
     "🎉 奖励已解锁！现在可以奖励自己了": {
       "localizations": {
         "en": {
@@ -6381,9 +6713,72 @@
         }
       }
     },
-    "👑": {},
-    "💔": {},
-    "🫰": {}
+    "👑": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "👑"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "👑"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "👑"
+          }
+        }
+      }
+    },
+    "💔": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "💔"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "💔"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "💔"
+          }
+        }
+      }
+    },
+    "🫰": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "🫰"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "🫰"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "🫰"
+          }
+        }
+      }
+    }
   },
   "version": "1.0"
 }
