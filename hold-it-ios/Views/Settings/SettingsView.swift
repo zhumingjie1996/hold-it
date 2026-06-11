@@ -44,8 +44,6 @@ struct SettingsView: View {
     @Environment(\.openURL) private var openURL
     @AppStorage("themeMode") private var themeModeRaw: Int = 0
     @AppStorage("currencyCode") private var currencyCode: String = "auto"
-    @State private var showRestoreAlert = false
-    @State private var restoreSuccess = false
     @State private var showClearDataAlert = false
     @State private var showPurchaseResult = false
 
@@ -115,16 +113,24 @@ struct SettingsView: View {
                 }
 
                 Section("支持") {
-                    Button("恢复购买") {
+                    Button {
                         Task {
                             await storeManager.restorePurchases()
-                            restoreSuccess = storeManager.isVip
-                            showRestoreAlert = true
+                        }
+                    } label: {
+                        HStack {
+                            Label(String(localized: "恢复购买"), systemImage: "arrow.counterclockwise.circle.fill")
+                            Spacer()
+                            if case .restoring = storeManager.restoreState {
+                                ProgressView()
+                                    .controlSize(.small)
+                            }
                         }
                     }
+                    .disabled({ if case .restoring = storeManager.restoreState { return true }; return false }())
 
                     if let url = URL(string: "mailto:zhumingjie0822@gmail.com") {
-                        Link("意见反馈", destination: url)
+                        Link(String(localized: "意见反馈"), destination: url)
                     }
                 }
 
@@ -147,14 +153,12 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle("设置")
-            .alert("恢复购买", isPresented: $showRestoreAlert) {
-                Button("确定", role: .cancel) { }
-            } message: {
-                if restoreSuccess {
-                    Text("已成功恢复购买")
-                } else {
-                    Text("未找到购买记录")
+            .alert(restoreAlertTitle, isPresented: restoreAlertBinding) {
+                Button(String(localized: "确定"), role: .cancel) {
+                    storeManager.resetRestoreState()
                 }
+            } message: {
+                Text(restoreAlertMessage)
             }
             .alert("抹除所有数据", isPresented: $showClearDataAlert) {
                 Button("抹除", role: .destructive) {
@@ -175,6 +179,52 @@ struct SettingsView: View {
                     Text("购买失败，请稍后重试或检查网络连接。")
                 }
             }
+        }
+    }
+
+    // MARK: - 恢复购买 Alert 逻辑
+    private var restoreAlertBinding: Binding<Bool> {
+        Binding(
+            get: {
+                if case .restoring = storeManager.restoreState { return false }
+                if case .idle = storeManager.restoreState { return false }
+                return true
+            },
+            set: { _ in }
+        )
+    }
+
+    private var restoreAlertTitle: String {
+        switch storeManager.restoreState {
+        case .success:
+            return "🎉 " + String(localized: "恢复成功")
+        case .noPurchases:
+            return String(localized: "未找到购买记录")
+        case .notSignedIn:
+            return String(localized: "未登录 Apple ID")
+        case .networkError:
+            return String(localized: "网络错误")
+        case .failed:
+            return String(localized: "恢复失败")
+        default:
+            return String(localized: "恢复购买")
+        }
+    }
+
+    private var restoreAlertMessage: String {
+        switch storeManager.restoreState {
+        case .success:
+            return String(localized: "已成功恢复您的购买，会员权益已激活。")
+        case .noPurchases:
+            return String(localized: "当前 Apple ID 下未找到任何购买记录。请确认您使用的是购买时所用的 Apple ID。")
+        case .notSignedIn:
+            return String(localized: "请先登录您的 Apple ID，再尝试恢复购买。")
+        case .networkError:
+            return String(localized: "无法连接到 App Store，请检查网络连接后重试。")
+        case .failed(let msg):
+            return msg
+        default:
+            return ""
         }
     }
 

@@ -3,6 +3,7 @@
 //  hold-it-ios
 //
 
+import Foundation
 import SwiftUI
 import StoreKit
 
@@ -15,6 +16,17 @@ enum PurchaseState {
     case cancelled    // 用户取消
 }
 
+/// 恢复购买状态
+enum RestoreState {
+    case idle                // 默认
+    case restoring           // 正在恢复
+    case success             // 恢复成功
+    case noPurchases         // 未找到购买记录
+    case notSignedIn         // 未登录 Apple ID
+    case networkError        // 网络错误
+    case failed(String)      // 其他错误
+}
+
 @MainActor
 @Observable
 class StoreManager {
@@ -22,6 +34,7 @@ class StoreManager {
     var product: Product?
     var isLoading: Bool = true
     var purchaseState: PurchaseState = .idle
+    var restoreState: RestoreState = .idle
 
     /// 产品本地化价格字符串
     var displayPrice: String {
@@ -116,11 +129,40 @@ class StoreManager {
     }
 
     func restorePurchases() async {
+        restoreState = .restoring
+
         do {
             try await AppStore.sync()
             await checkEntitlements()
+
+            if isVip {
+                restoreState = .success
+            } else {
+                restoreState = .noPurchases
+            }
+        } catch let error as StoreKitError {
+            switch error {
+            case .notAvailableInCurrentRegion:
+                restoreState = .failed(String(localized: "当前地区不支持此操作"))
+            case .networkError:
+                restoreState = .networkError
+            default:
+                restoreState = .failed(error.localizedDescription)
+            }
+        } catch is URLError {
+            restoreState = .networkError
         } catch {
-            print("Restore failed: \(error)")
+            // 用户未登录 Apple ID 时 AppStore.sync() 会抛错
+            if (error as NSError).code == 3083 {
+                restoreState = .notSignedIn
+            } else {
+                restoreState = .failed(error.localizedDescription)
+            }
         }
+    }
+
+    /// 重置恢复状态
+    func resetRestoreState() {
+        restoreState = .idle
     }
 }
