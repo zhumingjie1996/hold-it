@@ -54,6 +54,12 @@ struct HomeView: View {
             .onAppear {
                 appState.syncWidgetData(from: records)
             }
+            .onChange(of: appState.triggerRecordSheet) { _, newValue in
+                if newValue {
+                    showRecordSheet = true
+                    appState.triggerRecordSheet = false
+                }
+            }
         }
     }
     

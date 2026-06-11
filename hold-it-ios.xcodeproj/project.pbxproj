@@ -54,11 +54,21 @@
 			);
 			target = 7430F52F2FD47FB800CE29A9 /* HoldItWidgetExtension */;
 		};
+		747E51182FD8043600D6CCD8 /* Exceptions for "hold-it-ios" folder in "HoldItWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Localizable.xcstrings,
+			);
+			target = 7430F52F2FD47FB800CE29A9 /* HoldItWidgetExtension */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		7418E14C2FCF2F77009BE096 /* hold-it-ios */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				747E51182FD8043600D6CCD8 /* Exceptions for "hold-it-ios" folder in "HoldItWidgetExtension" target */,
+			);
 			path = "hold-it-ios";
 			sourceTree = "<group>";
 		};

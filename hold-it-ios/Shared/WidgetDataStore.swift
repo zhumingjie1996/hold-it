@@ -22,6 +22,9 @@ enum WidgetDataStore {
         static let totalSaved      = "widget_totalSaved"
         static let currencySymbol  = "widget_currencySymbol"
         static let lastUpdated     = "widget_lastUpdated"
+        static let weekCount       = "widget_weekCount"
+        static let monthCount      = "widget_monthCount"
+        static let bestStreak      = "widget_bestStreak"
     }
 
     // MARK: - WidgetStats
@@ -32,6 +35,9 @@ enum WidgetDataStore {
         var totalSaved: Double = 0
         var currencySymbol: String = "¥"
         var lastUpdated: Date = Date()
+        var weekCount: Int = 0
+        var monthCount: Int = 0
+        var bestStreak: Int = 0
     }
 
     // MARK: - Write
@@ -43,6 +49,9 @@ enum WidgetDataStore {
         defaults.set(stats.totalSaved, forKey: Keys.totalSaved)
         defaults.set(stats.currencySymbol, forKey: Keys.currencySymbol)
         defaults.set(Date().timeIntervalSince1970, forKey: Keys.lastUpdated)
+        defaults.set(stats.weekCount, forKey: Keys.weekCount)
+        defaults.set(stats.monthCount, forKey: Keys.monthCount)
+        defaults.set(stats.bestStreak, forKey: Keys.bestStreak)
         defaults.synchronize()
     }
 
@@ -56,7 +65,10 @@ enum WidgetDataStore {
             streakDays:     defaults.integer(forKey: Keys.streakDays),
             totalSaved:     defaults.double(forKey: Keys.totalSaved),
             currencySymbol: defaults.string(forKey: Keys.currencySymbol) ?? "¥",
-            lastUpdated:    Date(timeIntervalSince1970: updated)
+            lastUpdated:    Date(timeIntervalSince1970: updated),
+            weekCount:      defaults.integer(forKey: Keys.weekCount),
+            monthCount:     defaults.integer(forKey: Keys.monthCount),
+            bestStreak:     defaults.integer(forKey: Keys.bestStreak)
         )
     }
 }

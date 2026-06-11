@@ -29,6 +29,11 @@ struct ContentView: View {
                     Label("设置", systemImage: "gear")
                 }
         }
+        .onOpenURL { url in
+            if url.scheme == "holdit" && url.host == "record" {
+                appState.triggerRecordSheet = true
+            }
+        }
     }
 }
 
