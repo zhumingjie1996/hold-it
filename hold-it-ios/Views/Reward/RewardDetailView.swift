@@ -80,7 +80,7 @@ struct RewardDetailView: View {
             }
             Button(String(localized: "取消"), role: .cancel) { }
         } message: {
-            Text(String(localized: "删除后奖励进度将丢失，确定删除吗？"))
+            Text("删除后奖励进度将丢失，确定删除吗？")
         }
     }
 

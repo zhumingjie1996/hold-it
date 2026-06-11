@@ -20,11 +20,6 @@ struct hold_it_iosApp: App {
     }
 
     init() {
-        let prefs = Bundle.main.preferredLocalizations
-        let langs = Locale.preferredLanguages
-        print("🌐 preferredLocalizations: \(prefs)")
-        print("🌐 preferredLanguages: \(langs.prefix(3))")
-        print("🌐 Bundle.localizations: \(Bundle.main.localizations)")
     }
 
     var body: some Scene {

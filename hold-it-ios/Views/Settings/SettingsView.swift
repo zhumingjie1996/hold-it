@@ -102,7 +102,7 @@ struct SettingsView: View {
                     NavigationLink {
                         AboutView()
                     } label: {
-                        Label(String(localized: "关于忍一下"), systemImage: "info.circle.fill")
+                        Label("关于忍一下", systemImage: "info.circle.fill")
                     }
 
                     Button {
@@ -112,7 +112,7 @@ struct SettingsView: View {
                             SKStoreReviewController.requestReview(in: scene)
                         }
                     } label: {
-                        Label(String(localized: "评价应用"), systemImage: "star.fill")
+                        Label("评价应用", systemImage: "star.fill")
                             .foregroundStyle(.primary)
                     }
                 }
@@ -124,7 +124,7 @@ struct SettingsView: View {
                         }
                     } label: {
                         HStack {
-                            Label(String(localized: "恢复购买"), systemImage: "arrow.counterclockwise.circle.fill")
+                            Label("恢复购买", systemImage: "arrow.counterclockwise.circle.fill")
                             Spacer()
                             if case .restoring = storeManager.restoreState {
                                 ProgressView()
@@ -136,7 +136,7 @@ struct SettingsView: View {
 
                     if let url = URL(string: "mailto:zhumingjie0822@gmail.com") {
                         Link(destination: url) {
-                            Label(String(localized: "意见反馈"), systemImage: "envelope.fill")
+                            Label("意见反馈", systemImage: "envelope.fill")
                         }
                     }
                 }
@@ -145,12 +145,12 @@ struct SettingsView: View {
                     NavigationLink {
                         LegalView(title: String(localized: "隐私政策"), content: localizedPrivacyPolicy)
                     } label: {
-                        Label(String(localized: "隐私政策"), systemImage: "lock.shield.fill")
+                        Label("隐私政策", systemImage: "lock.shield.fill")
                     }
                     NavigationLink {
                         LegalView(title: String(localized: "用户协议"), content: localizedTermsOfService)
                     } label: {
-                        Label(String(localized: "用户协议"), systemImage: "doc.text.fill")
+                        Label("用户协议", systemImage: "doc.text.fill")
                     }
                 }
 
@@ -165,7 +165,7 @@ struct SettingsView: View {
             }
             .navigationTitle("设置")
             .alert(restoreAlertTitle, isPresented: restoreAlertBinding) {
-                Button(String(localized: "确定"), role: .cancel) {
+                Button("确定", role: .cancel) {
                     storeManager.resetRestoreState()
                 }
             } message: {
@@ -248,9 +248,9 @@ struct SettingsView: View {
                         .scaleEffect(1.2)
 
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(String(localized: "正在加载会员信息…"))
+                        Text("正在加载会员信息…")
                             .font(.headline)
-                        Text(String(localized: "请稍候"))
+                        Text("请稍候")
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
@@ -273,9 +273,9 @@ struct SettingsView: View {
                     }
 
                     VStack(alignment: .leading, spacing: 6) {
-                        Text(String(localized: "已激活终身会员"))
+                        Text("已激活终身会员")
                             .font(.headline)
-                        Text(String(localized: "享受所有高级功能"))
+                        Text("享受所有高级功能")
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
@@ -304,11 +304,11 @@ struct SettingsView: View {
                         ProgressView()
                             .tint(.white)
                             .scaleEffect(0.9)
-                        Text(String(localized: "支付中…"))
+                        Text("支付中…")
                             .font(.headline)
                             .foregroundStyle(.white)
                     }
-                    Text(String(localized: "请稍候"))
+                    Text("请稍候")
                         .font(.caption)
                         .foregroundStyle(.white.opacity(0.8))
                 }
@@ -327,7 +327,7 @@ struct SettingsView: View {
                     HStack(spacing: 6) {
                         Image(systemName: "crown.fill")
                             .foregroundStyle(.yellow)
-                        Text(String(localized: "解锁终身会员"))
+                        Text("解锁终身会员")
                             .font(.headline)
                             .foregroundStyle(.white)
                         if !storeManager.displayPrice.isEmpty {
@@ -336,7 +336,7 @@ struct SettingsView: View {
                                 .foregroundStyle(.white)
                         }
                     }
-                    Text(String(localized: "一次购买，终身使用"))
+                    Text("一次购买，终身使用")
                         .font(.caption)
                         .foregroundStyle(.white.opacity(0.8))
                 }

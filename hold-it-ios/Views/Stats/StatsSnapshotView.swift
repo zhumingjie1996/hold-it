@@ -40,7 +40,7 @@ struct StatsSnapshotView: View {
                         .shadow(color: .black.opacity(0.2), radius: 4, x: 0, y: 2)
 
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(String(localized: "统计报告"))
+                        Text("统计报告")
                             .font(.title3.weight(.bold))
                             .foregroundStyle(.white)
                         Text(exportDateString)
@@ -54,7 +54,7 @@ struct StatsSnapshotView: View {
                         Text("\(appState.totalCount(from: records))")
                             .font(.system(size: 32, weight: .bold))
                             .foregroundStyle(.white)
-                        Text(String(localized: "累计忍住次数"))
+                        Text("累计忍住次数")
                             .font(.caption2)
                             .foregroundStyle(.white.opacity(0.8))
                     }
@@ -87,7 +87,7 @@ struct StatsSnapshotView: View {
                 // 底部署名
                 HStack {
                     Spacer()
-                    Text(String(localized: "Hold it · 忍一下"))
+                    Text("Hold it · 忍一下")
                         .font(.caption2)
                         .foregroundStyle(.secondary)
                 }
@@ -138,7 +138,7 @@ struct StatsSnapshotView: View {
     private var savedAmountRow: some View {
         HStack {
             VStack(alignment: .leading, spacing: 2) {
-                Text(String(localized: "累计节省"))
+                Text("累计节省")
                     .font(.caption)
                     .foregroundStyle(.secondary)
                 HStack(alignment: .lastTextBaseline, spacing: 3) {

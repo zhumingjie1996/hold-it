@@ -16,17 +16,17 @@ struct ContentView: View {
         TabView {
             HomeView()
                 .tabItem {
-                    Label("首页", systemImage: "house.fill")
+                    Label(String(localized: "首页"), systemImage: "house.fill")
                 }
 
             StatsView()
                 .tabItem {
-                    Label("统计", systemImage: "chart.bar.fill")
+                    Label(String(localized: "统计"), systemImage: "chart.bar.fill")
                 }
 
             SettingsView()
                 .tabItem {
-                    Label("设置", systemImage: "gear")
+                    Label(String(localized: "设置"), systemImage: "gear")
                 }
         }
         .onOpenURL { url in

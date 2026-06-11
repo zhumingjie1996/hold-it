@@ -8,7 +8,15 @@ import SwiftUI
 struct WeekdayDistributionView: View {
     let records: [ResistRecord]
 
-    private let weekdayNames: [LocalizedStringKey] = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
+    private let weekdayNames: [String] = [
+        String(localized: "周一"),
+        String(localized: "周二"),
+        String(localized: "周三"),
+        String(localized: "周四"),
+        String(localized: "周五"),
+        String(localized: "周六"),
+        String(localized: "周日")
+    ]
 
     var weekdayCounts: [Int] {
         var counts = Array(repeating: 0, count: 7)
@@ -25,7 +33,7 @@ struct WeekdayDistributionView: View {
     var maxCount: Int { max(weekdayCounts.max() ?? 1, 1) }
 
     // 最活跃的那天
-    var busiestDay: LocalizedStringKey? {
+    var busiestDay: String? {
         guard let maxIdx = weekdayCounts.indices.max(by: { weekdayCounts[$0] < weekdayCounts[$1] }),
               weekdayCounts[maxIdx] > 0 else { return nil }
         return weekdayNames[maxIdx]

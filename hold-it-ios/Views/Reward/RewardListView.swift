@@ -18,7 +18,7 @@ struct RewardListView: View {
                 let redeemed = rewards.filter { $0.status == .redeemed }
 
                 if !inProgress.isEmpty {
-                    Section(String(localized: "进行中")) {
+                    Section("进行中") {
                         ForEach(inProgress.sorted(by: { $0.progress > $1.progress })) { reward in
                             NavigationLink(destination: RewardDetailView(reward: reward)) {
                                 RewardRow(reward: reward)
@@ -28,7 +28,7 @@ struct RewardListView: View {
                 }
 
                 if !unlocked.isEmpty {
-                    Section(String(localized: "已解锁")) {
+                    Section("已解锁") {
                         ForEach(unlocked) { reward in
                             NavigationLink(destination: RewardDetailView(reward: reward)) {
                                 RewardRow(reward: reward)
@@ -38,7 +38,7 @@ struct RewardListView: View {
                 }
 
                 if !redeemed.isEmpty {
-                    Section(String(localized: "已兑现")) {
+                    Section("已兑现") {
                         ForEach(redeemed) { reward in
                             NavigationLink(destination: RewardDetailView(reward: reward)) {
                                 RewardRow(reward: reward)
@@ -56,7 +56,7 @@ struct RewardListView: View {
                     .listRowSeparator(.hidden)
                 }
             }
-            .navigationTitle(String(localized: "奖励管理"))
+            .navigationTitle("奖励管理")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {

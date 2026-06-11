@@ -98,9 +98,9 @@ struct HomeView: View {
                 RecordsListView(initialFilter: .today)
             } label: {
                 StatCard(
-                    title: "今天已忍住",
+                    title: String(localized: "今天已忍住"),
                     value: "\(appState.todayCount(from: records))",
-                    unit: "次",
+                    unit: String(localized: "次"),
                     icon: "checkmark.circle.fill",
                     color: .brand,
                     showArrow: true
@@ -113,7 +113,7 @@ struct HomeView: View {
                 SavedRecordsListView(initialFilter: .today)
             } label: {
                 StatCard(
-                    title: "今天已节省",
+                    title: String(localized: "今天已节省"),
                     value: todaySavedSummary,
                     unit: "",
                     icon: "banknote.fill",
@@ -403,9 +403,9 @@ struct HomeView: View {
 }
 
 struct StatCard: View {
-    let title: LocalizedStringKey
+    let title: String
     let value: String
-    let unit: LocalizedStringKey
+    let unit: String
     let icon: String
     let color: Color
     var showArrow: Bool = false

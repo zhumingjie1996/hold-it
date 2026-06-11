@@ -10,7 +10,7 @@ struct TimeOfDayView: View {
 
     struct TimeSlot: Identifiable {
         let id = UUID()
-        let label: LocalizedStringKey
+        let label: String
         let shortLabel: String  // 短标签用于圆环内显示（纯数字/符号，无国际化问题）
         let icon: String
         let range: Range<Int>
@@ -20,12 +20,12 @@ struct TimeOfDayView: View {
 
     var slots: [TimeSlot] {
         var s = [
-            TimeSlot(label: "凌晨", shortLabel: "0-6",   icon: "moon.stars.fill", range: 0..<6,   color: .indigo),
-            TimeSlot(label: "上午", shortLabel: "6-9",   icon: "sunrise.fill",    range: 6..<9,   color: .orange),
-            TimeSlot(label: "午前", shortLabel: "9-12",  icon: "sun.max.fill",    range: 9..<12,  color: .yellow),
-            TimeSlot(label: "下午", shortLabel: "12-15", icon: "sun.and.horizon.fill", range: 12..<15, color: .orange),
-            TimeSlot(label: "傍晚", shortLabel: "15-18", icon: "sunset.fill",     range: 15..<18, color: .pink),
-            TimeSlot(label: "晚上", shortLabel: "18-24", icon: "moon.fill",       range: 18..<24, color: .purple),
+            TimeSlot(label: String(localized: "凌晨"), shortLabel: "0-6",   icon: "moon.stars.fill", range: 0..<6,   color: .indigo),
+            TimeSlot(label: String(localized: "上午"), shortLabel: "6-9",   icon: "sunrise.fill",    range: 6..<9,   color: .orange),
+            TimeSlot(label: String(localized: "午前"), shortLabel: "9-12",  icon: "sun.max.fill",    range: 9..<12,  color: .yellow),
+            TimeSlot(label: String(localized: "下午"), shortLabel: "12-15", icon: "sun.and.horizon.fill", range: 12..<15, color: .orange),
+            TimeSlot(label: String(localized: "傍晚"), shortLabel: "15-18", icon: "sunset.fill",     range: 15..<18, color: .pink),
+            TimeSlot(label: String(localized: "晚上"), shortLabel: "18-24", icon: "moon.fill",       range: 18..<24, color: .purple),
         ]
         let calendar = Calendar.current
         for record in records {

@@ -204,11 +204,11 @@ struct RecordSheet: View {
                                 ProgressView()
                                     .tint(.white)
                                     .scaleEffect(0.9)
-                                Text(String(localized: "支付中…"))
+                                Text("支付中…")
                                     .font(.headline)
                                     .foregroundStyle(.white)
                             }
-                            Text(String(localized: "请稍候"))
+                            Text("请稍候")
                                 .font(.caption)
                                 .foregroundStyle(.white.opacity(0.8))
                         }

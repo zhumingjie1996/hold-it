@@ -72,7 +72,7 @@ struct CategoryBar: View {
                 Text("\(emoji) \(name)")
                     .font(.subheadline)
                 Spacer()
-                Text("\(count) 次")
+                Text("\(count) \(String(localized: "次"))")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }

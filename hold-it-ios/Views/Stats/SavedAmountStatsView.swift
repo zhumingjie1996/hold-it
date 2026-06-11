@@ -47,13 +47,13 @@ struct SavedAmountStatsView: View {
         .background(Color.systemGroupedBackground)
         .navigationTitle("节省统计")
         .navigationBarTitleDisplayMode(.large)
-        .alert("解锁高级功能", isPresented: $showVipAlert) {
+        .alert(String(localized: "解锁高级功能"), isPresented: $showVipAlert) {
             Button(savedVipTitle) {
                 Task {
                     _ = await storeManager.purchase()
                 }
             }
-            Button("暂不需要", role: .cancel) { }
+            Button(String(localized: "暂不需要"), role: .cancel) { }
         } message: {
             Text("该功能为会员专属，解锁后可永久使用时段对比、月度趋势、分类排行等高级节省统计功能")
         }
@@ -83,7 +83,7 @@ struct SavedAmountStatsView: View {
 
             HStack {
                 Label {
-                    Text("平均每次 \(symbol)\(formatAmount(appState.averageSavedAmount(from: records)))")
+                    Text(String(format: String(localized: "平均每次 %@"), "\(symbol)\(formatAmount(appState.averageSavedAmount(from: records)))"))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 } icon: {
@@ -125,19 +125,19 @@ struct SavedAmountStatsView: View {
 
             HStack(spacing: 0) {
                 periodItem(
-                    title: "今天",
+                    title: String(localized: "今天"),
                     amount: appState.todaySavedAmount(from: records),
                     color: .green
                 )
                 Divider().frame(height: 36)
                 periodItem(
-                    title: "本月",
+                    title: String(localized: "本月"),
                     amount: appState.thisMonthSavedAmount(from: records),
                     color: .purple
                 )
                 Divider().frame(height: 36)
                 periodItem(
-                    title: "今年",
+                    title: String(localized: "今年"),
                     amount: appState.thisYearSavedAmount(from: records),
                     color: .indigo
                 )
@@ -148,7 +148,7 @@ struct SavedAmountStatsView: View {
         .cornerRadius(16)
     }
 
-    private func periodItem(title: LocalizedStringKey, amount: Double, color: Color) -> some View {
+    private func periodItem(title: String, amount: Double, color: Color) -> some View {
         VStack(spacing: 6) {
             Text(title)
                 .font(.caption)
@@ -270,7 +270,7 @@ struct SavedAmountStatsView: View {
                                 }
                                 .frame(height: 6)
 
-                                Text("\(item.count) 次 · \(Int(percentage * 100))%")
+                                Text("\(item.count) \(String(localized: "次")) · \(Int(percentage * 100))%")
                                     .font(.caption2)
                                     .foregroundStyle(.tertiary)
                             }
@@ -303,7 +303,7 @@ struct SavedAmountStatsView: View {
                     highlightRow(
                         icon: "trophy.fill",
                         color: .yellow,
-                        title: "最佳一天",
+                        title: String(localized: "最佳一天"),
                         value: "\(symbol)\(formatAmount(bestDay.amount))",
                         subtitle: bestDayDate(bestDay.date)
                     )
@@ -312,9 +312,9 @@ struct SavedAmountStatsView: View {
                 highlightRow(
                     icon: "repeat",
                     color: .blue,
-                    title: "平均每次",
+                    title: String(localized: "平均每次"),
                     value: "\(symbol)\(formatAmount(avg))",
-                    subtitle: String(localized: "基于 \(appState.recordsWithAmountCount(from: records)) 条记录")
+                    subtitle: String(format: String(localized: "基于 %lld 条记录"), Int64(appState.recordsWithAmountCount(from: records)))
                 )
 
                 if appState.thisMonthSavedAmount(from: records) > 0 {
@@ -322,7 +322,7 @@ struct SavedAmountStatsView: View {
                     highlightRow(
                         icon: "flame.fill",
                         color: .orange,
-                        title: "本月已省",
+                        title: String(localized: "本月已省"),
                         value: "\(symbol)\(formatAmount(monthAvg))",
                         subtitle: monthProgressText
                     )
@@ -334,7 +334,7 @@ struct SavedAmountStatsView: View {
         .cornerRadius(16)
     }
 
-    private func highlightRow(icon: String, color: Color, title: LocalizedStringKey, value: String, subtitle: String) -> some View {
+    private func highlightRow(icon: String, color: Color, title: String, value: String, subtitle: String) -> some View {
         HStack(spacing: 12) {
             Image(systemName: icon)
                 .font(.body)
@@ -378,7 +378,7 @@ struct SavedAmountStatsView: View {
         let range = calendar.range(of: .day, in: .month, for: Date())!
         let totalDays = range.count
         let currentDay = calendar.component(.day, from: Date())
-        return String(localized: "本月第 \(currentDay)/\(totalDays) 天")
+        return String(format: String(localized: "本月第 %lld/%lld 天"), Int64(currentDay), Int64(totalDays))
     }
 
     // MARK: - 非会员遮罩
@@ -414,12 +414,12 @@ struct SavedAmountStatsView: View {
             // 功能亮点
             VStack(spacing: 12) {
                 HStack(spacing: 12) {
-                    savedHighlightItem(icon: "calendar.badge.clock", title: "时段对比", color: .blue)
-                    savedHighlightItem(icon: "chart.line.uptrend.xyaxis", title: "月度趋势", color: .green)
+                    savedHighlightItem(icon: "calendar.badge.clock", title: String(localized: "时段对比"), color: .blue)
+                    savedHighlightItem(icon: "chart.line.uptrend.xyaxis", title: String(localized: "月度趋势"), color: .green)
                 }
                 HStack(spacing: 12) {
-                    savedHighlightItem(icon: "tray.full.fill", title: "分类排行", color: .orange)
-                    savedHighlightItem(icon: "sparkles", title: "亮点数据", color: .yellow)
+                    savedHighlightItem(icon: "tray.full.fill", title: String(localized: "分类排行"), color: .orange)
+                    savedHighlightItem(icon: "sparkles", title: String(localized: "亮点数据"), color: .yellow)
                 }
             }
 
@@ -438,11 +438,11 @@ struct SavedAmountStatsView: View {
                             ProgressView()
                                 .tint(.white)
                                 .scaleEffect(0.9)
-                            Text(String(localized: "支付中…"))
+                            Text("支付中…")
                                 .font(.headline)
                                 .foregroundStyle(.white)
                         }
-                        Text(String(localized: "请稍候"))
+                        Text("请稍候")
                             .font(.caption)
                             .foregroundStyle(.white.opacity(0.8))
                     }
@@ -491,7 +491,7 @@ struct SavedAmountStatsView: View {
         }
     }
 
-    private func savedHighlightItem(icon: String, title: LocalizedStringKey, color: Color) -> some View {
+    private func savedHighlightItem(icon: String, title: String, color: Color) -> some View {
         HStack(spacing: 8) {
             Image(systemName: icon)
                 .font(.subheadline)

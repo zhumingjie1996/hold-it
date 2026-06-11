@@ -76,25 +76,6 @@ struct StatsView: View {
             }
             .background(Color.systemGroupedBackground)
             .navigationTitle("统计")
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        if storeManager.isVip {
-                            exportSnapshot()
-                        } else {
-                            showVipAlert = true
-                        }
-                    } label: {
-                        if isExporting {
-                            ProgressView()
-                                .scaleEffect(0.8)
-                        } else {
-                            Image(systemName: "square.and.arrow.up")
-                        }
-                    }
-                    .disabled(isExporting || records.isEmpty)
-                }
-            }
             .alert("解锁高级功能", isPresented: $showVipAlert) {
                 Button(statsVipTitle) {
                     Task {
@@ -195,14 +176,14 @@ struct StatsView: View {
     private var basicStats: some View {
         VStack(spacing: 10) {
             HStack(spacing: 10) {
-                BasicStatBox(title: "累计忍住", value: "\(appState.totalCount(from: records))", unit: "次", color: Color.brand)
-                BasicStatBox(title: "今年", value: "\(appState.thisYearCount(from: records))", unit: "次", color: .indigo)
-                BasicStatBox(title: "本月", value: "\(appState.thisMonthCount(from: records))", unit: "次", color: .purple)
+                BasicStatBox(title: String(localized: "累计忍住"), value: "\(appState.totalCount(from: records))", unit: String(localized: "次"), color: Color.brand)
+                BasicStatBox(title: String(localized: "今年"), value: "\(appState.thisYearCount(from: records))", unit: String(localized: "次"), color: .indigo)
+                BasicStatBox(title: String(localized: "本月"), value: "\(appState.thisMonthCount(from: records))", unit: String(localized: "次"), color: .purple)
             }
             HStack(spacing: 10) {
-                BasicStatBox(title: "今天", value: "\(appState.todayCount(from: records))", unit: "次", color: .green)
-                BasicStatBox(title: "连续记录", value: "\(appState.streakDays(from: records))", unit: "天", color: .orange)
-                BasicStatBox(title: "最长连续", value: "\(appState.bestStreak(from: records))", unit: "天", color: .red)
+                BasicStatBox(title: String(localized: "今天"), value: "\(appState.todayCount(from: records))", unit: String(localized: "次"), color: .green)
+                BasicStatBox(title: String(localized: "连续记录"), value: "\(appState.streakDays(from: records))", unit: String(localized: "天"), color: .orange)
+                BasicStatBox(title: String(localized: "最长连续"), value: "\(appState.bestStreak(from: records))", unit: String(localized: "天"), color: .red)
             }
         }
     }
@@ -212,26 +193,67 @@ struct StatsView: View {
             ForEach(orderedModules, id: \.self) { moduleId in
                 moduleView(for: moduleId)
             }
-
-            // 排序按钮
-            Button {
-                showSortSheet = true
-            } label: {
-                HStack(spacing: 6) {
-                    Image(systemName: "arrow.up.arrow.down")
-                    Text("排序")
-                }
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-                .padding(.horizontal, 16)
-                .padding(.vertical, 8)
-                .background(Color.secondarySystemGroupedBackground)
-                .cornerRadius(20)
-            }
-            .buttonStyle(.plain)
+    
+            // VIP 操作按钮组
+            vipActionBar
         }
         .sheet(isPresented: $showSortSheet) {
             StatsSortSheet(modules: orderedModules, onSave: saveModuleOrder)
+        }
+    }
+    
+    // MARK: - VIP 操作按钮组
+    private var vipActionBar: some View {
+        HStack(spacing: 12) {
+            // 排序
+            Button {
+                showSortSheet = true
+            } label: {
+                HStack(spacing: 8) {
+                    Image(systemName: "arrow.up.arrow.down")
+                        .font(.system(size: 14, weight: .semibold))
+                    Text("排序")
+                        .font(.subheadline.weight(.medium))
+                }
+                .foregroundStyle(Color.brand)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 10)
+                .background(Color.brand.opacity(0.1))
+                .cornerRadius(12)
+            }
+            .buttonStyle(.plain)
+    
+            // 导出
+            Button {
+                exportSnapshot()
+            } label: {
+                HStack(spacing: 8) {
+                    if isExporting {
+                        ProgressView()
+                            .scaleEffect(0.8)
+                            .tint(.white)
+                    } else {
+                        Image(systemName: "square.and.arrow.up")
+                            .font(.system(size: 14, weight: .semibold))
+                    }
+                    Text("导出")
+                        .font(.subheadline.weight(.medium))
+                }
+                .foregroundStyle(.white)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 10)
+                .background(
+                    LinearGradient(
+                        colors: [Color.brand, Color.brandDark],
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    )
+                )
+                .cornerRadius(12)
+                .shadow(color: Color.brand.opacity(0.25), radius: 6, x: 0, y: 3)
+            }
+            .buttonStyle(.plain)
+            .disabled(isExporting || records.isEmpty)
         }
     }
     
@@ -407,20 +429,20 @@ struct StatsView: View {
     private var featureHighlights: some View {
         VStack(spacing: 12) {
             HStack(spacing: 12) {
-                highlightItem(icon: "calendar.badge.clock", title: "周几分布", color: .pink)
-                highlightItem(icon: "calendar", title: "热力图", color: .orange)
+                highlightItem(icon: "calendar.badge.clock", title: String(localized: "周几分布"), color: .pink)
+                highlightItem(icon: "calendar", title: String(localized: "热力图"), color: .orange)
             }
             HStack(spacing: 12) {
-                highlightItem(icon: "chart.line.uptrend.xyaxis", title: "月度趋势", color: .blue)
-                highlightItem(icon: "clock.badge.fill", title: "时段分析", color: .purple)
+                highlightItem(icon: "chart.line.uptrend.xyaxis", title: String(localized: "月度趋势"), color: .blue)
+                highlightItem(icon: "clock.badge.fill", title: String(localized: "时段分析"), color: .purple)
             }
             HStack(spacing: 12) {
-                highlightItem(icon: "chart.pie.fill", title: "分类分析", color: .brand)
+                highlightItem(icon: "chart.pie.fill", title: String(localized: "分类分析"), color: .brand)
             }
         }
     }
     
-    private func highlightItem(icon: String, title: LocalizedStringKey, color: Color) -> some View {
+    private func highlightItem(icon: String, title: String, color: Color) -> some View {
         HStack(spacing: 8) {
             Image(systemName: icon)
                 .font(.subheadline)
@@ -451,11 +473,11 @@ struct StatsView: View {
                         ProgressView()
                             .tint(.white)
                             .scaleEffect(0.9)
-                        Text(String(localized: "支付中…"))
+                        Text("支付中…")
                             .font(.headline)
                             .foregroundStyle(.white)
                     }
-                    Text(String(localized: "请稍候"))
+                    Text("请稍候")
                         .font(.caption)
                         .foregroundStyle(.white.opacity(0.8))
                 }
@@ -529,7 +551,7 @@ struct StatsView: View {
 }
 
 struct BasicStatBox: View {
-    let title: LocalizedStringKey
+    let title: String
     let value: String
     let unit: String
     let color: Color
@@ -554,7 +576,7 @@ struct BasicStatBox: View {
 }
 
 struct RewardStatBox: View {
-    let title: LocalizedStringKey
+    let title: String
     let value: String
     let icon: String
     let color: Color
@@ -600,12 +622,12 @@ struct StatsSortSheet: View {
     @Environment(\.dismiss) private var dismiss
     @State private var items: [String] = []
 
-    private let moduleInfo: [String: (icon: String, name: LocalizedStringKey)] = [
-        "category": ("chart.pie.fill", "分类统计"),
-        "weekday": ("calendar.badge.clock", "周几分布"),
-        "timeOfDay": ("clock.badge.fill", "时段分析"),
-        "heatmap": ("calendar", "热力图"),
-        "monthlyTrend": ("chart.line.uptrend.xyaxis", "月度趋势"),
+    private let moduleInfo: [String: (icon: String, name: String)] = [
+        "category": ("chart.pie.fill", String(localized: "分类统计")),
+        "weekday": ("calendar.badge.clock", String(localized: "周几分布")),
+        "timeOfDay": ("clock.badge.fill", String(localized: "时段分析")),
+        "heatmap": ("calendar", String(localized: "热力图")),
+        "monthlyTrend": ("chart.line.uptrend.xyaxis", String(localized: "月度趋势")),
     ]
 
     var body: some View {
@@ -616,7 +638,7 @@ struct StatsSortSheet: View {
                         Image(systemName: moduleInfo[moduleId]?.icon ?? "square")
                             .foregroundStyle(Color.brand)
                             .frame(width: 24)
-                        Text(moduleInfo[moduleId]?.name ?? LocalizedStringKey(moduleId))
+                        Text(moduleInfo[moduleId]?.name ?? moduleId)
                             .font(.subheadline)
                         Spacer()
                         Image(systemName: "line.3.horizontal")

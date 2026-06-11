@@ -37,11 +37,11 @@ struct RewardStatsView: View {
         .background(Color(.systemGroupedBackground))
         .navigationTitle("奖励统计")
         .navigationBarTitleDisplayMode(.inline)
-        .alert("解锁高级功能", isPresented: $showVipAlert) {
+        .alert(String(localized: "解锁高级功能"), isPresented: $showVipAlert) {
             Button(vipPurchaseTitle) {
                 Task { _ = await storeManager.purchase() }
             }
-            Button("暂不需要", role: .cancel) { }
+            Button(String(localized: "暂不需要"), role: .cancel) { }
         } message: {
             Text("该功能为会员专属，解锁后可永久使用分类分析、热力图、月度趋势等高级统计功能")
         }
@@ -89,12 +89,12 @@ struct RewardStatsView: View {
     // MARK: - 2. 状态分布
     private var statusDistribution: some View {
         VStack(alignment: .leading, spacing: 10) {
-            sectionHeader("状态分布", icon: "chart.pie.fill")
+            sectionHeader(String(localized: "状态分布"), icon: "chart.pie.fill")
             HStack(spacing: 10) {
-                RewardStatBox(title: "进行中", value: "\(inProgressCount)", icon: "clock.fill", color: .blue)
-                RewardStatBox(title: "已解锁", value: "\(unlockedCount)", icon: "lock.open.fill", color: .orange)
-                RewardStatBox(title: "已兑现", value: "\(redeemedCount)", icon: "checkmark.seal.fill", color: .green)
-                RewardStatBox(title: "总奖励数", value: "\(allRewards.count)", icon: "gift.fill", color: .brand)
+                RewardStatBox(title: String(localized: "进行中"), value: "\(inProgressCount)", icon: "clock.fill", color: .blue)
+                RewardStatBox(title: String(localized: "已解锁"), value: "\(unlockedCount)", icon: "lock.open.fill", color: .orange)
+                RewardStatBox(title: String(localized: "已兑现"), value: "\(redeemedCount)", icon: "checkmark.seal.fill", color: .green)
+                RewardStatBox(title: String(localized: "总奖励数"), value: "\(allRewards.count)", icon: "gift.fill", color: .brand)
             }
         }
     }
@@ -102,11 +102,11 @@ struct RewardStatsView: View {
     // MARK: - 3. 时间维度
     private var timeDimension: some View {
         VStack(alignment: .leading, spacing: 10) {
-            sectionHeader("忍币时段", icon: "clock.badge.fill")
+            sectionHeader(String(localized: "忍币时段"), icon: "clock.badge.fill")
             HStack(spacing: 10) {
-                RewardStatBox(title: "今日", value: "\(todayCoins)", icon: "sun.max.fill", color: .yellow)
-                RewardStatBox(title: "本周", value: "\(thisWeekCoins)", icon: "calendar", color: .indigo)
-                RewardStatBox(title: "本月", value: "\(thisMonthCoins)", icon: "calendar.badge.clock", color: .purple)
+                RewardStatBox(title: String(localized: "今日"), value: "\(todayCoins)", icon: "sun.max.fill", color: .yellow)
+                RewardStatBox(title: String(localized: "本周"), value: "\(thisWeekCoins)", icon: "calendar", color: .indigo)
+                RewardStatBox(title: String(localized: "本月"), value: "\(thisMonthCoins)", icon: "calendar.badge.clock", color: .purple)
             }
         }
     }
@@ -114,16 +114,16 @@ struct RewardStatsView: View {
     // MARK: - 4. 效率指标
     private var efficiencyMetrics: some View {
         VStack(alignment: .leading, spacing: 10) {
-            sectionHeader("效率指标", icon: "speedometer")
+            sectionHeader(String(localized: "效率指标"), icon: "speedometer")
             HStack(spacing: 10) {
                 metricCard(
-                    title: "日均忍币",
+                    title: String(localized: "日均忍币"),
                     value: avgDailyCoinsText,
                     icon: "chart.bar.fill",
                     color: .pink
                 )
                 metricCard(
-                    title: "平均兑现用时",
+                    title: String(localized: "平均兑现用时"),
                     value: avgRedeemDays.map { "\($0)" } ?? "—",
                     suffix: avgRedeemDays != nil ? String(localized: "天") : nil,
                     icon: "stopwatch.fill",
@@ -134,7 +134,7 @@ struct RewardStatsView: View {
     }
 
     private func metricCard(
-        title: LocalizedStringKey,
+        title: String,
         value: String,
         suffix: String? = nil,
         icon: String,
@@ -167,10 +167,10 @@ struct RewardStatsView: View {
     // MARK: - 5. 贡献来源 TOP 5
     private var contributorsTop: some View {
         VStack(alignment: .leading, spacing: 10) {
-            sectionHeader("贡献来源 TOP 5", icon: "trophy.fill")
+            sectionHeader(String(localized: "贡献来源 TOP 5"), icon: "trophy.fill")
 
             if topContributors.isEmpty {
-                emptyHint("还没有贡献记录")
+                emptyHint(String(localized: "还没有贡献记录"))
             } else {
                 let maxCoins = topContributors.first?.coins ?? 1
                 VStack(spacing: 10) {
@@ -217,11 +217,11 @@ struct RewardStatsView: View {
     // MARK: - 6. 即将解锁 TOP 3
     private var closestToUnlock: some View {
         VStack(alignment: .leading, spacing: 10) {
-            sectionHeader("即将解锁", icon: "flag.checkered")
+            sectionHeader(String(localized: "即将解锁"), icon: "flag.checkered")
 
             let list = closestRewards
             if list.isEmpty {
-                emptyHint("没有进行中的奖励")
+                emptyHint(String(localized: "没有进行中的奖励"))
             } else {
                 VStack(spacing: 8) {
                     ForEach(list) { reward in
@@ -283,10 +283,10 @@ struct RewardStatsView: View {
     // MARK: - 7. 月度忍币趋势（会员）
     private var monthlyTrendCard: some View {
         VStack(alignment: .leading, spacing: 12) {
-            sectionHeader("月度忍币趋势", icon: "chart.line.uptrend.xyaxis", trailing: "近 6 个月")
+            sectionHeader(String(localized: "月度忍币趋势"), icon: "chart.line.uptrend.xyaxis", trailing: String(localized: "近 6 个月"))
 
             if monthlySeries.allSatisfy({ $0.coins == 0 }) {
-                emptyHint("暂无数据")
+                emptyHint(String(localized: "暂无数据"))
             } else {
                 let maxC = max(monthlySeries.map { $0.coins }.max() ?? 1, 1)
                 HStack(alignment: .bottom, spacing: 10) {
@@ -316,11 +316,11 @@ struct RewardStatsView: View {
     // MARK: - 8. 周几获得分布（会员）
     private var weekdayCard: some View {
         VStack(alignment: .leading, spacing: 12) {
-            sectionHeader("周几分布", icon: "calendar.badge.clock")
+            sectionHeader(String(localized: "周几分布"), icon: "calendar.badge.clock")
 
             let counts = weekdayCoinCounts
             if counts.allSatisfy({ $0 == 0 }) {
-                emptyHint("暂无数据")
+                emptyHint(String(localized: "暂无数据"))
             } else {
                 let maxC = max(counts.max() ?? 1, 1)
                 HStack(alignment: .bottom, spacing: 4) {
@@ -352,12 +352,12 @@ struct RewardStatsView: View {
     // MARK: - 9. 时段获得分布（会员）
     private var timeOfDayCard: some View {
         VStack(alignment: .leading, spacing: 12) {
-            sectionHeader("时段分布", icon: "clock.badge.fill")
+            sectionHeader(String(localized: "时段分布"), icon: "clock.badge.fill")
 
             let slots = timeSlots
             let total = slots.reduce(0) { $0 + $1.coins }
             if total == 0 {
-                emptyHint("暂无数据")
+                emptyHint(String(localized: "暂无数据"))
             } else {
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
                     ForEach(slots) { slot in
@@ -399,14 +399,14 @@ struct RewardStatsView: View {
     // MARK: - 10. 最佳记录（会员）
     private var bestRecordsCard: some View {
         VStack(alignment: .leading, spacing: 10) {
-            sectionHeader("最佳记录", icon: "rosette")
+            sectionHeader(String(localized: "最佳记录"), icon: "rosette")
             VStack(spacing: 10) {
-                bestRow(icon: "flame.fill", iconColor: .orange, title: "单日最高",
+                bestRow(icon: "flame.fill", iconColor: .orange, title: String(localized: "单日最高"),
                         value: "\(bestSingleDayCoins)", suffix: bestSingleDayCoins > 0 ? String(localized: "忍币") : nil)
-                bestRow(icon: "bolt.fill", iconColor: .yellow, title: "最快达成",
+                bestRow(icon: "bolt.fill", iconColor: .yellow, title: String(localized: "最快达成"),
                         value: fastestRedeemDays.map { "\($0)" } ?? "—",
                         suffix: fastestRedeemDays != nil ? String(localized: "天") : nil)
-                bestRow(icon: "target", iconColor: .pink, title: "平均目标",
+                bestRow(icon: "target", iconColor: .pink, title: String(localized: "平均目标"),
                         value: avgTargetCoins > 0 ? "\(avgTargetCoins)" : "—",
                         suffix: avgTargetCoins > 0 ? String(localized: "忍币") : nil)
             }
@@ -416,7 +416,7 @@ struct RewardStatsView: View {
         }
     }
 
-    private func bestRow(icon: String, iconColor: Color, title: LocalizedStringKey, value: String, suffix: String?) -> some View {
+    private func bestRow(icon: String, iconColor: Color, title: String, value: String, suffix: String?) -> some View {
         HStack(spacing: 10) {
             Image(systemName: icon)
                 .font(.subheadline)
@@ -473,12 +473,12 @@ struct RewardStatsView: View {
             // 高亮
             VStack(spacing: 10) {
                 HStack(spacing: 10) {
-                    lockHighlight(icon: "chart.line.uptrend.xyaxis", title: "月度忍币趋势", color: .blue)
-                    lockHighlight(icon: "calendar.badge.clock", title: "周几分布", color: .pink)
+                    lockHighlight(icon: "chart.line.uptrend.xyaxis", title: String(localized: "月度忍币趋势"), color: .blue)
+                    lockHighlight(icon: "calendar.badge.clock", title: String(localized: "周几分布"), color: .pink)
                 }
                 HStack(spacing: 10) {
-                    lockHighlight(icon: "clock.badge.fill", title: "时段分布", color: .purple)
-                    lockHighlight(icon: "rosette", title: "最佳记录", color: .orange)
+                    lockHighlight(icon: "clock.badge.fill", title: String(localized: "时段分布"), color: .purple)
+                    lockHighlight(icon: "rosette", title: String(localized: "最佳记录"), color: .orange)
                 }
             }
 
@@ -524,7 +524,7 @@ struct RewardStatsView: View {
         }
     }
 
-    private func lockHighlight(icon: String, title: LocalizedStringKey, color: Color) -> some View {
+    private func lockHighlight(icon: String, title: String, color: Color) -> some View {
         HStack(spacing: 8) {
             Image(systemName: icon)
                 .font(.subheadline)
@@ -549,7 +549,7 @@ struct RewardStatsView: View {
     }
 
     // MARK: - Helpers
-    private func sectionHeader(_ title: LocalizedStringKey, icon: String, trailing: LocalizedStringKey? = nil) -> some View {
+    private func sectionHeader(_ title: String, icon: String, trailing: String? = nil) -> some View {
         HStack(spacing: 6) {
             Image(systemName: icon)
                 .font(.subheadline)
@@ -565,8 +565,8 @@ struct RewardStatsView: View {
         }
     }
 
-    private func emptyHint(_ key: LocalizedStringKey) -> some View {
-        Text(key)
+    private func emptyHint(_ text: String) -> some View {
+        Text(text)
             .font(.caption)
             .foregroundStyle(.secondary)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -666,12 +666,20 @@ struct RewardStatsView: View {
         return counts
     }
 
-    private let weekdayNames: [LocalizedStringKey] = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
+    private let weekdayNames: [String] = [
+        String(localized: "周一"),
+        String(localized: "周二"),
+        String(localized: "周三"),
+        String(localized: "周四"),
+        String(localized: "周五"),
+        String(localized: "周六"),
+        String(localized: "周日")
+    ]
 
     /// 时段获得忍币
     private struct TimeSlot: Identifiable {
         let id = UUID()
-        let label: LocalizedStringKey
+        let label: String
         let shortLabel: String
         let icon: String
         let range: Range<Int>
@@ -680,12 +688,12 @@ struct RewardStatsView: View {
     }
     private var timeSlots: [TimeSlot] {
         var s: [TimeSlot] = [
-            TimeSlot(label: "凌晨", shortLabel: "0-6", icon: "moon.stars.fill", range: 0..<6, color: .indigo, coins: 0),
-            TimeSlot(label: "上午", shortLabel: "6-9", icon: "sunrise.fill", range: 6..<9, color: .orange, coins: 0),
-            TimeSlot(label: "午前", shortLabel: "9-12", icon: "sun.max.fill", range: 9..<12, color: .yellow, coins: 0),
-            TimeSlot(label: "下午", shortLabel: "12-15", icon: "sun.and.horizon.fill", range: 12..<15, color: .orange, coins: 0),
-            TimeSlot(label: "傍晚", shortLabel: "15-18", icon: "sunset.fill", range: 15..<18, color: .pink, coins: 0),
-            TimeSlot(label: "晚上", shortLabel: "18-24", icon: "moon.fill", range: 18..<24, color: .purple, coins: 0)
+            TimeSlot(label: String(localized: "凌晨"), shortLabel: "0-6", icon: "moon.stars.fill", range: 0..<6, color: .indigo, coins: 0),
+            TimeSlot(label: String(localized: "上午"), shortLabel: "6-9", icon: "sunrise.fill", range: 6..<9, color: .orange, coins: 0),
+            TimeSlot(label: String(localized: "午前"), shortLabel: "9-12", icon: "sun.max.fill", range: 9..<12, color: .yellow, coins: 0),
+            TimeSlot(label: String(localized: "下午"), shortLabel: "12-15", icon: "sun.and.horizon.fill", range: 12..<15, color: .orange, coins: 0),
+            TimeSlot(label: String(localized: "傍晚"), shortLabel: "15-18", icon: "sunset.fill", range: 15..<18, color: .pink, coins: 0),
+            TimeSlot(label: String(localized: "晚上"), shortLabel: "18-24", icon: "moon.fill", range: 18..<24, color: .purple, coins: 0)
         ]
         let cal = Calendar.current
         for cr in coinRecords {
