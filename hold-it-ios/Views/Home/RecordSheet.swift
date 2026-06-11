@@ -128,44 +128,7 @@ struct RecordSheet: View {
     // MARK: - 表单内容
     private var formContent: some View {
         VStack(spacing: 20) {
-            // 分类网格
-            LazyVGrid(columns: columns, spacing: 12) {
-                ForEach(allCategories) { category in
-                    CategoryCell(
-                        category: category,
-                        isSelected: selectedCategory == category,
-                        onEdit: category.isCustom ? {
-                            if let customID = category.customCategoryID,
-                               let custom = customCategories.first(where: { $0.id == customID }) {
-                                editingCategory = custom
-                            }
-                        } : nil,
-                        onDelete: category.isCustom ? {
-                            deletingCategory = category
-                            showDeleteAlert = true
-                        } : nil
-                    ) {
-                        withAnimation(.spring(response: 0.3)) {
-                            selectedCategory = category
-                            updateAmountText(for: category)
-                        }
-                    }
-                    .onDrag {
-                        draggingCategory = category
-                        return NSItemProvider(object: category.name as NSString)
-                    }
-                    .onDrop(of: ["public.text"], delegate: CategoryDropDelegate(
-                        category: category,
-                        categories: allCategories,
-                        draggingCategory: $draggingCategory,
-                        onReorder: { newOrder in
-                            saveCategoryOrder(newOrder)
-                        }
-                    ))
-                }
-                // "+" 新增按钮
-                addCategoryCell
-            }
+            categoryGrid
 
             // 金额输入（仅在选中涉及金钱的分类时显示）
             if selectedCategory.hasAmount {
@@ -173,104 +136,167 @@ struct RecordSheet: View {
                     .transition(.opacity.combined(with: .move(edge: .top)))
             }
 
-            // 备注
-            VStack(alignment: .leading, spacing: 8) {
-                Text("备注（可选）")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-
-                TextField(notePlaceholder, text: $note, axis: .vertical)
-                    .textFieldStyle(.roundedBorder)
-                    .lineLimit(3...6)
-            }
+            noteSection
 
             // 保存按钮
-            Button {
-                saveRecord()
-            } label: {
-                HStack {
-                    Image(systemName: "checkmark.circle.fill")
-                    Text("保存记录")
-                }
-                .font(.headline)
-                .foregroundStyle(Color.brandDark)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 16)
-                .background(Color.brand)
-                .cornerRadius(16)
-            }
+            saveButton
 
             // 非会员：升级 CTA
             if !storeManager.isVip {
-                Button {
-                    Task {
-                        _ = await storeManager.purchase()
-                        if storeManager.purchaseState == .failed {
-                            showVipAlert = true
-                        }
-                    }
-                } label: {
-                    if storeManager.purchaseState == .purchasing {
-                        VStack(spacing: 8) {
-                            HStack(spacing: 8) {
-                                ProgressView()
-                                    .tint(.white)
-                                    .scaleEffect(0.9)
-                                Text("支付中…")
-                                    .font(.headline)
-                                    .foregroundStyle(.white)
-                            }
-                            Text("请稍候")
-                                .font(.caption)
-                                .foregroundStyle(.white.opacity(0.8))
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
-                        .background(
-                            LinearGradient(
-                                colors: [Color.brand, Color.brandDark],
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
-                        .cornerRadius(16)
-                    } else {
-                        VStack(spacing: 8) {
-                            HStack(spacing: 6) {
-                                Image(systemName: "crown.fill")
-                                    .foregroundStyle(.yellow)
-                                Text("解锁终身会员")
-                                    .font(.headline)
-                                    .foregroundStyle(.white)
-                                if !storeManager.displayPrice.isEmpty {
-                                    Text(storeManager.displayPrice)
-                                        .font(.headline.weight(.bold))
-                                        .foregroundStyle(.white)
-                                }
-                            }
-                            Text("非会员最多添加3个，解锁后无限添加")
-                                .font(.caption)
-                                .foregroundStyle(.white.opacity(0.8))
-                        }
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
-                        .background(
-                            LinearGradient(
-                                colors: [Color.brand, Color.brandDark],
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                        )
-                        .cornerRadius(16)
-                        .shadow(color: Color.brand.opacity(0.3), radius: 12, x: 0, y: 6)
-                    }
-                }
-                .buttonStyle(.plain)
+                vipUpgradeCTA
             }
 
             Spacer(minLength: 24)
         }
         .animation(.spring(response: 0.3), value: selectedCategory.hasAmount)
+    }
+
+    // MARK: - 分类网格
+    private var categoryGrid: some View {
+        LazyVGrid(columns: columns, spacing: 12) {
+            ForEach(allCategories) { category in
+                CategoryCell(
+                    category: category,
+                    isSelected: selectedCategory == category,
+                    onEdit: category.isCustom ? {
+                        if let customID = category.customCategoryID,
+                           let custom = customCategories.first(where: { $0.id == customID }) {
+                            editingCategory = custom
+                        }
+                    } : nil,
+                    onDelete: category.isCustom ? {
+                        deletingCategory = category
+                        showDeleteAlert = true
+                    } : nil
+                ) {
+                    withAnimation(.spring(response: 0.3)) {
+                        selectedCategory = category
+                        updateAmountText(for: category)
+                    }
+                }
+                .onDrag {
+                    draggingCategory = category
+                    return NSItemProvider(object: category.name as NSString)
+                }
+                .onDrop(of: ["public.text"], delegate: CategoryDropDelegate(
+                    category: category,
+                    categories: allCategories,
+                    draggingCategory: $draggingCategory,
+                    onReorder: { newOrder in
+                        saveCategoryOrder(newOrder)
+                    }
+                ))
+            }
+            // "+" 新增按钮
+            addCategoryCell
+        }
+    }
+
+    // MARK: - 备注区域
+    private var noteSection: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("备注（可选）")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+
+            TextField(notePlaceholder, text: $note, axis: .vertical)
+                .textFieldStyle(.roundedBorder)
+                .lineLimit(3...6)
+        }
+    }
+
+    // MARK: - 保存按钮
+    private var saveButton: some View {
+        Button {
+            saveRecord()
+        } label: {
+            HStack {
+                Image(systemName: "checkmark.circle.fill")
+                Text("保存记录")
+            }
+            .font(.headline)
+            .foregroundStyle(Color.brandDark)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 16)
+            .background(Color.brand)
+            .cornerRadius(16)
+        }
+    }
+
+    // MARK: - VIP 升级 CTA
+    private var vipUpgradeCTA: some View {
+        Button {
+            Task {
+                _ = await storeManager.purchase()
+                if storeManager.purchaseState == .failed {
+                    showVipAlert = true
+                }
+            }
+        } label: {
+            if storeManager.purchaseState == .purchasing {
+                vipPurchasingLabel
+            } else {
+                vipIdleLabel
+            }
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var vipPurchasingLabel: some View {
+        VStack(spacing: 8) {
+            HStack(spacing: 8) {
+                ProgressView()
+                    .tint(.white)
+                    .scaleEffect(0.9)
+                Text("支付中…")
+                    .font(.headline)
+                    .foregroundStyle(.white)
+            }
+            Text("请稍候")
+                .font(.caption)
+                .foregroundStyle(.white.opacity(0.8))
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 16)
+        .background(
+            LinearGradient(
+                colors: [Color.brand, Color.brandDark],
+                startPoint: .leading,
+                endPoint: .trailing
+            )
+        )
+        .cornerRadius(16)
+    }
+
+    private var vipIdleLabel: some View {
+        VStack(spacing: 8) {
+            HStack(spacing: 6) {
+                Image(systemName: "crown.fill")
+                    .foregroundStyle(.yellow)
+                Text("解锁终身会员")
+                    .font(.headline)
+                    .foregroundStyle(.white)
+                if !storeManager.displayPrice.isEmpty {
+                    Text(storeManager.displayPrice)
+                        .font(.headline.weight(.bold))
+                        .foregroundStyle(.white)
+                }
+            }
+            Text("非会员最多添加3个，解锁后无限添加")
+                .font(.caption)
+                .foregroundStyle(.white.opacity(0.8))
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 16)
+        .background(
+            LinearGradient(
+                colors: [Color.brand, Color.brandDark],
+                startPoint: .leading,
+                endPoint: .trailing
+            )
+        )
+        .cornerRadius(16)
+        .shadow(color: Color.brand.opacity(0.3), radius: 12, x: 0, y: 6)
     }
 
     // MARK: - 金额输入框
@@ -718,112 +744,13 @@ struct RewardPickerSheet: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 16) {
-                // 分类信息提示
-                HStack(spacing: 10) {
-                    Text(categoryEmoji)
-                        .font(.title2)
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text(LocalizedStringKey(categoryName))
-                            .font(.subheadline.weight(.medium))
-                        Text("多个奖励关联了该忍住项，请选择要获得忍币的奖励")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    }
-                    Spacer()
-                }
-                .padding(14)
-                .background(Color.brand.opacity(0.08))
-                .cornerRadius(12)
+                categoryInfoHeader
 
                 // 奖励列表
-                ScrollView {
-                    VStack(spacing: 10) {
-                        ForEach(rewards) { reward in
-                            Button {
-                                toggleReward(reward.id)
-                            } label: {
-                                HStack(spacing: 12) {
-                                    // 图片/占位
-                                    Group {
-                                        if let data = reward.imageData,
-                                           let uiImage = UIImage(data: data) {
-                                            Image(uiImage: uiImage)
-                                                .resizable()
-                                                .scaledToFill()
-                                        } else {
-                                            Image(systemName: "gift.fill")
-                                                .foregroundStyle(Color.brand)
-                                        }
-                                    }
-                                    .frame(width: 44, height: 44)
-                                    .clipShape(RoundedRectangle(cornerRadius: 10))
-
-                                    VStack(alignment: .leading, spacing: 4) {
-                                        Text(reward.title)
-                                            .font(.subheadline.weight(.medium))
-                                            .foregroundStyle(.primary)
-                                        ProgressView(value: reward.progress)
-                                            .tint(Color.brand)
-                                        Text("\(reward.currentCoins)/\(reward.targetCoins) \(String(localized: "忍币"))")
-                                            .font(.caption)
-                                            .foregroundStyle(.secondary)
-                                    }
-
-                                    Spacer()
-
-                                    Image(systemName: selectedIDs.contains(reward.id)
-                                          ? "checkmark.circle.fill"
-                                          : "circle")
-                                        .font(.title3)
-                                        .foregroundStyle(selectedIDs.contains(reward.id) ? Color.brand : .tertiary)
-                                }
-                                .padding(12)
-                                .background(Color(.secondarySystemGroupedBackground))
-                                .cornerRadius(12)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 12)
-                                        .stroke(selectedIDs.contains(reward.id) ? Color.brand : .clear, lineWidth: 1.5)
-                                )
-                            }
-                            .buttonStyle(.plain)
-                        }
-                    }
-                }
+                rewardList
 
                 // 操作按钮
-                VStack(spacing: 10) {
-                    // 确认按钮
-                    Button {
-                        onConfirm(selectedIDs)
-                    } label: {
-                        HStack {
-                            Text("确认")
-                                .font(.headline)
-                            if !selectedIDs.isEmpty {
-                                Text("(\(selectedIDs.count))")
-                                    .font(.subheadline)
-                            }
-                        }
-                        .foregroundStyle(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 14)
-                        .background(selectedIDs.isEmpty ? Color.gray.opacity(0.4) : Color.brand)
-                        .cornerRadius(12)
-                    }
-                    .disabled(selectedIDs.isEmpty)
-
-                    // 全部添加
-                    Button {
-                        selectedIDs = Set(rewards.map { $0.id })
-                        onConfirm(selectedIDs)
-                    } label: {
-                        Text("全部添加")
-                            .font(.subheadline.weight(.medium))
-                            .foregroundStyle(Color.brand)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 10)
-                    }
-                }
+                actionButtons
             }
             .padding(.horizontal, 20)
             .padding(.top, 12)
@@ -838,6 +765,124 @@ struct RewardPickerSheet: View {
         .onAppear {
             // 默认全选
             selectedIDs = Set(rewards.map { $0.id })
+        }
+    }
+
+    // MARK: - 分类信息提示
+    private var categoryInfoHeader: some View {
+        HStack(spacing: 10) {
+            Text(categoryEmoji)
+                .font(.title2)
+            VStack(alignment: .leading, spacing: 2) {
+                Text(LocalizedStringKey(categoryName))
+                    .font(.subheadline.weight(.medium))
+                Text("多个奖励关联了该忍住项，请选择要获得忍币的奖励")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+            Spacer()
+        }
+        .padding(14)
+        .background(Color.brand.opacity(0.08))
+        .cornerRadius(12)
+    }
+
+    // MARK: - 奖励列表
+    private var rewardList: some View {
+        ScrollView {
+            VStack(spacing: 10) {
+                ForEach(rewards) { reward in
+                    rewardRow(reward)
+                }
+            }
+        }
+    }
+
+    // MARK: - 奖励行
+    private func rewardRow(_ reward: Reward) -> some View {
+        Button {
+            toggleReward(reward.id)
+        } label: {
+            HStack(spacing: 12) {
+                // 图片/占位
+                Group {
+                    if let data = reward.imageData,
+                       let uiImage = UIImage(data: data) {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .scaledToFill()
+                    } else {
+                        Image(systemName: "gift.fill")
+                            .foregroundStyle(Color.brand)
+                    }
+                }
+                .frame(width: 44, height: 44)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(reward.title)
+                        .font(.subheadline.weight(.medium))
+                        .foregroundStyle(.primary)
+                    ProgressView(value: reward.progress)
+                        .tint(Color.brand)
+                    Text("\(reward.currentCoins)/\(reward.targetCoins) \(String(localized: "忍币"))")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+
+                Spacer()
+
+                Image(systemName: selectedIDs.contains(reward.id)
+                      ? "checkmark.circle.fill"
+                      : "circle")
+                    .font(.title3)
+                    .foregroundStyle(selectedIDs.contains(reward.id) ? Color.brand : Color(.tertiaryLabel))
+            }
+            .padding(12)
+            .background(Color(.secondarySystemGroupedBackground))
+            .cornerRadius(12)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(selectedIDs.contains(reward.id) ? Color.brand : .clear, lineWidth: 1.5)
+            )
+        }
+        .buttonStyle(.plain)
+    }
+
+    // MARK: - 操作按钮
+    private var actionButtons: some View {
+        VStack(spacing: 10) {
+            // 确认按钮
+            Button {
+                onConfirm(selectedIDs)
+            } label: {
+                HStack {
+                    Text("确认")
+                        .font(.headline)
+                    if !selectedIDs.isEmpty {
+                        Text("(\(selectedIDs.count))")
+                            .font(.subheadline)
+                    }
+                }
+                .foregroundStyle(.white)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 14)
+                .background(selectedIDs.isEmpty ? Color.gray.opacity(0.4) : Color.brand)
+                .cornerRadius(12)
+            }
+            .disabled(selectedIDs.isEmpty)
+
+            // 全部添加
+            Button {
+                selectedIDs = Set(rewards.map { $0.id })
+                onConfirm(selectedIDs)
+            } label: {
+                Text("全部添加")
+                    .font(.subheadline.weight(.medium))
+                    .foregroundStyle(Color.brand)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 10)
+            }
         }
     }
 
