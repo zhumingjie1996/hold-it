@@ -71,7 +71,7 @@ struct HomeView: View {
                 StatCard(
                     title: "今天已忍住",
                     value: "\(appState.todayCount(from: records))",
-                    unit: "次",
+                    unit: String(localized: "次"),
                     icon: "checkmark.circle.fill",
                     color: .brand,
                     showArrow: true
@@ -86,7 +86,7 @@ struct HomeView: View {
                 StatCard(
                     title: "今天已节省",
                     value: todaySavedSummary,
-                    unit: "元",
+                    unit: "",
                     icon: "banknote.fill",
                     color: .green,
                     showArrow: true

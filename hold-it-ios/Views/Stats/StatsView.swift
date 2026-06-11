@@ -150,14 +150,14 @@ struct StatsView: View {
     private var basicStats: some View {
         VStack(spacing: 10) {
             HStack(spacing: 10) {
-                BasicStatBox(title: "累计忍住", value: "\(appState.totalCount(from: records))", unit: "次", color: Color.brand)
-                BasicStatBox(title: "今年", value: "\(appState.thisYearCount(from: records))", unit: "次", color: .indigo)
-                BasicStatBox(title: "本月", value: "\(appState.thisMonthCount(from: records))", unit: "次", color: .purple)
+                BasicStatBox(title: "累计忍住", value: "\(appState.totalCount(from: records))", unit: String(localized: "次"), color: Color.brand)
+                BasicStatBox(title: "今年", value: "\(appState.thisYearCount(from: records))", unit: String(localized: "次"), color: .indigo)
+                BasicStatBox(title: "本月", value: "\(appState.thisMonthCount(from: records))", unit: String(localized: "次"), color: .purple)
             }
             HStack(spacing: 10) {
-                BasicStatBox(title: "今天", value: "\(appState.todayCount(from: records))", unit: "次", color: .green)
-                BasicStatBox(title: "连续记录", value: "\(appState.streakDays(from: records))", unit: "天", color: .orange)
-                BasicStatBox(title: "最长连续", value: "\(appState.bestStreak(from: records))", unit: "天", color: .red)
+                BasicStatBox(title: "今天", value: "\(appState.todayCount(from: records))", unit: String(localized: "次"), color: .green)
+                BasicStatBox(title: "连续记录", value: "\(appState.streakDays(from: records))", unit: String(localized: "天"), color: .orange)
+                BasicStatBox(title: "最长连续", value: "\(appState.bestStreak(from: records))", unit: String(localized: "天"), color: .red)
             }
         }
     }
