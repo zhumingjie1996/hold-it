@@ -96,17 +96,31 @@ class StoreManager {
     func checkEntitlements() async {
         // 不立刻把 isVip 置 false：避免 StoreKit 异步查询期间或查询失败时 UI 闪烁回非会员
         var found = false
+        var revoked = false
         for await result in Transaction.currentEntitlements {
             guard case .verified(let transaction) = result else { continue }
-            // 已退款 / 已撤销 → 视为无效
-            if transaction.revocationDate != nil { continue }
             if transaction.productID == productID {
-                found = true
-                break  // 找到有效权益即停止
+                if transaction.revocationDate != nil {
+                    // 明确退款/撤销 → 降级
+                    revoked = true
+                } else {
+                    found = true
+                }
+                break
             }
         }
-        // 只有完整遍历完才落定最终结果
-        isVip = found
+
+        if found {
+            // 找到有效权益
+            isVip = true
+        } else if revoked {
+            // 明确被退款/撤销
+            isVip = false
+        }
+        // 未找到交易且未撤销 → 保持当前值（缓存）
+        // 沙盒环境下 Transaction.currentEntitlements 冷启动经常返回空结果，
+        // 不能因为查不到就否定已有的购买状态
+
         entitlementChecked = true
     }
 
