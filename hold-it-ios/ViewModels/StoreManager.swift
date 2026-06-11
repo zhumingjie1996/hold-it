@@ -30,7 +30,12 @@ enum RestoreState {
 @MainActor
 @Observable
 class StoreManager {
-    var isVip: Bool = false
+    /// 会员状态（启动时先用本地缓存乐观显示，再以 StoreKit 校验结果为准）
+    var isVip: Bool {
+        didSet {
+            UserDefaults.standard.set(isVip, forKey: Self.isVipCacheKey)
+        }
+    }
     var product: Product?
     var isLoading: Bool = true
     var purchaseState: PurchaseState = .idle
@@ -42,11 +47,14 @@ class StoreManager {
     }
 
     private let productID = "mj.holdit.lifetimeVip"
+    private static let isVipCacheKey = "mj.holdit.isVipCached"
     private var transactionListener: Task<Void, Never>?
 
     private var entitlementChecked = false
 
     init() {
+        // 先用本地缓存恢复会员状态，避免冷启动校验前 UI 误判为非会员
+        self.isVip = UserDefaults.standard.bool(forKey: Self.isVipCacheKey)
         transactionListener = listenForTransactions()
         Task {
             await loadProducts()
@@ -62,7 +70,12 @@ class StoreManager {
                 if case .verified(let transaction) = result {
                     await MainActor.run {
                         if transaction.productID == productID {
-                            isVip = true
+                            // 退款/撤销时同步降级
+                            if transaction.revocationDate != nil {
+                                isVip = false
+                            } else {
+                                isVip = true
+                            }
                         }
                     }
                     await transaction.finish()
@@ -81,15 +94,19 @@ class StoreManager {
     }
 
     func checkEntitlements() async {
-        // 先重置为 false， 再逐条检查
-        isVip = false
+        // 不立刻把 isVip 置 false：避免 StoreKit 异步查询期间或查询失败时 UI 闪烁回非会员
+        var found = false
         for await result in Transaction.currentEntitlements {
             guard case .verified(let transaction) = result else { continue }
+            // 已退款 / 已撤销 → 视为无效
+            if transaction.revocationDate != nil { continue }
             if transaction.productID == productID {
-                isVip = true
+                found = true
                 break  // 找到有效权益即停止
             }
         }
+        // 只有完整遍历完才落定最终结果
+        isVip = found
         entitlementChecked = true
     }
 

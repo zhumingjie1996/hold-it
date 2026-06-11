@@ -59,12 +59,12 @@ struct StatsView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 20) {
+                VStack(spacing: 12) {
                     basicStats
-                    rewardStats
                     recordsTimeline
                     savedAmountEntry
-                    
+                    rewardStats
+
                     if storeManager.isVip {
                         vipContent
                     } else {
@@ -72,7 +72,7 @@ struct StatsView: View {
                     }
                 }
                 .padding(.horizontal, 20)
-                .padding(.vertical, 16)
+                .padding(.vertical, 12)
             }
             .background(Color.systemGroupedBackground)
             .navigationTitle("统计")
