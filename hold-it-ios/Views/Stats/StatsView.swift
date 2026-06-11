@@ -113,53 +113,46 @@ struct StatsView: View {
         }
     }
 
-    // MARK: - 奖励统计
+    // MARK: - 奖励统计入口
     private var rewardStats: some View {
         NavigationLink {
             RewardStatsView()
         } label: {
-            VStack(spacing: 10) {
-                HStack {
-                    Image(systemName: "gift.fill")
-                        .foregroundStyle(Color.brand)
+            HStack(spacing: 14) {
+                Image(systemName: "gift.fill")
+                    .font(.title2)
+                    .foregroundStyle(Color.brand)
+                    .frame(width: 40)
+
+                VStack(alignment: .leading, spacing: 2) {
                     Text("奖励统计")
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(.primary)
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .font(.subheadline.weight(.medium))
+                    if totalCoins > 0 {
+                        Text(String(format: String(localized: "累计 %d 忍币"), totalCoins))
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    } else {
+                        Text("多维度奖励分析")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
                 }
 
-                HStack(spacing: 10) {
-                    RewardStatBox(
-                        title: "累计忍币",
-                        value: "\(allCoinRecords.reduce(0) { $0 + $1.coins })",
-                        icon: "bitcoinsign.circle.fill",
-                        color: .brand
-                    )
-                    RewardStatBox(
-                        title: "已解锁",
-                        value: "\(allRewards.filter { $0.status == .unlocked }.count)",
-                        icon: "lock.open.fill",
-                        color: .orange
-                    )
-                    RewardStatBox(
-                        title: "已兑现",
-                        value: "\(allRewards.filter { $0.status == .redeemed }.count)",
-                        icon: "checkmark.seal.fill",
-                        color: .green
-                    )
-                    RewardStatBox(
-                        title: "进行中",
-                        value: "\(allRewards.filter { $0.status == .inProgress }.count)",
-                        icon: "clock.fill",
-                        color: .blue
-                    )
-                }
+                Spacer()
+
+                Image(systemName: "chevron.right")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
             }
+            .padding(16)
+            .background(Color.secondarySystemGroupedBackground)
+            .cornerRadius(16)
         }
         .buttonStyle(.plain)
+    }
+
+    private var totalCoins: Int {
+        allCoinRecords.reduce(0) { $0 + $1.coins }
     }
 
     private var recordsTimeline: some View {

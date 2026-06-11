@@ -1369,6 +1369,29 @@
         }
       }
     },
+    "单日最高": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Best Day"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最高記録/日"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "單日最高"
+          }
+        }
+      }
+    },
     "危险操作": {
       "localizations": {
         "en": {
@@ -1878,6 +1901,29 @@
           "stringUnit": {
             "state": "translated",
             "value": "多"
+          }
+        }
+      }
+    },
+    "多维度奖励分析": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Multi-dimensional reward analysis"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "多角的な報酬分析"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "多維度獎勵分析"
           }
         }
       }
@@ -2487,6 +2533,29 @@
         }
       }
     },
+    "平均目标": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Avg Target"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "平均目標"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "平均目標"
+          }
+        }
+      }
+    },
     "当前": {},
     "当前 Apple ID 下未找到任何购买记录。请确认您使用的是购买时所用的 Apple ID。": {},
     "当前进度": {
@@ -2706,6 +2775,29 @@
           "stringUnit": {
             "state": "translated",
             "value": "忍住項名稱"
+          }
+        }
+      }
+    },
+    "忍币": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "coins"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "コイン"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "忍幣"
           }
         }
       }
@@ -3243,6 +3335,29 @@
         }
       }
     },
+    "时段分布": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "By Time of Day"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "時間帯別"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "時段分佈"
+          }
+        }
+      }
+    },
     "时段分析": {
       "localizations": {
         "en": {
@@ -3529,6 +3644,52 @@
         }
       }
     },
+    "最佳记录": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Personal Best"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最高記録"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最佳記錄"
+          }
+        }
+      }
+    },
+    "最快达成": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fastest"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最速達成"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最快達成"
+          }
+        }
+      }
+    },
     "最近贡献记录": {
       "localizations": {
         "en": {
@@ -3570,6 +3731,29 @@
           "stringUnit": {
             "state": "translated",
             "value": "最長連續"
+          }
+        }
+      }
+    },
+    "月度忍币趋势": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Monthly Coins"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "月別コイン推移"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "月度忍幣趨勢"
           }
         }
       }
@@ -4711,6 +4895,29 @@
         }
       }
     },
+    "累计 %d 忍币": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%d coins earned"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "累計 %d コイン"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "累計 %d 忍幣"
+          }
+        }
+      }
+    },
     "累计忍住": {
       "localizations": {
         "en": {
@@ -5170,6 +5377,29 @@
           "stringUnit": {
             "state": "translated",
             "value": "英鎊 (£)"
+          }
+        }
+      }
+    },
+    "解锁全部奖励维度统计": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unlock All Reward Stats"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "すべての報酬統計を解除"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "解鎖全部獎勵維度統計"
           }
         }
       }
@@ -5747,6 +5977,29 @@
           "stringUnit": {
             "state": "translated",
             "value": "過去6個月的變化趨勢"
+          }
+        }
+      }
+    },
+    "近 6 个月": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Last 6 Months"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "直近6ヶ月"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "近 6 個月"
           }
         }
       }
