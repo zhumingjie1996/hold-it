@@ -36,10 +36,10 @@ struct HomeView: View {
             ScrollView {
                 VStack(spacing: 12) {
                     statsCards
+                    encourageCard
                     lastRecordCard
                     mainButton
                     rewardsSection
-                    encourageCard
                 }
                 .padding(.horizontal, 20)
                 .padding(.vertical, 12)
