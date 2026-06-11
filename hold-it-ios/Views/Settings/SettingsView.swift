@@ -490,188 +490,197 @@ private var localizedTermsOfService: String {
 
 private let privacyPolicyZH = """
 隐私政策
-更新日期：2025 年 6 月 1 日
+更新日期：2025 年 6 月 4 日
 
 1. 概述
-「忍一下」（以下简称“本应用”）高度重视您的隐私。本政策说明我们如何处理您在使用本应用时所涉及的信息。
+「忍一下」（以下简称"本应用"）高度重视您的隐私。本政策说明我们如何处理您在使用本应用时所涉及的信息。
 
 2. 数据收集
-本应用完全离线运行，不会收集、上传或共享您的任何个人数据。所有忍住记录、自定义分类及设置均存储在您的设备本地，不经您明确同意永远不会离开设备。
+本应用完全离线运行，不会收集、上传或共享您的任何个人数据。所有忍住记录、自定义分类、奖励设置及偏好设置均存储在您的设备本地，不经您明确同意永远不会离开设备。
 
 3. 数据使用
-您的记录数据仅用于在应用内展示统计信息，不会用于任何其他目的。我们无法访问您设备上的任何数据。
+您的记录数据仅用于在应用内展示统计信息和奖励进度，不会用于任何其他目的。我们无法访问您设备上的任何数据。
 
 4. 第三方服务
-本应用不使用任何第三方分析工具、广告服务或数据上传服务。应用内购功能通过 Apple 的 StoreKit 实现，符合 Apple 隐私政策。
+本应用不使用任何第三方分析工具、广告服务或数据上传服务。应用内购功能通过 Apple 的 StoreKit 实现，符合 Apple 隐私政策。购买过程中 Apple 可能会收集必要的交易信息，详情请参阅 Apple 隐私政策。
 
 5. 数据安全
 您的数据存储在设备本地，受 iOS 系统级安全机制保护。如您开启 iCloud 备份，数据将随设备备份到您的 iCloud 个人空间，受 Apple 隐私政策保护。
 
-6. 児童隐私
-本应用不面向 13 岁以下的児童，不会故意收集児童个人信息。
+6. 儿童隐私
+本应用不面向 13 岁以下的儿童，不会故意收集儿童个人信息。若监护人发现儿童在未经授权的情况下提供了个人信息，请与我们联系，我们将尽快删除相关数据。
 
 7. 隐私政策变更
 本隐私政策可能随应用更新而变更。重大变更将在应用内公告。继续使用本应用即表示您接受更新后的政策。
 
 8. 联系我们
-如您对本隐私政策有任何疑问，请通过“意见反馈”联系我们。
+如您对本隐私政策有任何疑问，请通过应用内的"意见反馈"或发送邮件至 zhumingjie0822@gmail.com 联系我们。
 """
 
 private let privacyPolicyEN = """
 Privacy Policy
-Last updated: June 1, 2025
+Last updated: June 4, 2025
 
 1. Overview
 "Hold It" (the "App") is committed to protecting your privacy. This policy explains how we handle information when you use the App.
 
 2. Data Collection
-The App runs entirely offline. We do not collect, upload, or share any of your personal data. All records, custom categories, and settings are stored locally on your device and never leave it without your explicit consent.
+The App runs entirely offline. We do not collect, upload, or share any of your personal data. All resistance records, custom categories, reward configurations, and preferences are stored locally on your device and never leave it without your explicit consent.
 
 3. Data Use
-Your data is used solely to display statistics within the App. We have no access to any data on your device.
+Your data is used solely to display statistics and reward progress within the App. We have no access to any data on your device.
 
 4. Third-Party Services
-The App does not use any third-party analytics, advertising, or data-upload services. In-app purchases are handled by Apple's StoreKit, subject to Apple's Privacy Policy.
+The App does not use any third-party analytics, advertising, or data-upload services. In-app purchases are handled by Apple's StoreKit, subject to Apple's Privacy Policy. Apple may collect necessary transaction information during purchases; please refer to Apple's Privacy Policy for details.
 
 5. Data Security
 Your data is stored locally and protected by iOS system-level security. If you enable iCloud Backup, data will be included in your personal iCloud backup, protected by Apple's Privacy Policy.
 
 6. Children's Privacy
-The App is not directed at children under 13. We do not knowingly collect personal information from children.
+The App is not directed at children under 13. We do not knowingly collect personal information from children. If a guardian discovers that a child has provided personal information without consent, please contact us and we will promptly delete the data.
 
 7. Changes to This Policy
 This policy may be updated with app updates. Significant changes will be announced within the App. Continued use constitutes acceptance of the updated policy.
 
 8. Contact Us
-If you have questions about this privacy policy, please contact us via the Feedback option in the App.
+If you have questions about this privacy policy, please contact us via the Feedback option in the App or email us at zhumingjie0822@gmail.com.
 """
 
 private let privacyPolicyJA = """
 プライバシーポリシー
-最終更新：2025年6月1日
+最終更新：2025年6月4日
 
 1. 概要
-「我慢す」（以下「本アプリ」）は、あなたのプライバシーを重視しています。
+「Hold It」（以下「本アプリ」）は、あなたのプライバシーを重視しています。本ポリシーは、本アプリのご利用にあたっての情報の取り扱いについて説明します。
 
 2. データの収集
-本アプリは完全オフラインで動作します。個人データの収集・アップロード・共有は一切行いません。すべての記録データはお使いの端末に保存されます。
+本アプリは完全オフラインで動作します。個人データの収集・アップロード・共有は一切行いません。すべての記録データ、カスタムカテゴリー、報酬設定、環境設定はお使いの端末に保存され、明示的な同意なく端末外に送信されることはありません。
 
 3. データの利用
-データはアプリ内の統計表示のみに使用されます。
+データはアプリ内の統計表示および報酬の進捗管理のみに使用されます。私たちが端末上のデータにアクセスすることは一切ありません。
 
 4. 第三者サービス
-本アプリは第三者の分析・広告サービスを一切使用しません。アプリ内購買は Apple の StoreKit を使用しています。
+本アプリは第三者の分析・広告サービスを一切使用しません。アプリ内購買は Apple の StoreKit を使用しており、Apple のプライバシーポリシーに従います。購入時に Apple が必要な取引情報を収集する場合があります。詳細は Apple のプライバシーポリシーをご参照ください。
 
 5. データの安全性
-データは端末内に保存され、iOS のセキュリティ機構によって保護されます。
+データは端末内に保存され、iOS のセキュリティ機構によって保護されます。iCloud バックアップを有効にした場合、データは iCloud 個人スペースにバックアップされ、Apple のプライバシーポリシーにより保護されます。
 
-6. プライバシーポリシーの変更
+6. 児童のプライバシー
+本アプリは 13 歳未満の児童を対象としておらず、児童の個人情報を意図的に収集することはありません。保護者の方は、児童が同意なく個人情報を提供したことに気づいた場合は、ご連絡ください。速やかに削除いたします。
+
+7. プライバシーポリシーの変更
 本ポリシーはアプリのアップデートに伴い変更される場合があります。重要な変更はアプリ内でお知らせします。
 
-7. お問い合わせ
-プライバシーポリシーについてご不明な点があれば、アプリ内の「フィードバック」よりお問い合わせください。
+8. お問い合わせ
+プライバシーポリシーについてご不明な点があれば、アプリ内の「フィードバック」または zhumingjie0822@gmail.com までお問い合わせください。
 """
 
 // MARK: - 用户协议
 
 private let termsOfServiceZH = """
 用户协议
-更新日期：2025 年 6 月 1 日
+更新日期：2025 年 6 月 4 日
 
 1. 接受条款
 使用「忍一下」即表示您已阅读并同意本协议的所有条款。如您不同意，请停止使用本应用。
 
 2. 服务内容
-本应用提供忍住行为记录、自定义分类及多维统计功能。我们保留随时修改、更新或停止服务的权利。
+本应用提供忍住行为记录、自定义分类、奖励系统、多维统计及桌面小组件等功能。我们保留随时修改、更新或停止服务的权利。
 
 3. 用户行为
-您同意不于：
+您同意不以如下方式使用本应用：
 • 以任何非法目的使用本应用
-• 试图破坏或主块应用的正常运行
+• 试图破坏或干扰应用的正常运行
 • 向他人转让或转售您的账户权益
+• 利用本应用进行任何形式的欺诈活动
 
 4. 会员服务
-终身会员为一次性购买，购买后即可永久使用所有高级功能。会员资格绑定至您的 Apple ID，可在同一 Apple ID 登录的所有设备上使用。
+终身会员为一次性购买，购买后即可永久使用所有高级功能，包括但不限于无限自定义分类、高级统计和奖励系统。会员资格绑定至您的 Apple ID，可在同一 Apple ID 登录的所有设备上使用。
 
 5. 退款政策
 根据 Apple 的购买政策，退款请通过 App Store 申请。我们无法直接处理退款请求。
 
 6. 免责声明
-本应用按“现状”提供。在法律允许的范围内，我们不就任何隐含保证（包括适售性、特定用途适用性）作出丟诺。
+本应用按"现状"提供，不附带任何明示或暗示的保证。在法律允许的范围内，我们不就任何隐含保证（包括适销性、特定用途适用性）作出承诺。使用本应用产生的任何风险由您自行承担。
 
-7. 分类内容
-本应用内的预设分类仅供参考。您可以创建自定义分类，内容应合法合规，不得包含不当内容。
+7. 分类与奖励内容
+本应用内的预设分类仅供参考。您可以创建自定义分类和奖励项目，内容应合法合规，不得包含不当内容。
 
 8. 协议修改
 我们保留修改本协议的权利。重大变更将在应用内公告。继续使用本应用即表示您接受更新后的协议。
 
 9. 联系我们
-如您对本协议有任何疑问，请通过应用内的“意见反馈”联系我们。
+如您对本协议有任何疑问，请通过应用内的"意见反馈"或发送邮件至 zhumingjie0822@gmail.com 联系我们。
 """
 
 private let termsOfServiceEN = """
 Terms of Service
-Last updated: June 1, 2025
+Last updated: June 4, 2025
 
 1. Acceptance of Terms
 By using "Hold It", you agree to these Terms of Service. If you do not agree, please stop using the App.
 
 2. Services
-The App provides habit resistance tracking, custom categories, and multi-dimensional statistics. We reserve the right to modify, update, or discontinue services at any time.
+The App provides resistance tracking, custom categories, a reward system, multi-dimensional statistics, and home screen widgets. We reserve the right to modify, update, or discontinue services at any time.
 
 3. User Conduct
 You agree not to:
 • Use the App for any unlawful purpose
 • Attempt to disrupt or interfere with the App's normal operation
 • Transfer or sell your account rights to others
+• Use the App for any form of fraudulent activity
 
 4. Membership
-Lifetime membership is a one-time purchase that grants permanent access to all premium features. Membership is tied to your Apple ID and available on all devices signed in with the same Apple ID.
+Lifetime membership is a one-time purchase that grants permanent access to all premium features, including but not limited to unlimited custom categories, advanced statistics, and the reward system. Membership is tied to your Apple ID and available on all devices signed in with the same Apple ID.
 
 5. Refund Policy
 Refunds are subject to Apple's purchase policy. Please request refunds through the App Store. We are unable to process refund requests directly.
 
 6. Disclaimer
-The App is provided "as is". To the extent permitted by law, we make no warranties of any kind, express or implied.
+The App is provided "as is" without warranties of any kind, express or implied. To the extent permitted by law, we make no warranties, including merchantability or fitness for a particular purpose. Use of the App is at your own risk.
 
-7. Category Content
-Preset categories are for reference only. Custom categories must be lawful and appropriate.
+7. Category and Reward Content
+Preset categories are for reference only. Custom categories and reward items must be lawful and appropriate.
 
 8. Changes to Terms
 We reserve the right to modify these terms. Significant changes will be announced within the App. Continued use constitutes acceptance.
 
 9. Contact
-For questions about these terms, please contact us via the Feedback option in the App.
+For questions about these terms, please contact us via the Feedback option in the App or email us at zhumingjie0822@gmail.com.
 """
 
 private let termsOfServiceJA = """
 利用規約
-最終更新：2025年6月1日
+最終更新：2025年6月4日
 
 1. 規約の承認
-「我慢す」を使用することで、本利用規約に同意したものとみなされます。
+「Hold It」を使用することで、本利用規約に同意したものとみなされます。同意いただけない場合は、本アプリのご利用を中止してください。
 
 2. サービス内容
-本アプリは我慢記録、カスタムカテゴリー、多身的統計機能を提供します。サービスは予告なく変更される場合があります。
+本アプリは、我慢行動の記録、カスタムカテゴリー、報酬システム、多次元統計、ホーム画面ウィジェットなどの機能を提供します。サービスは予告なく変更・終了される場合があります。
 
 3. 利用者の行為
 以下の行為を禁止します：
 • 違法な目的での利用
 • アプリの正常動作を妨害する行為
 • アカウント権益の第三者への譲渡・販売
+• 本アプリを利用した詐欺行為
 
 4. 会員サービス
-買い切り山横会員は一度の購入で全てのプレミアム機能を永久利用できます。Apple ID に結び付けられ、同一 Apple ID でサインインした全端末で利用可能です。
+買い切り会員は一度の購入で全てのプレミアム機能を永久利用できます。これには、無制限のカスタムカテゴリー、高度な統計、報酬システムなどが含まれます。会員資格は Apple ID に結び付けられ、同一 Apple ID でサインインした全端末で利用可能です。
 
 5. 返金ポリシー
-返金は Apple の購入ポリシーに従い、App Store よりリクエストしてください。
+返金は Apple の購入ポリシーに従い、App Store よりリクエストしてください。当方では直接返金処理は行えません。
 
 6. 免責事項
-本アプリは「現状のまま」提供されます。法律が許容する範囲で、一切の保証をいたしません。
+本アプリは「現状のまま」提供され、明示的または暗示的ないかなる保証も伴いません。法律が許容する範囲で、商品性や特定目的への適合性を含む一切の保証をいたしません。本アプリの使用に伴うリスクは利用者の負担となります。
 
-7. 規約の変更
-本規約はアプリのアップデートに伴い変更される場合があります。引き続きご利用いただくことで変更後の規約に同意いただいたことになります。
+7. カテゴリーと報酬の内容
+プリセットカテゴリーは参考用です。カスタムカテゴリーや報酬アイテムの内容は適法かつ適切なものである必要があります。
 
-8. お問い合わせ
-利用規約についてご不明な点があれば、アプリ内の「フィードバック」よりお問い合わせください。
+8. 規約の変更
+本規約はアプリのアップデートに伴い変更される場合があります。重要な変更はアプリ内でお知らせします。引き続きご利用いただくことで変更後の規約に同意いただいたことになります。
+
+9. お問い合わせ
+利用規約についてご不明な点があれば、アプリ内の「フィードバック」または zhumingjie0822@gmail.com までお問い合わせください。
 """
