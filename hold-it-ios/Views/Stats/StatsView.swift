@@ -189,7 +189,7 @@ struct StatsView: View {
     }
     
     private var vipContent: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 12) {
             ForEach(orderedModules, id: \.self) { moduleId in
                 moduleView(for: moduleId)
             }
@@ -216,8 +216,8 @@ struct StatsView: View {
                         .font(.subheadline.weight(.medium))
                 }
                 .foregroundStyle(Color.brand)
-                .padding(.horizontal, 20)
                 .padding(.vertical, 10)
+                .frame(maxWidth: .infinity)
                 .background(Color.brand.opacity(0.1))
                 .cornerRadius(12)
             }
@@ -240,8 +240,8 @@ struct StatsView: View {
                         .font(.subheadline.weight(.medium))
                 }
                 .foregroundStyle(.white)
-                .padding(.horizontal, 20)
                 .padding(.vertical, 10)
+                .frame(maxWidth: .infinity)
                 .background(
                     LinearGradient(
                         colors: [Color.brand, Color.brandDark],
