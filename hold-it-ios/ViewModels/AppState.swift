@@ -53,15 +53,33 @@ enum SupportedCurrency: String, CaseIterable, Identifiable {
         }
     }
 
-    /// 读取系统当前 Locale 对应的货币符号
+    /// 读取设备地区对应的货币符号
+    /// 优先基于 region（地区）而非 language（语言），避免英文语言+中国地区时返回 $ 的问题
     static var systemSymbol: String {
-        guard let code = Locale.current.currency?.identifier else { return "¥" }
-        // 用系统 Locale formatter 拿到简短符号
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.currencyCode = code
-        formatter.locale = Locale.current
-        return formatter.currencySymbol ?? "¥"
+        // 1. 基于设备地区构造 Locale（语言无关）
+        if let regionCode = Locale.current.region?.identifier {
+            let regionLocale = Locale(identifier: regionCode)
+            if let code = regionLocale.currency?.identifier {
+                let formatter = NumberFormatter()
+                formatter.numberStyle = .currency
+                formatter.currencyCode = code
+                formatter.locale = regionLocale
+                if let symbol = formatter.currencySymbol {
+                    return symbol
+                }
+            }
+        }
+        // 2. 回退：基于当前 Locale
+        if let code = Locale.current.currency?.identifier {
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .currency
+            formatter.currencyCode = code
+            formatter.locale = Locale.current
+            if let symbol = formatter.currencySymbol {
+                return symbol
+            }
+        }
+        return "¥"
     }
 }
 
@@ -238,13 +256,14 @@ class AppState {
     // MARK: - Widget 数据同步
 
     /// 将关键统计数据写入 App Group 共享容器，供 Widget Extension 读取
-    func syncWidgetData(from records: [ResistRecord]) {
+    func syncWidgetData(from records: [ResistRecord], currencyCode: String = "auto") {
+        let symbol = SupportedCurrency(rawValue: currencyCode)?.symbol ?? SupportedCurrency.systemSymbol
         let stats = WidgetDataStore.Stats(
             todayCount:     todayCount(from: records),
             totalCount:     totalCount(from: records),
             streakDays:     streakDays(from: records),
             totalSaved:     totalSavedAmount(from: records),
-            currencySymbol: SupportedCurrency.systemSymbol,
+            currencySymbol: symbol,
             weekCount:      thisWeekCount(from: records),
             monthCount:     thisMonthCount(from: records),
             bestStreak:     bestStreak(from: records)

@@ -1389,7 +1389,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "合計 %1$@%2$@"
+            "value" : "合计 %1$@%2$@"
           }
         },
         "zh-Hant" : {

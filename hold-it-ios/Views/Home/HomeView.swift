@@ -49,10 +49,10 @@ struct HomeView: View {
                 }
             }
             .onChange(of: records.count) {
-                appState.syncWidgetData(from: records)
+                appState.syncWidgetData(from: records, currencyCode: currencyCode)
             }
             .onAppear {
-                appState.syncWidgetData(from: records)
+                appState.syncWidgetData(from: records, currencyCode: currencyCode)
             }
             .onChange(of: appState.triggerRecordSheet) { _, newValue in
                 if newValue {
