@@ -31,7 +31,7 @@ struct hold_it_iosApp: App {
 
     /// 创建 ModelContainer，若 schema 不兼容则删除旧库重建
     static func createModelContainer() -> ModelContainer {
-        let schema = Schema([ResistRecord.self, CustomCategory.self])
+        let schema = Schema([ResistRecord.self, CustomCategory.self, Reward.self, RewardCoinRecord.self])
         let config = ModelConfiguration(isStoredInMemoryOnly: false)
 
         do {

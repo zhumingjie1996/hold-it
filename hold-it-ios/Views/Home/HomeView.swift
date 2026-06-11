@@ -11,16 +11,24 @@ import WidgetKit
 struct HomeView: View {
     @Environment(AppState.self) private var appState
     @Query(sort: \ResistRecord.createdAt, order: .reverse) private var records: [ResistRecord]
+    @Query(filter: #Predicate<Reward> { $0.statusRaw == "IN_PROGRESS" }, sort: \Reward.createdAt) private var rewards: [Reward]
     @AppStorage("currencyCode") private var currencyCode: String = "auto"
     @State private var showRecordSheet = false
     @State private var currentQuoteIndex: Int = EncourageQuote.todayIndex()
     @State private var showCelebration = false
+    @State private var unlockedReward: Reward?
+    @State private var showUnlockAlert = false
     @State private var carouselIndex: Int = 0
     @State private var carouselTask: Task<Void, Never>?
     @State private var logoRotation: Double = 12
     @State private var logoScale: CGFloat = 1.0
     @State private var logoTapLocked = false
     @State private var logoIdleTask: Task<Void, Never>?
+
+    /// 进行中的奖励，按进度百分比降序，最多3个
+    private var topRewards: [Reward] {
+        rewards.sorted { $0.progress > $1.progress }.prefix(3).map { $0 }
+    }
 
     
     var body: some View {
@@ -30,6 +38,7 @@ struct HomeView: View {
                     statsCards
                     lastRecordCard
                     mainButton
+                    rewardsSection
                     encourageCard
                 }
                 .padding(.horizontal, 20)
@@ -38,10 +47,30 @@ struct HomeView: View {
             .background(Color.systemGroupedBackground)
             .navigationTitle("忍一下")
             .sheet(isPresented: $showRecordSheet) {
-                RecordSheet(onSave: {
+                RecordSheet(onSave: { unlocked in
                     UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                     showCelebration = true
+                    if let reward = unlocked {
+                        unlockedReward = reward
+                        // 延迟弹窗，等 sheet 完全关闭
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                            showUnlockAlert = true
+                        }
+                    }
                 })
+            }
+            .alert("🎉 " + String(localized: "奖励已解锁"), isPresented: $showUnlockAlert) {
+                Button("稍后再说") { }
+                Button("立即兑现") {
+                    if let reward = unlockedReward {
+                        reward.status = .redeemed
+                        reward.redeemedAt = Date()
+                    }
+                }
+            } message: {
+                if let reward = unlockedReward {
+                    Text("\(reward.title)\n" + String(localized: "你已经完成目标，现在可以奖励自己了"))
+                }
             }
             .overlay {
                 if showCelebration {
@@ -280,6 +309,72 @@ struct HomeView: View {
         }
         .buttonStyle(.plain)
         .padding(.vertical, 20)
+    }
+
+    // MARK: - 进行中的奖励
+    private var rewardsSection: some View {
+        VStack(spacing: 10) {
+            // 标题行
+            HStack {
+                HStack(spacing: 6) {
+                    Image(systemName: "gift.fill")
+                        .foregroundStyle(Color.brand)
+                    Text("进行中的奖励")
+                        .font(.subheadline.weight(.semibold))
+                }
+                Spacer()
+                NavigationLink {
+                    RewardListView()
+                } label: {
+                    HStack(spacing: 2) {
+                        Text("管理")
+                        Image(systemName: "chevron.right")
+                    }
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                }
+            }
+
+            if topRewards.isEmpty {
+                // 空状态
+                NavigationLink {
+                    RewardListView()
+                } label: {
+                    HStack(spacing: 12) {
+                        Text("🎁")
+                            .font(.title2)
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("还没有奖励目标")
+                                .font(.subheadline.weight(.medium))
+                            Text("创建一个奖励，记录克制即可自动获得忍币")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                        Spacer()
+                        Image(systemName: "plus.circle.fill")
+                            .foregroundStyle(Color.brand)
+                    }
+                    .padding(14)
+                    .background(Color(.secondarySystemGroupedBackground))
+                    .cornerRadius(16)
+                }
+                .buttonStyle(.plain)
+            } else {
+                ForEach(topRewards) { reward in
+                    RewardProgressCard(reward: reward)
+                }
+
+                if rewards.count > 3 {
+                    NavigationLink {
+                        RewardListView()
+                    } label: {
+                        Text(String(format: String(localized: "查看全部 %d 个奖励"), rewards.count))
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+            }
+        }
     }
 
     // MARK: - 辅助方法

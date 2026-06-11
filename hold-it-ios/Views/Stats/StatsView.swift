@@ -11,6 +11,8 @@ struct StatsView: View {
     @Environment(AppState.self) private var appState
     @Environment(StoreManager.self) private var storeManager
     @Query(sort: \ResistRecord.createdAt, order: .reverse) private var records: [ResistRecord]
+    @Query private var allRewards: [Reward]
+    @Query private var allCoinRecords: [RewardCoinRecord]
     @AppStorage("currencyCode") private var currencyCode: String = "auto"
     @State private var showVipAlert = false
     @State private var showExportSheet = false
@@ -59,6 +61,7 @@ struct StatsView: View {
             ScrollView {
                 VStack(spacing: 20) {
                     basicStats
+                    rewardStats
                     recordsTimeline
                     savedAmountEntry
                     
@@ -106,6 +109,53 @@ struct StatsView: View {
                 if let img = exportImage {
                     ShareSheet(image: img)
                 }
+            }
+        }
+    }
+
+    // MARK: - 奖励统计
+    private var rewardStats: some View {
+        VStack(spacing: 10) {
+            HStack {
+                Image(systemName: "gift.fill")
+                    .foregroundStyle(Color.brand)
+                Text("奖励统计")
+                    .font(.subheadline.weight(.semibold))
+                Spacer()
+                NavigationLink {
+                    RewardListView()
+                } label: {
+                    Image(systemName: "chevron.right")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
+
+            HStack(spacing: 10) {
+                RewardStatBox(
+                    title: "累计忍币",
+                    value: "\(allCoinRecords.reduce(0) { $0 + $1.coins })",
+                    icon: "bitcoinsign.circle.fill",
+                    color: .brand
+                )
+                RewardStatBox(
+                    title: "已解锁",
+                    value: "\(allRewards.filter { $0.status == .unlocked }.count)",
+                    icon: "lock.open.fill",
+                    color: .orange
+                )
+                RewardStatBox(
+                    title: "已兑现",
+                    value: "\(allRewards.filter { $0.status == .redeemed }.count)",
+                    icon: "checkmark.seal.fill",
+                    color: .green
+                )
+                RewardStatBox(
+                    title: "进行中",
+                    value: "\(allRewards.filter { $0.status == .inProgress }.count)",
+                    icon: "clock.fill",
+                    color: .blue
+                )
             }
         }
     }
@@ -505,6 +555,31 @@ struct BasicStatBox: View {
         .padding(.vertical, 16)
         .background(Color.secondarySystemGroupedBackground)
         .cornerRadius(16)
+    }
+}
+
+struct RewardStatBox: View {
+    let title: LocalizedStringKey
+    let value: String
+    let icon: String
+    let color: Color
+
+    var body: some View {
+        VStack(spacing: 4) {
+            Image(systemName: icon)
+                .font(.caption)
+                .foregroundStyle(color)
+            Text(value)
+                .font(.system(size: 22, weight: .bold))
+                .foregroundStyle(color)
+            Text(title)
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 12)
+        .background(Color.secondarySystemGroupedBackground)
+        .cornerRadius(12)
     }
 }
 
