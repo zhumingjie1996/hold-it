@@ -231,29 +231,28 @@ struct HomeView: View {
     // MARK: - 鼓励卡片
     private var encourageCard: some View {
         let quote = EncourageQuote.allQuotes[currentQuoteIndex]
-        return ZStack(alignment: .topTrailing) {
-            VStack(alignment: .leading, spacing: 8) {
-                HStack(spacing: 4) {
-                    Image(systemName: "quote.opening")
-                        .foregroundStyle(Color.brand.opacity(1))
-                    Text("To Myself")
-                        .font(.subheadline.weight(.semibold))
-                        .foregroundStyle(Color.brandDark.opacity(1))
-                }
-            
-                Text(quote)
-                    .font(.footnote)
-                    .foregroundStyle(.primary.opacity(0.6))
-                    .lineSpacing(3)
+        return VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 4) {
+                Image(systemName: "quote.opening")
+                    .foregroundStyle(Color.brand.opacity(1))
+                Text("To Myself")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(Color.brandDark.opacity(1))
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(16)
-            .background(Color.secondarySystemGroupedBackground)
-            .cornerRadius(16)
-            .id(currentQuoteIndex)
-            .transition(.opacity.combined(with: .move(edge: .trailing)))
-
-            // 贴纸 Logo
+        
+            Text(quote)
+                .font(.footnote)
+                .foregroundStyle(.primary.opacity(0.6))
+                .lineSpacing(3)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(16)
+        .background(Color.secondarySystemGroupedBackground)
+        .cornerRadius(16)
+        .id(currentQuoteIndex)
+        .transition(.opacity.combined(with: .move(edge: .trailing)))
+        // 贴纸 Logo —— overlay 不参与布局，不会撑大卡片间距
+        .overlay(alignment: .topTrailing) {
             Image("AppLogo")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
