@@ -1,0 +1,12 @@
+//
+// Version.xcconfig
+// hold-it-ios
+//
+// 统一版本号配置，修改此处即可同步到所有 target
+//
+
+// App 版本号（显示给用户）
+APP_VERSION = 1.1
+
+// Build 号（内部构建号）
+APP_BUILD = 1

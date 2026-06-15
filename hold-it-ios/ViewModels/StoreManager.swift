@@ -48,13 +48,17 @@ class StoreManager {
 
     private let productID = "mj.holdit.lifetimeVip"
     private static let isVipCacheKey = "mj.holdit.isVipCached"
+    private static let vipConfirmedKey = "mj.holdit.vipConfirmedOnce"
     private var transactionListener: Task<Void, Never>?
 
     private var entitlementChecked = false
 
     init() {
-        // 先用本地缓存恢复会员状态，避免冷启动校验前 UI 误判为非会员
-        self.isVip = UserDefaults.standard.bool(forKey: Self.isVipCacheKey)
+        let cached = UserDefaults.standard.bool(forKey: Self.isVipCacheKey)
+        let confirmed = UserDefaults.standard.bool(forKey: Self.vipConfirmedKey)
+        // 新用户或未通过 StoreKit 确认过的用户 → 强制非会员
+        // 曾经确认过的用户 → 信任缓存（保护沙盒冷启动空结果场景）
+        self.isVip = cached && confirmed
         transactionListener = listenForTransactions()
         Task {
             await loadProducts()
@@ -113,16 +117,22 @@ class StoreManager {
         if found {
             // 找到有效权益
             isVip = true
+            UserDefaults.standard.set(true, forKey: Self.vipConfirmedKey)
         } else if revoked {
             // 明确被退款/撤销
             isVip = false
         } else if forceResult {
             // AppStore.sync() 已强制同步，此时空结果可信 → 用户确实没有购买
             isVip = false
+        } else {
+            // 非强制模式 + 未找到交易：
+            // 曾经 StoreKit 确认过 → 保持缓存（沙盒冷启动保护）
+            // 从未确认过 → 新用户，强制非会员
+            let confirmed = UserDefaults.standard.bool(forKey: Self.vipConfirmedKey)
+            if !confirmed {
+                isVip = false
+            }
         }
-        // 非强制模式 + 未找到交易 → 保持当前值（缓存）
-        // 沙盒环境下 Transaction.currentEntitlements 冷启动经常返回空结果，
-        // 不能因为查不到就否定已有的购买状态
 
         entitlementChecked = true
     }
