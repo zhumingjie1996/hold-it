@@ -3,7 +3,7 @@
     "eula" : "",
     "policies" : [
       {
-        "locale" : "en_US",
+        "locale" : "zh_CN",
         "policyText" : "",
         "policyURL" : ""
       }
@@ -15,14 +15,14 @@
   ],
   "products" : [
     {
-      "displayPrice" : "2.99",
+      "displayPrice" : "18",
       "familyShareable" : false,
       "internalID" : "BB698B5C",
       "localizations" : [
         {
           "description" : "",
           "displayName" : "",
-          "locale" : "en_US"
+          "locale" : "zh_CN"
         }
       ],
       "productID" : "mj.holdit.lifetimeVip",
@@ -37,9 +37,9 @@
     "_billingIssuesEnabled" : false,
     "_disableDialogs" : false,
     "_failTransactionsEnabled" : false,
-    "_locale" : "en_US",
+    "_locale" : "zh_CN",
     "_renewalBillingIssuesEnabled" : false,
-    "_storefront" : "USA",
+    "_storefront" : "CHN",
     "_storeKitErrors" : [
 
     ],
