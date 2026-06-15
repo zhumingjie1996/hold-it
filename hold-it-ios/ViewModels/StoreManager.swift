@@ -79,6 +79,7 @@ class StoreManager {
                                 isVip = false
                             } else {
                                 isVip = true
+                                UserDefaults.standard.set(true, forKey: Self.vipConfirmedKey)
                             }
                         }
                     }
@@ -151,6 +152,7 @@ class StoreManager {
             case .success(let verification):
                 if case .verified(let transaction) = verification {
                     isVip = true
+                    UserDefaults.standard.set(true, forKey: Self.vipConfirmedKey)
                     purchaseState = .success
                     await transaction.finish()
                     return true
