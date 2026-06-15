@@ -277,6 +277,7 @@ struct HomeView: View {
                 .onAppear { startLogoIdleAnimation() }
                 .onDisappear { logoIdleTask?.cancel() }
         }
+        .zIndex(1)
     }
     
     private var mainButton: some View {
