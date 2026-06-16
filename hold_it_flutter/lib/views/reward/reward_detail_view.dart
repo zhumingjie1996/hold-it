@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:typed_data';
 import 'package:provider/provider.dart';
 import '../../viewmodels/app_state.dart';
 import '../../models/models.dart';
@@ -54,7 +55,7 @@ class _RewardDetailViewState extends State<RewardDetailView> {
         ? ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Image.memory(
-              widget.reward.imageData!,
+              Uint8List.fromList(widget.reward.imageData!),
               height: 200,
               width: double.infinity,
               fit: BoxFit.cover,

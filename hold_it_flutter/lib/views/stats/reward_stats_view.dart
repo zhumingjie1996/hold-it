@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../viewmodels/app_state.dart';
 import '../../viewmodels/store_manager.dart';
 import '../../utils/constants.dart';
+import '../../models/models.dart';
 
 class RewardStatsView extends StatelessWidget {
   const RewardStatsView({super.key});

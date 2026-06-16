@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:typed_data';
 import 'package:provider/provider.dart';
 import '../../viewmodels/app_state.dart';
 import '../../models/models.dart';
@@ -124,7 +125,7 @@ class _RewardRow extends StatelessWidget {
                   ? ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Image.memory(
-                        reward.imageData!,
+                        Uint8List.fromList(reward.imageData!),
                         width: 44,
                         height: 44,
                         fit: BoxFit.cover,

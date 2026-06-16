@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../viewmodels/app_state.dart';
-import '../viewmodels/store_manager.dart';
-import '../utils/constants.dart';
-import '../models/models.dart';
-import '../models/encourage_quote.dart';
+import '../../viewmodels/app_state.dart';
+import '../../viewmodels/store_manager.dart';
+import '../../utils/constants.dart';
+import '../../models/models.dart';
+import '../../models/encourage_quote.dart';
 import 'record_sheet.dart';
 import 'celebration_view.dart';
-import '../views/reward/reward_progress_card.dart';
-import '../views/reward/reward_list_view.dart';
-import '../views/timeline/timeline_view.dart';
+import '../reward/reward_progress_card.dart';
+import '../reward/reward_list_view.dart';
+import '../timeline/timeline_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -43,12 +43,16 @@ class _HomeViewState extends State<HomeView> {
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         child: Column(
-          spacing: 12,
           children: [
+            const SizedBox(height: 12),
             _buildStatsCards(appState, records),
+            const SizedBox(height: 12),
             _buildEncourageCard(),
+            const SizedBox(height: 12),
             if (records.isNotEmpty) _buildLastRecordCard(records),
+            const SizedBox(height: 12),
             _buildMainButton(),
+            const SizedBox(height: 12),
             _buildRewardsSection(topRewards, rewards.length, storeManager),
           ],
         ),
@@ -59,7 +63,6 @@ class _HomeViewState extends State<HomeView> {
 
   Widget _buildStatsCards(AppState appState, List<ResistRecord> records) {
     return Row(
-      spacing: 12,
       children: [
         Expanded(
           child: _StatCard(
@@ -71,6 +74,7 @@ class _HomeViewState extends State<HomeView> {
             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const RecordsListView(initialFilter: TimeFilter.today))),
           ),
         ),
+        const SizedBox(width: 12),
         Expanded(
           child: _StatCard(
             title: '今天已节省',
@@ -104,12 +108,11 @@ class _HomeViewState extends State<HomeView> {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        spacing: 8,
         children: [
           Row(
-            spacing: 4,
             children: [
               Icon(Icons.format_quote, color: AppColors.brand, size: 16),
+              const SizedBox(width: 4),
               Text(
                 'To Myself',
                 style: TextStyle(
@@ -120,6 +123,7 @@ class _HomeViewState extends State<HomeView> {
               ),
             ],
           ),
+          const SizedBox(height: 8),
           Text(
             quote,
             style: TextStyle(
@@ -142,20 +146,19 @@ class _HomeViewState extends State<HomeView> {
         borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
-        spacing: 12,
         children: [
           Text(record.categoryEmoji, style: const TextStyle(fontSize: 28)),
+          const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: 2,
               children: [
                 Text(
                   record.category,
                   style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                 ),
+                const SizedBox(height: 2),
                 Row(
-                  spacing: 4,
                   children: [
                     Text(
                       relativeTimeString(record.createdAt),
@@ -163,6 +166,7 @@ class _HomeViewState extends State<HomeView> {
                     ),
                     if (record.amount != null && record.amount! > 0) ...[
                       Text('·', style: TextStyle(fontSize: 12, color: Colors.grey[600])),
+                      const SizedBox(width: 4),
                       Text(
                         '¥${formatAmount(record.amount!)}',
                         style: const TextStyle(fontSize: 12, color: AppColors.brand),
@@ -214,7 +218,6 @@ class _HomeViewState extends State<HomeView> {
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              spacing: 4,
               children: [
                 Text(
                   '忍一下',
@@ -224,6 +227,7 @@ class _HomeViewState extends State<HomeView> {
                     color: AppColors.brandDark,
                   ),
                 ),
+                const SizedBox(height: 4),
                 Text(
                   '点击记录',
                   style: TextStyle(
@@ -262,14 +266,13 @@ class _HomeViewState extends State<HomeView> {
 
   Widget _buildRewardsSection(List<Reward> topRewards, int totalRewards, StoreManager storeManager) {
     return Column(
-      spacing: 10,
       children: [
         Row(
           children: [
             Row(
-              spacing: 6,
               children: [
-                const Icon(Icons.card_giftcard, color: AppColors.brand, size: 18),
+                Icon(Icons.card_giftcard, color: AppColors.brand, size: 18),
+                const SizedBox(width: 6),
                 const Text(
                   '进行中的奖励',
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
@@ -280,15 +283,16 @@ class _HomeViewState extends State<HomeView> {
             GestureDetector(
               onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const RewardListView())),
               child: Row(
-                spacing: 2,
                 children: [
                   Text('管理', style: TextStyle(fontSize: 12, color: Colors.grey[600])),
+                  const SizedBox(width: 2),
                   Icon(Icons.chevron_right, size: 14, color: Colors.grey[600]),
                 ],
               ),
             ),
           ],
         ),
+        const SizedBox(height: 10),
         if (topRewards.isEmpty)
           GestureDetector(
             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const RewardListView())),
@@ -299,13 +303,12 @@ class _HomeViewState extends State<HomeView> {
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Row(
-                spacing: 12,
                 children: [
                   const Text('🎁', style: TextStyle(fontSize: 24)),
+                  const SizedBox(width: 12),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      spacing: 2,
                       children: [
                         const Text('还没有奖励目标', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
                         Text(
@@ -315,7 +318,7 @@ class _HomeViewState extends State<HomeView> {
                       ],
                     ),
                   ),
-                  const Icon(Icons.add_circle, color: AppColors.brand),
+                  Icon(Icons.add_circle, color: AppColors.brand),
                 ],
               ),
             ),
@@ -364,7 +367,6 @@ class _StatCard extends StatelessWidget {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 8,
           children: [
             Row(
               children: [
@@ -373,10 +375,10 @@ class _StatCard extends StatelessWidget {
                 Icon(Icons.chevron_right, size: 14, color: Colors.grey[400]),
               ],
             ),
+            const SizedBox(height: 8),
             Row(
               crossAxisAlignment: CrossAxisAlignment.baseline,
               textBaseline: TextBaseline.alphabetic,
-              spacing: 2,
               children: [
                 Text(
                   value,
@@ -386,6 +388,7 @@ class _StatCard extends StatelessWidget {
                     color: color,
                   ),
                 ),
+                const SizedBox(width: 2),
                 Text(
                   unit,
                   style: TextStyle(fontSize: 12, color: Colors.grey[600]),

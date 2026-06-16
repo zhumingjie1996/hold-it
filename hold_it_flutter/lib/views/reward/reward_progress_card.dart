@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:typed_data';
 import '../../models/models.dart';
 import '../../utils/constants.dart';
 
@@ -37,7 +38,7 @@ class RewardProgressCard extends StatelessWidget {
                       ? ClipRRect(
                           borderRadius: BorderRadius.circular(6),
                           child: Image.memory(
-                            reward.imageData!,
+                            Uint8List.fromList(reward.imageData!),
                             width: 32,
                             height: 32,
                             fit: BoxFit.cover,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:typed_data';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../viewmodels/store_manager.dart';
@@ -69,9 +70,9 @@ class _SettingsViewState extends State<SettingsView> {
                   return DropdownMenuItem(
                     value: mode.value,
                     child: Row(
-                      spacing: 8,
                       children: [
                         Icon(mode.icon, size: 18),
+                        const SizedBox(width: 8),
                         Text(mode.label),
                       ],
                     ),
@@ -172,19 +173,19 @@ class _SettingsViewState extends State<SettingsView> {
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: Column(
-              spacing: 4,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  spacing: 6,
                   children: [
                     const Icon(Icons.star, color: Colors.yellow, size: 18),
+                    const SizedBox(width: 6),
                     const Text(
                       '解锁终身会员',
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
                     ),
                   ],
                 ),
+                const SizedBox(height: 4),
                 Text(
                   '一次购买，终身使用',
                   style: TextStyle(fontSize: 12, color: Colors.white.withOpacity(0.8)),
@@ -207,12 +208,11 @@ class _SettingsViewState extends State<SettingsView> {
       ),
       child: storeManager.isLoading
           ? Row(
-              spacing: 16,
               children: [
                 const SizedBox(width: 24, height: 24, child: CircularProgressIndicator()),
+                const SizedBox(width: 16),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 4,
                   children: [
                     const Text('正在加载会员信息…', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                     Text('请稍候', style: TextStyle(fontSize: 12, color: Colors.grey[600])),
@@ -221,12 +221,11 @@ class _SettingsViewState extends State<SettingsView> {
               ],
             )
           : Row(
-              spacing: 16,
               children: [
                 const Text('👑', style: TextStyle(fontSize: 40)),
+                const SizedBox(width: 16),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 6,
                   children: [
                     const Text('已激活终身会员', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                     Text('享受所有高级功能', style: TextStyle(fontSize: 12, color: Colors.grey[600])),
@@ -267,7 +266,6 @@ class _SettingsViewState extends State<SettingsView> {
         title: const Text('关于忍一下'),
         content: const Column(
           mainAxisSize: MainAxisSize.min,
-          spacing: 12,
           children: [
             Text('🫰', style: TextStyle(fontSize: 48)),
             Text('忍一下', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
@@ -315,7 +313,6 @@ class _SettingsViewState extends State<SettingsView> {
           TextButton(
             onPressed: () {
               context.read<StoreManager>();
-              // TODO: Clear all data
               Navigator.pop(context);
             },
             style: TextButton.styleFrom(foregroundColor: Colors.red),
@@ -345,7 +342,7 @@ class _SettingsViewState extends State<SettingsView> {
 您的数据存储在设备本地，受系统级安全机制保护。
 
 6. 联系我们
-如您对本隐私政策有任何疑问，请发送邮件至 zhumingjie0822@gmail.com 联系我们。'''
+如您对本隐私政策有任何疑问，请发送邮件至 zhumingjie0822@gmail.com 联系我们。''';
 
   static const String _termsOfService = '''用户协议
 更新日期：2025 年 6 月 4 日
@@ -366,5 +363,5 @@ class _SettingsViewState extends State<SettingsView> {
 本应用按"现状"提供，不附带任何明示或暗示的保证。
 
 6. 联系我们
-如您对本协议有任何疑问，请发送邮件至 zhumingjie0822@gmail.com 联系我们。'''
+如您对本协议有任何疑问，请发送邮件至 zhumingjie0822@gmail.com 联系我们。''';
 }
