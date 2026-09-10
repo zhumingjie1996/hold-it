@@ -13,9 +13,10 @@ struct RecordSheet: View {
     @Environment(StoreManager.self) private var storeManager
     @Environment(\.modelContext) private var modelContext
     @AppStorage("currencyCode") private var currencyCode: String = "auto"
-    var onSave: ((_ unlockedReward: Reward?) -> Void)? = nil
+    var onSave: ((_ unlockedReward: Reward?, _ record: ResistRecord) -> Void)? = nil
 
     @Query(sort: \CustomCategory.createdAt) private var customCategories: [CustomCategory]
+    @Query private var allRecords: [ResistRecord]
 
     @State private var selectedCategory: ResistCategory = ResistCategory.defaults[0]
     @State private var note: String = ""
@@ -92,13 +93,26 @@ struct RecordSheet: View {
             AddCategorySheet(editingCategory: custom)
         }
         .alert("删除忍住项", isPresented: $showDeleteAlert) {
-            Button("删除", role: .destructive) {
-                deleteCategory()
+            if deletingRecordCount > 0 {
+                Button("删除项目和 \(deletingRecordCount) 条记录", role: .destructive) {
+                    deleteCategory(deleteRecords: true)
+                }
+                Button("仅删除项目") {
+                    deleteCategory(deleteRecords: false)
+                }
+            } else {
+                Button("删除", role: .destructive) {
+                    deleteCategory(deleteRecords: false)
+                }
             }
             Button("取消", role: .cancel) { }
         } message: {
             if let cat = deletingCategory {
-                Text("确定删除「\(cat.name)」吗？已有的记录不会被删除。")
+                if deletingRecordCount > 0 {
+                    Text("「\(cat.name)」已有 \(deletingRecordCount) 条记录。删除记录后无法恢复，相关奖励的忍币进度也会相应减少。")
+                } else {
+                    Text("确定删除「\(cat.name)」吗？")
+                }
             }
         }
         .alert("解锁更多自定义", isPresented: $showVipAlert) {
@@ -446,7 +460,7 @@ struct RecordSheet: View {
                 unlockedReward = reward
             }
         }
-        onSave?(unlockedReward)
+        onSave?(unlockedReward, record)
     }
 
     /// 用户选择奖励后确认
@@ -459,11 +473,19 @@ struct RecordSheet: View {
         dismiss()
     }
 
-    private func deleteCategory() {
+    /// 待删除分类已有的记录数
+    private var deletingRecordCount: Int {
+        guard let cat = deletingCategory else { return 0 }
+        return allRecords.filter { $0.effectiveCategoryID == cat.stableID }.count
+    }
+
+    private func deleteCategory(deleteRecords: Bool) {
         guard let cat = deletingCategory,
               let customID = cat.customCategoryID,
               let custom = customCategories.first(where: { $0.id == customID }) else { return }
-        modelContext.delete(custom)
+
+        modelContext.deleteCustomCategory(custom, includingRecords: deleteRecords, allRecords: allRecords)
+
         // 如果当前选中的是被删除的分类，重置为第一个默认分类
         if selectedCategory == cat {
             selectedCategory = ResistCategory.defaults[0]
