@@ -8,7 +8,9 @@ import SwiftData
 
 struct TimelineView: View {
     @Query(sort: \ResistRecord.createdAt, order: .reverse) private var records: [ResistRecord]
-    
+    @Environment(\.modelContext) private var modelContext
+    @State private var withdrawingRecord: ResistRecord?
+
     var groupedRecords: [(String, [ResistRecord])] {
         let calendar = Calendar.current
         let grouped = Dictionary(grouping: records) { record in
@@ -62,6 +64,7 @@ struct TimelineView: View {
                         Section {
                             ForEach(dayRecords) { record in
                                 TimelineRow(record: record)
+                                    .withdrawSwipeButton { withdrawingRecord = record }
                             }
                         } header: {
                             Text(date)
@@ -74,6 +77,7 @@ struct TimelineView: View {
             }
             .listStyle(.plain)
             .background(Color.systemGroupedBackground)
+            .withdrawRecordAlert(record: $withdrawingRecord, modelContext: modelContext)
             .navigationTitle("时间线")
         }
     }
@@ -82,6 +86,8 @@ struct TimelineView: View {
 // MARK: - 统计页导航过来的记录列表页
 struct RecordsListView: View {
     @Query(sort: \ResistRecord.createdAt, order: .reverse) private var records: [ResistRecord]
+    @Environment(\.modelContext) private var modelContext
+    @State private var withdrawingRecord: ResistRecord?
 
     // MARK: - 筛选状态
     enum TimeFilter: String, CaseIterable {
@@ -233,6 +239,7 @@ struct RecordsListView: View {
                         Section {
                             ForEach(dayRecords) { record in
                                 TimelineRow(record: record)
+                                    .withdrawSwipeButton { withdrawingRecord = record }
                             }
                         } header: {
                             Text(date)
@@ -246,6 +253,7 @@ struct RecordsListView: View {
             .listStyle(.plain)
         }
         .background(Color.systemGroupedBackground)
+        .withdrawRecordAlert(record: $withdrawingRecord, modelContext: modelContext)
         .navigationTitle("全部记录")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
@@ -346,6 +354,8 @@ struct TimelineRow: View {
 // MARK: - 节省统计页的金额记录列表
 struct SavedRecordsListView: View {
     @Query(sort: \ResistRecord.createdAt, order: .reverse) private var records: [ResistRecord]
+    @Environment(\.modelContext) private var modelContext
+    @State private var withdrawingRecord: ResistRecord?
     @AppStorage("currencyCode") private var currencyCode: String = "auto"
 
     private var symbol: String {
@@ -522,6 +532,7 @@ struct SavedRecordsListView: View {
                         Section {
                             ForEach(dayRecords) { record in
                                 SavedRecordRow(record: record)
+                                    .withdrawSwipeButton { withdrawingRecord = record }
                             }
                         } header: {
                             Text(date)
@@ -535,6 +546,7 @@ struct SavedRecordsListView: View {
             .listStyle(.plain)
         }
         .background(Color.systemGroupedBackground)
+        .withdrawRecordAlert(record: $withdrawingRecord, modelContext: modelContext)
         .navigationTitle("节省记录")
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
@@ -598,5 +610,32 @@ struct SavedRecordRow: View {
             }
         }
         .padding(.vertical, 4)
+    }
+}
+
+// MARK: - 撤回记录（滑动操作 + 确认弹窗）
+extension View {
+    /// 列表行左滑撤回按钮
+    func withdrawSwipeButton(action: @escaping () -> Void) -> some View {
+        swipeActions(edge: .trailing) {
+            Button(role: .destructive, action: action) {
+                Label("撤回", systemImage: "arrow.uturn.backward")
+            }
+        }
+    }
+
+    /// 撤回确认弹窗：确认后删除记录并级联回退相关奖励的忍币进度
+    func withdrawRecordAlert(record: Binding<ResistRecord?>, modelContext: ModelContext) -> some View {
+        alert("撤回这条记录？", isPresented: Binding(
+            get: { record.wrappedValue != nil },
+            set: { if !$0 { record.wrappedValue = nil } }
+        ), presenting: record.wrappedValue) { record in
+            Button("撤回", role: .destructive) {
+                modelContext.deleteResistRecord(record)
+            }
+            Button("取消", role: .cancel) { }
+        } message: { _ in
+            Text("这条记录将被删除，相关奖励的忍币进度会同步回退，操作不可恢复。")
+        }
     }
 }
