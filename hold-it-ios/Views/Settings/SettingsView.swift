@@ -98,6 +98,14 @@ struct SettingsView: View {
                     }
                 }
 
+                Section("通用设置") {
+                    NavigationLink {
+                        CategoryManageView()
+                    } label: {
+                        Label("克制项管理", systemImage: "square.grid.2x2.fill")
+                    }
+                }
+
                 Section("关于") {
                     NavigationLink {
                         AboutView()
