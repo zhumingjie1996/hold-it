@@ -10,6 +10,7 @@ import WidgetKit
 
 struct HomeView: View {
     @Environment(AppState.self) private var appState
+    @Environment(\.modelContext) private var modelContext
     @Query(sort: \ResistRecord.createdAt, order: .reverse) private var records: [ResistRecord]
     @Query(filter: #Predicate<Reward> { $0.statusRaw == "IN_PROGRESS" }, sort: \Reward.createdAt) private var rewards: [Reward]
     @AppStorage("currencyCode") private var currencyCode: String = "auto"
@@ -18,6 +19,9 @@ struct HomeView: View {
     @State private var showCelebration = false
     @State private var unlockedReward: Reward?
     @State private var showUnlockAlert = false
+    @State private var undoRecord: ResistRecord?
+    @State private var undoCountdown: Int = 5
+    @State private var undoTask: Task<Void, Never>?
     @State private var carouselIndex: Int = 0
     @State private var carouselTask: Task<Void, Never>?
     @State private var logoRotation: Double = 12
@@ -47,9 +51,10 @@ struct HomeView: View {
             .background(Color.systemGroupedBackground)
             .navigationTitle("忍一下")
             .sheet(isPresented: $showRecordSheet) {
-                RecordSheet(onSave: { unlocked in
+                RecordSheet(onSave: { unlocked, record in
                     UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                     showCelebration = true
+                    presentUndoToast(for: record)
                     if let reward = unlocked {
                         unlockedReward = reward
                         // 延迟弹窗，等 sheet 完全关闭
@@ -75,6 +80,11 @@ struct HomeView: View {
             .overlay {
                 if showCelebration {
                     CelebrationView(isActive: $showCelebration)
+                }
+            }
+            .overlay(alignment: .bottom) {
+                if let record = undoRecord {
+                    undoToast(record: record)
                 }
             }
             .onChange(of: records.count) {
@@ -374,6 +384,72 @@ struct HomeView: View {
                     }
                 }
             }
+        }
+    }
+
+    // MARK: - 保存后 5s 撤销条
+    private func undoToast(record: ResistRecord) -> some View {
+        HStack(spacing: 10) {
+            Text(record.categoryEmoji)
+                .font(.title3)
+            Text(localizedCategoryName(categoryID: record.effectiveCategoryID, fallback: record.category))
+                .font(.subheadline.weight(.medium))
+            Text("已记录")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+
+            Spacer()
+
+            Button {
+                undoLastRecord()
+            } label: {
+                Text(String(format: String(localized: "撤销 (%lld)"), undoCountdown))
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 7)
+                    .background(Color.brand)
+                    .clipShape(Capsule())
+            }
+            .buttonStyle(.plain)
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
+        .background(Color.secondarySystemGroupedBackground)
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .shadow(color: .black.opacity(0.12), radius: 10, x: 0, y: 4)
+        .padding(.horizontal, 20)
+        .padding(.bottom, 8)
+        .transition(.move(edge: .bottom).combined(with: .opacity))
+    }
+
+    private func presentUndoToast(for record: ResistRecord) {
+        undoTask?.cancel()
+        undoCountdown = 5
+        withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
+            undoRecord = record
+        }
+        undoTask = Task { @MainActor in
+            while !Task.isCancelled {
+                try? await Task.sleep(for: .seconds(1))
+                guard !Task.isCancelled else { return }
+                undoCountdown -= 1
+                if undoCountdown <= 0 {
+                    withAnimation { undoRecord = nil }
+                    return
+                }
+            }
+        }
+    }
+
+    private func undoLastRecord() {
+        guard let record = undoRecord else { return }
+        undoTask?.cancel()
+        withAnimation { undoRecord = nil }
+        // 极端情况：同一条记录已被列表页撤回，避免对失效对象重复删除
+        if record.modelContext != nil {
+            modelContext.deleteResistRecord(record)
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
         }
     }
 
