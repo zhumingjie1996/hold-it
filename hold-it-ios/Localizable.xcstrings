@@ -843,7 +843,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This Year"
+            "value" : "Year"
           }
         },
         "ja" : {
@@ -3730,6 +3730,72 @@
         }
       }
     },
+    "撤销 (%lld)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Undo (%lld)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取り消し (%lld)"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "撤銷 (%lld)"
+          }
+        }
+      }
+    },
+    "撤回" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Undo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取り消す"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "撤回"
+          }
+        }
+      }
+    },
+    "撤回这条记录？" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Undo this record?"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "この記録を取り消しますか？"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "撤回這條記錄？"
+          }
+        }
+      }
+    },
     "撤回兑现" : {
       "localizations" : {
         "en" : {
@@ -4376,7 +4442,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This Week"
+            "value" : "Week"
           }
         },
         "ja" : {
@@ -4398,7 +4464,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This Month"
+            "value" : "Month"
           }
         },
         "ja" : {
@@ -5270,24 +5336,200 @@
         }
       }
     },
-    "确定删除「%@」吗？已有的记录不会被删除。" : {
+    "「%@」已有 %lld 条记录。删除记录后无法恢复，相关奖励的忍币进度也会相应减少。" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Are you sure you want to delete \"%@\"? Existing records won't be deleted."
+            "value" : "\"%1$@\" has %2$lld records. Deleting them is permanent, and coin progress on related rewards will decrease accordingly."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "「%@」を削除してもよろしいですか？既存の記録は削除されません。"
+            "value" : "「%1$@」には %2$lld 件の記録があります。記録を削除すると元に戻せず、関連する報酬のコイン進捗も減少します。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "確定刪除「%@」嗎？已有的記錄不會被刪除。"
+            "value" : "「%1$@」已有 %2$lld 條記錄。刪除記錄後無法恢復，相關獎勵的忍幣進度也會相應減少。"
+          }
+        }
+      }
+    },
+    "仅删除项目" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete Item Only"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "項目のみ削除"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "僅刪除項目"
+          }
+        }
+      }
+    },
+    "删除项目和 %lld 条记录" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete Item and %lld Records"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "項目と %lld 件の記録を削除"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "刪除項目和 %lld 條記錄"
+          }
+        }
+      }
+    },
+    "确定删除「%@」吗？" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure you want to delete \"%@\"?"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "「%@」を削除してもよろしいですか？"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "確定刪除「%@」嗎？"
+          }
+        }
+      }
+    },
+    "%lld 条记录" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld records"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld 件の記録"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld 條記錄"
+          }
+        }
+      }
+    },
+    "克制项管理" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage Categories"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "カテゴリ管理"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "克制項管理"
+          }
+        }
+      }
+    },
+    "点击右上角 + 添加" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap + at the top right to add"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "右上の + をタップして追加"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "點擊右上角 + 添加"
+          }
+        }
+      }
+    },
+    "还没有自定义克制项" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Custom Categories Yet"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "カスタムカテゴリーはまだありません"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "還沒有自定義克制項"
+          }
+        }
+      }
+    },
+    "通用设置" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "General"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "一般"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通用設定"
           }
         }
       }
@@ -6482,6 +6724,28 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "跟隨系統"
+          }
+        }
+      }
+    },
+    "这条记录将被删除，相关奖励的忍币进度会同步回退，操作不可恢复。" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This record will be deleted. Coin progress on related rewards will be rolled back. This cannot be undone."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "この記録は削除され、関連する報酬のコイン進捗も巻き戻されます。この操作は元に戻せません。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "這條記錄將被刪除，相關獎勵的忍幣進度會同步回退，操作不可恢復。"
           }
         }
       }
