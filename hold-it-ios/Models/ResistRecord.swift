@@ -135,3 +135,53 @@ func localizedCategoryName(categoryID: String, fallback: String) -> String {
     }
     return fallback
 }
+
+// MARK: - 记录/分类删除（RecordSheet / 克制项管理 / 时间线撤回 共用）
+extension ModelContext {
+    /// 删除单条忍住记录：级联删除其忍币记录，并回退相关奖励进度
+    /// （已解锁且金币跌回目标以下的回退为进行中；已兑换的奖励保留状态，仅扣金币）
+    func deleteResistRecord(_ record: ResistRecord) {
+        let recordID = record.id
+        let affectedCoins = ((try? fetch(FetchDescriptor<RewardCoinRecord>())) ?? [])
+            .filter { $0.restraintRecordID == recordID }
+        rollbackCoins(affectedCoins)
+        delete(record)
+    }
+
+    /// 删除自定义忍住项；includingRecords 为 true 时级联删除其全部记录、
+    /// 对应忍币记录，并回退相关奖励进度（已解锁且金币跌回目标以下的回退为进行中）
+    func deleteCustomCategory(_ custom: CustomCategory, includingRecords: Bool, allRecords: [ResistRecord]) {
+        if includingRecords {
+            let stableID = custom.id.uuidString
+            let targets = allRecords.filter { $0.effectiveCategoryID == stableID }
+            if !targets.isEmpty {
+                let targetIDs = Set(targets.map(\.id))
+                let affectedCoins = ((try? fetch(FetchDescriptor<RewardCoinRecord>())) ?? [])
+                    .filter { targetIDs.contains($0.restraintRecordID) }
+                rollbackCoins(affectedCoins)
+                for record in targets {
+                    delete(record)
+                }
+            }
+        }
+        delete(custom)
+    }
+
+    /// 回退一组忍币记录：扣减奖励进度、必要时将已解锁奖励降回进行中，并删除忍币记录
+    private func rollbackCoins(_ coins: [RewardCoinRecord]) {
+        guard !coins.isEmpty else { return }
+        let rewardsByID = Dictionary(
+            uniqueKeysWithValues: ((try? fetch(FetchDescriptor<Reward>())) ?? []).map { ($0.id, $0) }
+        )
+        for coin in coins {
+            if let reward = rewardsByID[coin.rewardID] {
+                reward.currentCoins = max(0, reward.currentCoins - coin.coins)
+                if reward.status == .unlocked, reward.currentCoins < reward.targetCoins {
+                    reward.status = .inProgress
+                    reward.unlockedAt = nil
+                }
+            }
+            delete(coin)
+        }
+    }
+}
